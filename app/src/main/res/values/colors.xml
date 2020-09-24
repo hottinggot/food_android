@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorLightGray">#D8D8D8</color>
+    <color name="colorHaccpBlue">#deebf7</color>
+    <color name="colorChildBlue">#dae3f3</color>
+    <color name="colorFirstPink">#fac1d2</color>
+    <color name="colorSecondPink">#fbd6e1</color>
+    <color name="colorThirdPink">#fde7ee</color>
+</resources>
