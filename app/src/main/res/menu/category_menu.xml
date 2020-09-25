@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/category_processed_food"
+        android:title="@string/processed_food" />
+
+    <item android:id="@+id/category_agricultural_products"
+        android:title="@string/agricultural_products" />
+
+    <item android:id="@+id/category_livestock_products"
+        android:title="@string/livestock_products" />
+
+    <item android:id="@+id/category_health_functional_food"
+        android:title="@string/health_functional_food" />
+
+    <item android:id="@+id/category_etc"
+        android:title="@string/etc" />
+
+</menu>

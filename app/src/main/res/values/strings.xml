@@ -32,5 +32,11 @@
     <string name="harm_1_content">위해 영향이 매우 큰 식품</string>
     <string name="harm_2_content">위해 영향이 일시적인 식품</string>
     <string name="harm_3_content"> 위해 영향이 비교적 적은 식품</string>
+    
+    <string name="processed_food">가공식품</string>
+    <string name="agricultural_products">농산물</string>
+    <string name="livestock_products">축산물</string>
+    <string name="health_functional_food">건강기능식품</string>
+    <string name="etc">기타</string>
 
 </resources>

@@ -17,7 +17,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import c.foodsafety.food_android.R;
 import c.foodsafety.food_android.fragment.ExcessAdFragment;
-import c.foodsafety.food_android.fragment.FoodOnDetailFragment;
 import c.foodsafety.food_android.fragment.FoodOnFragment;
 import c.foodsafety.food_android.fragment.HomeFragment;
 import c.foodsafety.food_android.fragment.MyPageFragment;
@@ -50,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         myPageFragment = new MyPageFragment();
 
         FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(id.replace_toolbar, toolbarFragment).commit();
         fm.beginTransaction().replace(R.id.nav_replace_view, homeFragment).commit();
 
         //navigation bar
@@ -66,8 +64,6 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                     case R.id.navigation_food_on : {
-                        //todo : toolbarFragment change another
-                        fm.beginTransaction().replace(id.replace_toolbar,toolbarFragment).commit();
                         fm.beginTransaction().replace(id.nav_replace_view,foodOnFragment).commit();
                         break;
                     }
@@ -86,24 +82,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.search_menu, menu);
-        MenuItem searchItem = menu.findItem(id.action_search);
-
-        SearchManager searchManager = (SearchManager)getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView)searchItem.getActionView();
-
-        searchView.onActionViewExpanded(); //전체 영역 터치가능
-
-        if(searchManager!=null){
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-            searchView.setQueryHint(getString(string.search_hint));
-            searchView.setIconifiedByDefault(false);
-        }
-
-        return true;
-    }
 
     public void onFragmentChanged(Fragment fragment){
         FragmentManager fm = getSupportFragmentManager();
