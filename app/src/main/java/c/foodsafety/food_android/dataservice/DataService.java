@@ -14,5 +14,5 @@ public class DataService implements Serializable {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    SelectAPI select = retrofitClient.create(SelectAPI.class);
+    public SelectAPI select = retrofitClient.create(SelectAPI.class);
 }

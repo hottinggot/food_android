@@ -39,4 +39,9 @@
     <string name="health_functional_food">건강기능식품</string>
     <string name="etc">기타</string>
 
+    <string name="card_list_title">제품명</string>
+    <string name="card_list_company">회사명</string>
+    <string name="card_list_date">2020.09.14</string>
+    <string name="card_list_lank_1">회수 1등급</string>
+
 </resources>
