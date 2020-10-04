@@ -6,7 +6,8 @@ import android.os.Parcelable;
 import lombok.Data;
 
 @Data
-public class ChildFood implements Parcelable {
+public class ChildFood extends Food implements Parcelable {
+
     private int id;
     private String PRDLST_NM;
     private String BSSH_NM;
@@ -17,6 +18,7 @@ public class ChildFood implements Parcelable {
     private String APPN_BGN_DT;
     private String PRDLST_CD_NM;
     private String APPN_END_DT;
+
 
     @Override
     public int describeContents() {
