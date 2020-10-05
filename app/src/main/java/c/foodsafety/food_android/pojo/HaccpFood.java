@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import lombok.Data;
 
 @Data
-public class HaccpFood implements Parcelable {
+public class HaccpFood extends Food implements Parcelable{
     private int id;
     private String businessitem;
     private String businessitemNm;

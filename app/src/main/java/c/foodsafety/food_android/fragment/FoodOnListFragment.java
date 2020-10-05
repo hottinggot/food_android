@@ -22,7 +22,9 @@ import c.foodsafety.food_android.activity.MainActivity;
 import c.foodsafety.food_android.adapter.ChildAdapter;
 import c.foodsafety.food_android.adapter.HaccpAdapter;
 import c.foodsafety.food_android.adapter.HarmAdapter;
+import c.foodsafety.food_android.adapter.ListAdapter;
 import c.foodsafety.food_android.pojo.ChildFood;
+import c.foodsafety.food_android.pojo.Food;
 import c.foodsafety.food_android.pojo.HaccpFood;
 import c.foodsafety.food_android.pojo.HarmFood;
 
@@ -35,6 +37,7 @@ public class FoodOnListFragment extends Fragment {
     List<HaccpFood> haccpFoodList;
     List<ChildFood> childFoodList;
     List<HarmFood> harmFoodList;
+    List<Food> foodList;
 
     String type;
 
@@ -92,6 +95,11 @@ public class FoodOnListFragment extends Fragment {
             harmFoodList = bundle.getParcelableArrayList("foodList");
             type = "harm";
         }
+        else if(bundle!=null && bundle.getParcelableArrayList("newFoodList").get(0) instanceof Food){
+            foodList =  bundle.getParcelableArrayList("newFoodList");
+            type = "search";
+
+        }
     }
 
     void setAdapter(RecyclerView recyclerView){
@@ -124,8 +132,13 @@ public class FoodOnListFragment extends Fragment {
                 break;
 
             case "harm" :
-                HarmAdapter harmAdapter = new HarmAdapter();
+                HarmAdapter harmAdapter = new HarmAdapter(harmFoodList);
                 recyclerView.setAdapter(harmAdapter);
+                break;
+
+            case "search" :
+                ListAdapter listAdapter = new ListAdapter(foodList);
+                recyclerView.setAdapter(listAdapter);
                 break;
         }
 

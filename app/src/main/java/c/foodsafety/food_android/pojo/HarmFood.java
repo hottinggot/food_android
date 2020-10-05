@@ -8,7 +8,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class HarmFood implements Parcelable {
+public class HarmFood extends Food implements Parcelable {
     private int id;
     private String PRDLST_CD;
     private String FRMLCUNIT;

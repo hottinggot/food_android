@@ -22,6 +22,7 @@ import c.foodsafety.food_android.R;
 import c.foodsafety.food_android.activity.MainActivity;
 import c.foodsafety.food_android.dataservice.DataService;
 import c.foodsafety.food_android.pojo.ChildFood;
+import c.foodsafety.food_android.pojo.Food;
 import c.foodsafety.food_android.pojo.HaccpFood;
 import c.foodsafety.food_android.pojo.HarmFood;
 import retrofit2.Call;
@@ -44,6 +45,8 @@ public class FoodOnFragment extends Fragment {
     private List<HaccpFood> haccpFoodList;
     private List<ChildFood> childFoodList;
     private List<HarmFood> harmFoodList;
+    private List<Food> foodList;
+    private List<Food> newFoodList;
 
 
     public static FoodOnFragment newInstance(){
@@ -136,7 +139,7 @@ public class FoodOnFragment extends Fragment {
                     @Override
                     public void onResponse(Call<List<HarmFood>> call, Response<List<HarmFood>> response) {
                         harmFoodList = response.body();
-                        bundle.putParcelableArrayList("foodList", (ArrayList<? extends Parcelable>) haccpFoodList);
+                        bundle.putParcelableArrayList("foodList", (ArrayList<? extends Parcelable>) harmFoodList);
                         foodOnListFragment.setArguments(bundle);
                     }
 
@@ -152,7 +155,7 @@ public class FoodOnFragment extends Fragment {
                     @Override
                     public void onResponse(Call<List<HarmFood>> call, Response<List<HarmFood>> response) {
                         harmFoodList = response.body();
-                        bundle.putParcelableArrayList("foodList", (ArrayList<? extends Parcelable>) haccpFoodList);
+                        bundle.putParcelableArrayList("foodList", (ArrayList<? extends Parcelable>) harmFoodList);
                         foodOnListFragment.setArguments(bundle);
                     }
 
@@ -163,17 +166,62 @@ public class FoodOnFragment extends Fragment {
                 });
 
             }
+            //search (temp)
             case R.id.harm_3_menu : {
-                dataService.select.selectAllHarmFood().enqueue(new Callback<List<HarmFood>>() {
+                dataService.select.selectSearchResult().enqueue(new Callback<List<Food>>() {
                     @Override
-                    public void onResponse(Call<List<HarmFood>> call, Response<List<HarmFood>> response) {
-                        harmFoodList = response.body();
-                        bundle.putParcelableArrayList("foodList", (ArrayList<? extends Parcelable>) haccpFoodList);
+                    public void onResponse(Call<List<Food>> call, Response<List<Food>> response) {
+                        foodList = response.body();
+                        for(Food food: foodList){
+                            if(food.getType()=="HACCP"){
+                                dataService.select.selectOneByTitleHaccp(food.getTitle()).enqueue(new Callback<HaccpFood>() {
+                                    @Override
+                                    public void onResponse(Call<HaccpFood> call, Response<HaccpFood> response) {
+                                        HaccpFood h = response.body();
+                                        newFoodList.add(h);
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<HaccpFood> call, Throwable t) {
+
+                                    }
+                                });
+                            }
+                            else if(food.getType()=="CHILD"){
+                                dataService.select.selectOneByTitleChild(food.getTitle()).enqueue(new Callback<ChildFood>() {
+                                    @Override
+                                    public void onResponse(Call<ChildFood> call, Response<ChildFood> response) {
+                                        ChildFood c = response.body();
+                                        newFoodList.add(c);
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ChildFood> call, Throwable t) {
+
+                                    }
+                                });
+                            }
+                            else if(food.getType()=="HARM"){
+                                dataService.select.selectOneByTitleHarm(food.getTitle()).enqueue(new Callback<HarmFood>() {
+                                    @Override
+                                    public void onResponse(Call<HarmFood> call, Response<HarmFood> response) {
+                                        HarmFood h = response.body();
+                                        newFoodList.add(h);
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<HarmFood> call, Throwable t) {
+
+                                    }
+                                });
+                            }
+                        }
+                        bundle.putParcelableArrayList("newFoodList", (ArrayList<? extends Parcelable>) newFoodList);
                         foodOnListFragment.setArguments(bundle);
                     }
 
                     @Override
-                    public void onFailure(Call<List<HarmFood>> call, Throwable t) {
+                    public void onFailure(Call<List<Food>> call, Throwable t) {
 
                     }
                 });

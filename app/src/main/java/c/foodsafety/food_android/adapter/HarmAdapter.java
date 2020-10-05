@@ -56,6 +56,7 @@ public class HarmAdapter extends RecyclerView.Adapter<HarmAdapter.ViewHolder> {
         TextView card_list_title_harm, card_list_company_harm, card_list_date_harm, card_list_lank_harm;
 
         ViewHolder(View itemView){
+
             super(itemView);
 
             card_harm = itemView.findViewById(R.id.card_harm);
