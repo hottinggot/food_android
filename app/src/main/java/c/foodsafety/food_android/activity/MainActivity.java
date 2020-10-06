@@ -6,10 +6,12 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -87,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case android.R.id.home:{
-                finish();
+                onBackPressed();
                 return true;
             }
         }
@@ -98,7 +100,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void onFragmentChanged(Fragment fragment){
         FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction tr = fm.beginTransaction();
 
-        fm.beginTransaction().replace(id.nav_replace_view, fragment).commit();
+        tr.addToBackStack(null);
+        tr.replace(id.nav_replace_view, fragment).commit();
     }
+
 }

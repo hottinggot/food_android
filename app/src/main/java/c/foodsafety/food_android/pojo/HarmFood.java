@@ -59,6 +59,7 @@ public class HarmFood extends Food implements Parcelable {
     }
 
     protected HarmFood(Parcel in) {
+        super(in);
         this.id = in.readInt();
         this.PRDLST_CD = in.readString();
         this.FRMLCUNIT = in.readString();

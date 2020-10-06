@@ -57,6 +57,7 @@
             android:layout_height="match_parent"
             android:id="@+id/haccp_menu"
             android:layout_weight="1"
+            android:elevation="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="3dp"
             android:background="@color/colorHaccpBlue"
@@ -132,6 +133,7 @@
             android:layout_height="match_parent"
             android:id="@+id/child_menu"
             android:layout_weight="1"
+            android:elevation="5dp"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="3dp"
             android:background="@color/colorChildBlue">
@@ -233,6 +235,7 @@
             android:layout_height="match_parent"
             android:id="@+id/harm_1_menu"
             android:layout_marginBottom="8dp"
+            android:elevation="5dp"
             android:background="@color/colorFirstPink">
 
             <ImageView
@@ -287,6 +290,7 @@
             android:layout_height="match_parent"
             android:id="@+id/harm_2_menu"
             android:layout_marginBottom="8dp"
+            android:elevation="5dp"
             android:background="@color/colorSecondPink">
 
             <ImageView
@@ -347,6 +351,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/harm3"
                 android:layout_marginLeft="15dp"
+                android:elevation="5dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>

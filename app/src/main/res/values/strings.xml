@@ -11,10 +11,12 @@
     
     <string name="haccp">HACCP</string>
     <string name="confirmed">인증</string>
+    <string name="haccp_full">HACCP 인증</string>
     
     <string name="child">어린이</string>
     <string name="child2">기호식품</string>
     <string name="child3">품질인증</string>
+    <string name="child_full">어린이 기호식품 품질인증</string>
     
     <string name="harm_1">위해∙회수 1등급</string>
     <string name="harm_2">위해∙회수 2등급</string>
@@ -32,7 +34,8 @@
     <string name="harm_1_content">위해 영향이 매우 큰 식품</string>
     <string name="harm_2_content">위해 영향이 일시적인 식품</string>
     <string name="harm_3_content"> 위해 영향이 비교적 적은 식품</string>
-    
+
+    <string name="category">카테고리</string>
     <string name="processed_food">가공식품</string>
     <string name="agricultural_products">농산물</string>
     <string name="livestock_products">축산물</string>
@@ -43,5 +46,17 @@
     <string name="card_list_company">회사명</string>
     <string name="card_list_date">2020.09.14</string>
     <string name="card_list_lank_1">회수 1등급</string>
+    <string name="card_list_lank_2">회수 2등급</string>
+    <string name="card_list_lank_3">회수 3등급</string>
+    
+    <string name="tab_item_1">전체</string>
+    <string name="tab_item_2">아이스크림</string>
+    <string name="tab_item_3">간편식품</string>
+    <string name="tab_item_4">기타</string>
+    
+    <string name="explain_1">식품의약품안전처에서 </string>
+    <string name="explain_haccp">HACCP 인증</string>
+    <string name="explain_child">어린이 기호식품 품질인증</string>
+    <string name="explain_2">을 받은 제품입니다</string>
 
 </resources>

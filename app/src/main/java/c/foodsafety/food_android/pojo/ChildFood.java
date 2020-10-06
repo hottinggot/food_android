@@ -39,10 +39,9 @@ public class ChildFood extends Food implements Parcelable {
         dest.writeString(this.APPN_END_DT);
     }
 
-    public ChildFood() {
-    }
 
     protected ChildFood(Parcel in) {
+        super(in);
         this.id = in.readInt();
         this.PRDLST_NM = in.readString();
         this.BSSH_NM = in.readString();

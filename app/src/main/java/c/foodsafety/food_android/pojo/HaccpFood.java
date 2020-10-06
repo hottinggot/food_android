@@ -36,6 +36,7 @@ public class HaccpFood extends Food implements Parcelable{
     }
 
     protected HaccpFood(Parcel in) {
+        super(in);
         this.id = in.readInt();
         this.businessitem = in.readString();
         this.businessitemNm = in.readString();
