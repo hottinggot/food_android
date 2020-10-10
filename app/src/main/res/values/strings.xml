@@ -11,10 +11,12 @@
     
     <string name="haccp">HACCP</string>
     <string name="confirmed">인증</string>
+    <string name="haccp_full">HACCP 인증</string>
     
     <string name="child">어린이</string>
     <string name="child2">기호식품</string>
     <string name="child3">품질인증</string>
+    <string name="child_full">어린이 기호식품 품질인증</string>
     
     <string name="harm_1">위해∙회수 1등급</string>
     <string name="harm_2">위해∙회수 2등급</string>
@@ -32,7 +34,8 @@
     <string name="harm_1_content">위해 영향이 매우 큰 식품</string>
     <string name="harm_2_content">위해 영향이 일시적인 식품</string>
     <string name="harm_3_content"> 위해 영향이 비교적 적은 식품</string>
-    
+
+    <string name="category">카테고리</string>
     <string name="processed_food">가공식품</string>
     <string name="agricultural_products">농산물</string>
     <string name="livestock_products">축산물</string>
@@ -43,5 +46,73 @@
     <string name="card_list_company">회사명</string>
     <string name="card_list_date">2020.09.14</string>
     <string name="card_list_lank_1">회수 1등급</string>
+    <string name="card_list_lank_2">회수 2등급</string>
+    <string name="card_list_lank_3">회수 3등급</string>
+    
+    <string name="tab_item_1">전체</string>
+    <string name="tab_item_2">아이스크림</string>
+    <string name="tab_item_3">간편식품</string>
+    <string name="tab_item_4">기타</string>
+    
+    <string name="explain_1">식품의약품안전처에서 </string>
+    <string name="explain_haccp">HACCP 인증</string>
+    <string name="explain_child">어린이 기호식품 품질인증</string>
+    <string name="explain_2">을 받은 제품입니다</string>
+
+    <string name="explain_deceptive_title">식품 허위∙과대광고 정보</string>
+    <string name="explain_deceptive_content_1">식품의약품안전처에서 과대광고 적발된 식품</string>
+    <string name="explain_deceptive_content_2">위반 사항에 따라</string>
+    <string name="explain_deceptive_content_3">처분을 받을 수 있음</string>
+    <string name="deceptive_low">시정명령</string>
+    <string name="deceptive_high">영업정지</string>
+    <string name="or">또는</string>
+
+    <string name="detail_child_1">업소명</string>
+    <string name="detail_child_2">인허가번호</string>
+    <string name="detail_child_3">제품용량</string>
+    <string name="detail_child_4">인증번호</string>
+    <string name="detail_child_5">제품형태</string>
+    <string name="detail_child_6">인증일자</string>
+    <string name="detail_child_7">식품유형</string>
+    <string name="detail_child_8">만료일자</string>
+
+    <string name="detail_haccp_1">영양성분</string>
+    <string name="detail_haccp_2">원재료</string>
+    <string name="detail_haccp_3">바코드</string>
+    <string name="detail_haccp_4">축산/식품구분</string>
+    <string name="detail_haccp_5">판매원</string>
+    <string name="detail_haccp_6">유형의상태</string>
+    <string name="detail_haccp_7">출력번호</string>
+    <string name="detail_haccp_8">제조원</string>
+    <string name="detail_haccp_9">유형명</string>
+    <string name="detail_haccp_10">용량</string>
+    <string name="detail_haccp_11">품목보고번호</string>
+    <string name="detail_haccp_12">알레르기유발물질</string>
+
+    <string name="detail_harm_1">품목코드</string>
+    <string name="detail_harm_2">포장단위</string>
+    <string name="detail_harm_3">제조업체명</string>
+    <string name="detail_harm_4">유통기한</string>
+    <string name="detail_harm_5">회수방법</string>
+    <string name="detail_harm_6">바코드번호</string>
+    <string name="detail_harm_7">회수.판매중지 일련번호</string>
+    <string name="detail_harm_8">등록일</string>
+    <string name="detail_harm_9">품목제조보고번호</string>
+    <string name="detail_harm_10">제조일자</string>
+    <string name="detail_harm_11">품목유형(품목코드명)</string>
+    <string name="detail_harm_12">회수사유</string>
+    <string name="detail_harm_13">전화번호</string>
+    <string name="detail_harm_14">업체주소</string>
+    <string name="detail_harm_15">식품분류</string>
+    
+    <string name="detail_deceptive_1">업체명</string>
+    <string name="detail_deceptive_2">우편번호주소</string>
+    <string name="detail_deceptive_3">광고(적발)내용</string>
+    <string name="detail_deceptive_4">행정처분일자</string>
+    <string name="detail_deceptive_5">처분명</string>
+    <string name="detail_deceptive_6">위반법령</string>
+    <string name="detail_deceptive_7">증거파일</string>
+
+
 
 </resources>

@@ -18,6 +18,7 @@ public class ChildFood extends Food implements Parcelable {
     private String APPN_BGN_DT;
     private String PRDLST_CD_NM;
     private String APPN_END_DT;
+    private String category;
 
 
     @Override
@@ -27,6 +28,7 @@ public class ChildFood extends Food implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
         dest.writeInt(this.id);
         dest.writeString(this.PRDLST_NM);
         dest.writeString(this.BSSH_NM);
@@ -37,12 +39,11 @@ public class ChildFood extends Food implements Parcelable {
         dest.writeString(this.APPN_BGN_DT);
         dest.writeString(this.PRDLST_CD_NM);
         dest.writeString(this.APPN_END_DT);
-    }
-
-    public ChildFood() {
+        dest.writeString(this.category);
     }
 
     protected ChildFood(Parcel in) {
+        super(in);
         this.id = in.readInt();
         this.PRDLST_NM = in.readString();
         this.BSSH_NM = in.readString();
@@ -53,6 +54,7 @@ public class ChildFood extends Food implements Parcelable {
         this.APPN_BGN_DT = in.readString();
         this.PRDLST_CD_NM = in.readString();
         this.APPN_END_DT = in.readString();
+        this.category = in.readString();
     }
 
     public static final Creator<ChildFood> CREATOR = new Creator<ChildFood>() {

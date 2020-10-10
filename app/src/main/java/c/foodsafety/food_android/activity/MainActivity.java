@@ -2,21 +2,18 @@ package c.foodsafety.food_android.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import c.foodsafety.food_android.R;
-import c.foodsafety.food_android.fragment.ExcessAdFragment;
+import c.foodsafety.food_android.fragment.DeceptiveAdFragment;
 import c.foodsafety.food_android.fragment.FoodOnFragment;
 import c.foodsafety.food_android.fragment.HomeFragment;
 import c.foodsafety.food_android.fragment.MyPageFragment;
@@ -33,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private HomeFragment homeFragment;
     private FoodOnFragment foodOnFragment;
-    private ExcessAdFragment excessAdFragment;
+    private DeceptiveAdFragment deceptiveAdFragment;
     private MyPageFragment myPageFragment;
 
     @Override
@@ -45,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         toolbarFragment = new ToolbarFragment();
         homeFragment = new HomeFragment();
         foodOnFragment = new FoodOnFragment();
-        excessAdFragment = new ExcessAdFragment();
+        deceptiveAdFragment = new DeceptiveAdFragment();
         myPageFragment = new MyPageFragment();
 
         FragmentManager fm = getSupportFragmentManager();
@@ -68,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                     case id.navigation_excess_ad : {
-                        fm.beginTransaction().replace(id.nav_replace_view, excessAdFragment).commit();
+                        fm.beginTransaction().replace(id.nav_replace_view, deceptiveAdFragment).commit();
                         break;
                     }
                     case id.navigation_my : {
@@ -87,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case android.R.id.home:{
-                finish();
+                onBackPressed();
                 return true;
             }
         }
@@ -98,7 +95,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void onFragmentChanged(Fragment fragment){
         FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction tr = fm.beginTransaction();
 
-        fm.beginTransaction().replace(id.nav_replace_view, fragment).commit();
+        tr.addToBackStack(null);
+        tr.replace(id.nav_replace_view, fragment).commit();
     }
+
 }

@@ -2,6 +2,7 @@ package c.foodsafety.food_android.fragment;
 
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,20 +41,10 @@ public class FoodOnFragment extends Fragment {
 
     DataService dataService = new DataService();
 
-    Bundle bundle = new Bundle(1);
-
-    FoodOnListFragment foodOnListFragment;
-
-    private List<HaccpFood> haccpFoodList;
-    private List<ChildFood> childFoodList;
-    private List<HarmFood> harmFoodList;
-    private List<Food> foodList;
-    private List<Food> newFoodList;
+    Bundle bundle = new Bundle(2);
 
 
-    public static FoodOnFragment newInstance(){
-        return new FoodOnFragment();
-    }
+    private List<Food> sendFoodList;
 
     @Override
     @NonNull
@@ -76,8 +69,6 @@ public class FoodOnFragment extends Fragment {
         harm_2_menu.setOnClickListener(onClickListener);
         harm_3_menu.setOnClickListener(onClickListener);
 
-        foodOnListFragment = new FoodOnListFragment();
-
         return view;
     }
 
@@ -85,7 +76,7 @@ public class FoodOnFragment extends Fragment {
         @Override
         public void onClick(View view) {
             setData(view);
-            ((MainActivity)getActivity()).onFragmentChanged(FoodOnListFragment.newInstance());
+
         }
     };
 
@@ -101,14 +92,24 @@ public class FoodOnFragment extends Fragment {
     }
 
     private void setData(View c){
+        final List<Food> foodList = new ArrayList<>();
+        final FoodOnListFragment foodOnListFragment = new FoodOnListFragment();
+
         switch (c.getId()) {
             case R.id.haccp_menu : {
                 dataService.select.selectAllHaccpFood().enqueue(new Callback<List<HaccpFood>>() {
                     @Override
                     public void onResponse(Call<List<HaccpFood>> call, Response<List<HaccpFood>> response) {
-                        haccpFoodList = response.body();
-                        bundle.putParcelableArrayList("foodList", (ArrayList<? extends Parcelable>) haccpFoodList);
+                        List<HaccpFood> haccpFoodList = response.body();
+                        for(Food food: haccpFoodList){
+                            foodList.add(food);
+                        }
+                        sendFoodList = foodList;
+                        bundle.putParcelableArrayList("foodList", (ArrayList<? extends Parcelable>) sendFoodList);
+                        bundle.putInt("foodMenuType",0);
+
                         foodOnListFragment.setArguments(bundle);
+                        ((MainActivity)getActivity()).onFragmentChanged(foodOnListFragment);
 
                     }
 
@@ -117,30 +118,47 @@ public class FoodOnFragment extends Fragment {
 
                     }
                 });
+                break;
             }
             case R.id.child_menu : {
                 dataService.select.selectAllChildFood().enqueue(new Callback<List<ChildFood>>() {
                     @Override
                     public void onResponse(Call<List<ChildFood>> call, Response<List<ChildFood>> response) {
-                        childFoodList = response.body();
-                        bundle.putParcelableArrayList("foodList", (ArrayList<? extends Parcelable>) childFoodList);
+                        List<ChildFood> childFoodList = response.body();
+                        for(Food food: childFoodList){
+                            foodList.add(food);
+                        }
+                        sendFoodList = foodList;
+                        bundle.putParcelableArrayList("foodList", (ArrayList<? extends Parcelable>) sendFoodList);
+                        bundle.putInt("foodMenuType",1);
+
                         foodOnListFragment.setArguments(bundle);
+                        ((MainActivity)getActivity()).onFragmentChanged(foodOnListFragment);
+
                     }
 
                     @Override
                     public void onFailure(Call<List<ChildFood>> call, Throwable t) {
-
+                        t.printStackTrace();
                     }
                 });
+                break;
 
             }
             case R.id.harm_1_menu : {
-                dataService.select.selectAllHarmFood().enqueue(new Callback<List<HarmFood>>() {
+                dataService.select.selectByLankHarm("1등급").enqueue(new Callback<List<HarmFood>>() {
                     @Override
                     public void onResponse(Call<List<HarmFood>> call, Response<List<HarmFood>> response) {
-                        harmFoodList = response.body();
-                        bundle.putParcelableArrayList("foodList", (ArrayList<? extends Parcelable>) harmFoodList);
+                        List<HarmFood> harmFoodList = response.body();
+                        for(Food food: harmFoodList){
+                            foodList.add(food);
+                        }
+                        sendFoodList = foodList;
+                        bundle.putParcelableArrayList("foodList", (ArrayList<? extends Parcelable>) sendFoodList);
+                        bundle.putInt("foodMenuType",2);
+
                         foodOnListFragment.setArguments(bundle);
+                        ((MainActivity)getActivity()).onFragmentChanged(foodOnListFragment);
                     }
 
                     @Override
@@ -148,15 +166,24 @@ public class FoodOnFragment extends Fragment {
 
                     }
                 });
+                break;
 
             }
             case R.id.harm_2_menu : {
-                dataService.select.selectAllHarmFood().enqueue(new Callback<List<HarmFood>>() {
+                dataService.select.selectByLankHarm("2등급").enqueue(new Callback<List<HarmFood>>() {
                     @Override
                     public void onResponse(Call<List<HarmFood>> call, Response<List<HarmFood>> response) {
-                        harmFoodList = response.body();
-                        bundle.putParcelableArrayList("foodList", (ArrayList<? extends Parcelable>) harmFoodList);
+                        List<HarmFood> harmFoodList = response.body();
+                        for(Food food: harmFoodList){
+                            foodList.add(food);
+                        }
+                        sendFoodList = foodList;
+                        bundle.putParcelableArrayList("foodList", (ArrayList<? extends Parcelable>) sendFoodList);
+                        bundle.putInt("foodMenuType",3);
+
                         foodOnListFragment.setArguments(bundle);
+                        ((MainActivity)getActivity()).onFragmentChanged(foodOnListFragment);
+
                     }
 
                     @Override
@@ -164,68 +191,31 @@ public class FoodOnFragment extends Fragment {
 
                     }
                 });
+                break;
 
             }
-            //search (temp)
             case R.id.harm_3_menu : {
-                dataService.select.selectSearchResult().enqueue(new Callback<List<Food>>() {
+                dataService.select.selectByLankHarm("3등급").enqueue(new Callback<List<HarmFood>>() {
                     @Override
-                    public void onResponse(Call<List<Food>> call, Response<List<Food>> response) {
-                        foodList = response.body();
-                        for(Food food: foodList){
-                            if(food.getType()=="HACCP"){
-                                dataService.select.selectOneByTitleHaccp(food.getTitle()).enqueue(new Callback<HaccpFood>() {
-                                    @Override
-                                    public void onResponse(Call<HaccpFood> call, Response<HaccpFood> response) {
-                                        HaccpFood h = response.body();
-                                        newFoodList.add(h);
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<HaccpFood> call, Throwable t) {
-
-                                    }
-                                });
-                            }
-                            else if(food.getType()=="CHILD"){
-                                dataService.select.selectOneByTitleChild(food.getTitle()).enqueue(new Callback<ChildFood>() {
-                                    @Override
-                                    public void onResponse(Call<ChildFood> call, Response<ChildFood> response) {
-                                        ChildFood c = response.body();
-                                        newFoodList.add(c);
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<ChildFood> call, Throwable t) {
-
-                                    }
-                                });
-                            }
-                            else if(food.getType()=="HARM"){
-                                dataService.select.selectOneByTitleHarm(food.getTitle()).enqueue(new Callback<HarmFood>() {
-                                    @Override
-                                    public void onResponse(Call<HarmFood> call, Response<HarmFood> response) {
-                                        HarmFood h = response.body();
-                                        newFoodList.add(h);
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<HarmFood> call, Throwable t) {
-
-                                    }
-                                });
-                            }
+                    public void onResponse(Call<List<HarmFood>> call, Response<List<HarmFood>> response) {
+                        List<HarmFood> harmFoodList = response.body();
+                        for(Food food: harmFoodList){
+                            foodList.add(food);
                         }
-                        bundle.putParcelableArrayList("newFoodList", (ArrayList<? extends Parcelable>) newFoodList);
+                        sendFoodList = foodList;
+                        bundle.putParcelableArrayList("foodList", (ArrayList<? extends Parcelable>) sendFoodList);
+                        bundle.putInt("foodMenuType",4);
+
                         foodOnListFragment.setArguments(bundle);
+                        ((MainActivity)getActivity()).onFragmentChanged(foodOnListFragment);
                     }
 
                     @Override
-                    public void onFailure(Call<List<Food>> call, Throwable t) {
+                    public void onFailure(Call<List<HarmFood>> call, Throwable t) {
 
                     }
                 });
-
+                break;
             }
         }
     }

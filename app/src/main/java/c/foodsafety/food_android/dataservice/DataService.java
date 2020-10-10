@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DataService implements Serializable {
 
-    private final String BASE_URL = "http://localhost:3000/";
+    private final String BASE_URL = "http://10.0.2.2:3000/";
 
     Retrofit retrofitClient = new Retrofit.Builder()
             .baseUrl(BASE_URL)
