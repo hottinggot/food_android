@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="15dp" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/harm1"
+                android:id="@+id/deceptive_img"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="4dp"
+                android:text="과대광고 제품명"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:id="@+id/deceptive_product_name"
+                app:layout_constraintStart_toEndOf="@id/deceptive_img"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:textSize="13sp"
+                android:text="회사명"
+                android:id="@+id/deceptive_product_company"
+                app:layout_constraintTop_toBottomOf="@id/deceptive_product_name"
+                app:layout_constraintStart_toEndOf="@id/deceptive_img" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="행정처분일자"
+                android:textSize="13sp"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/deceptive_date"
+                app:layout_constraintStart_toEndOf="@+id/deceptive_img"
+                app:layout_constraintTop_toBottomOf="@id/deceptive_product_company" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="처분명"
+                android:textSize="13sp"
+                android:layout_marginLeft="6dp"
+                android:textColor="@color/colorRedPink"
+                android:id="@+id/deceptive_lank"
+                app:layout_constraintStart_toEndOf="@+id/deceptive_date"
+                app:layout_constraintTop_toBottomOf="@id/deceptive_product_company" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>

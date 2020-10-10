@@ -28,6 +28,7 @@ public class HarmFood extends Food implements Parcelable {
     private String ADDR;
     private String IMG_FILE_PATH;
     private String PRDLST_TYPE;
+    private String category;
 
 
     @Override
@@ -37,6 +38,7 @@ public class HarmFood extends Food implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
         dest.writeInt(this.id);
         dest.writeString(this.PRDLST_CD);
         dest.writeString(this.FRMLCUNIT);
@@ -56,6 +58,7 @@ public class HarmFood extends Food implements Parcelable {
         dest.writeString(this.ADDR);
         dest.writeString(this.IMG_FILE_PATH);
         dest.writeString(this.PRDLST_TYPE);
+        dest.writeString(this.category);
     }
 
     protected HarmFood(Parcel in) {
@@ -80,6 +83,7 @@ public class HarmFood extends Food implements Parcelable {
         this.ADDR = in.readString();
         this.IMG_FILE_PATH = in.readString();
         this.PRDLST_TYPE = in.readString();
+        this.category = in.readString();
     }
 
     public static final Creator<HarmFood> CREATOR = new Creator<HarmFood>() {

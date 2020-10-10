@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
     private List<Food> newFoodList;
 
     FoodOnListFragment foodOnListFragment;
-    HomeChildFragment homeChildFragment;
+    //HomeChildFragment homeChildFragment;
 
     FrameLayout category_processed_food, category_agricultural_products, category_livestock_products, category_health_functional_food;
 
@@ -68,11 +68,11 @@ public class HomeFragment extends Fragment {
         category_livestock_products = view.findViewById(R.id.category_livestock_products);
         category_health_functional_food = view.findViewById(R.id.category_health_functional_food);
 
-        FragmentManager cfm = getChildFragmentManager();
-        cfm.beginTransaction().replace(R.id.category_processed_food, new HomeChildFragment(0)).commit();
-        cfm.beginTransaction().replace(R.id.category_agricultural_products, new HomeChildFragment(1)).commit();
-        cfm.beginTransaction().replace(R.id.category_livestock_products, new HomeChildFragment(2)).commit();
-        cfm.beginTransaction().replace(R.id.category_health_functional_food, new HomeChildFragment(3)).commit();
+//        FragmentManager cfm = getChildFragmentManager();
+//        cfm.beginTransaction().replace(R.id.category_processed_food, new HomeChildFragment(0)).commit();
+//        cfm.beginTransaction().replace(R.id.category_agricultural_products, new HomeChildFragment(1)).commit();
+//        cfm.beginTransaction().replace(R.id.category_livestock_products, new HomeChildFragment(2)).commit();
+//        cfm.beginTransaction().replace(R.id.category_health_functional_food, new HomeChildFragment(3)).commit();
 
         return view;
     }

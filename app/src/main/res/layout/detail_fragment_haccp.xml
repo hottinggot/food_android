@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/category_toolbar"
+        android:background="@color/colorWhite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/category_toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp" >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:id="@+id/detail_img"
+                android:src="@drawable/harm1"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/haccp_full"
+                android:text="@string/haccp_full"
+                android:textColor="@color/colorGreen"
+                android:layout_marginTop="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_img" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="제품명"
+                android:id="@+id/detail_title"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/haccp_full"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="60dp"
+                android:id="@+id/tag"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="@color/colorLightGray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detail_title">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="#" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:text="tag" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_1"
+                android:id="@+id/detail_haccp_1"
+                app:layout_constraintTop_toBottomOf="@+id/tag"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="30dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_1"
+                android:id="@+id/detail_haccp_1_content"
+                app:layout_constraintTop_toBottomOf="@+id/tag"
+                app:layout_constraintStart_toEndOf="@id/detail_haccp_1"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_2"
+                android:id="@+id/detail_haccp_2"
+                app:layout_constraintTop_toBottomOf="@+id/detail_haccp_1_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_2"
+                android:id="@+id/detail_haccp_2_content"
+                app:layout_constraintTop_toBottomOf="@+id/detail_haccp_1_content"
+                app:layout_constraintStart_toEndOf="@id/detail_haccp_2"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_3"
+                android:id="@+id/detail_haccp_3"
+                app:layout_constraintTop_toBottomOf="@+id/detail_haccp_2_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_3"
+                android:id="@+id/detail_haccp_3_content"
+                app:layout_constraintTop_toBottomOf="@+id/detail_haccp_2_content"
+                app:layout_constraintStart_toEndOf="@id/detail_haccp_3"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_4"
+                android:id="@+id/detail_haccp_4"
+                app:layout_constraintTop_toBottomOf="@+id/detail_haccp_3_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_4"
+                android:id="@+id/detail_haccp_4_content"
+                app:layout_constraintTop_toBottomOf="@+id/detail_haccp_3_content"
+                app:layout_constraintStart_toEndOf="@id/detail_haccp_4"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_5"
+                android:id="@+id/detail_haccp_5"
+                app:layout_constraintTop_toBottomOf="@+id/detail_haccp_4_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_5"
+                android:id="@+id/detail_haccp_5_content"
+                app:layout_constraintTop_toBottomOf="@+id/detail_haccp_4_content"
+                app:layout_constraintStart_toEndOf="@id/detail_haccp_5"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_6"
+                android:id="@+id/detail_haccp_6"
+                app:layout_constraintTop_toBottomOf="@+id/detail_haccp_5_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_6"
+                android:id="@+id/detail_haccp_6_content"
+                app:layout_constraintTop_toBottomOf="@+id/detail_haccp_5_content"
+                app:layout_constraintStart_toEndOf="@id/detail_haccp_6"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_7"
+                android:id="@+id/detail_haccp_7"
+                app:layout_constraintTop_toBottomOf="@+id/detail_haccp_6_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_7"
+                android:id="@+id/detail_haccp_7_content"
+                app:layout_constraintTop_toBottomOf="@+id/detail_haccp_6_content"
+                app:layout_constraintStart_toEndOf="@id/detail_haccp_7"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_8"
+                android:id="@+id/detail_haccp_8"
+                app:layout_constraintTop_toBottomOf="@+id/detail_haccp_7_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_8"
+                android:id="@+id/detail_haccp_8_content"
+                app:layout_constraintTop_toBottomOf="@+id/detail_haccp_7_content"
+                app:layout_constraintStart_toEndOf="@id/detail_haccp_8"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_9"
+                android:id="@+id/detail_haccp_9"
+                app:layout_constraintTop_toBottomOf="@+id/detail_haccp_8_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_9"
+                android:id="@+id/detail_haccp_9_content"
+                app:layout_constraintTop_toBottomOf="@+id/detail_haccp_8_content"
+                app:layout_constraintStart_toEndOf="@id/detail_haccp_9"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_10"
+                android:id="@+id/detail_haccp_10"
+                app:layout_constraintTop_toBottomOf="@+id/detail_haccp_9_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_10"
+                android:id="@+id/detail_haccp_10_content"
+                app:layout_constraintTop_toBottomOf="@+id/detail_haccp_9_content"
+                app:layout_constraintStart_toEndOf="@id/detail_haccp_10"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_haccp_11"
+            android:id="@+id/detail_haccp_11"
+            app:layout_constraintTop_toBottomOf="@+id/detail_haccp_10_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_11"
+                android:id="@+id/detail_haccp_11_content"
+                app:layout_constraintTop_toBottomOf="@+id/detail_haccp_10_content"
+                app:layout_constraintStart_toEndOf="@id/detail_haccp_11"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_12"
+                android:id="@+id/detail_haccp_12"
+                app:layout_constraintTop_toBottomOf="@+id/detail_haccp_11_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_haccp_12"
+                android:id="@+id/detail_haccp_12_content"
+                app:layout_constraintTop_toBottomOf="@+id/detail_haccp_11_content"
+                app:layout_constraintStart_toEndOf="@id/detail_haccp_12"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

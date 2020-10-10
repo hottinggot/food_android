@@ -3,6 +3,7 @@ package c.foodsafety.food_android.dataservice;
 import java.util.List;
 
 import c.foodsafety.food_android.pojo.ChildFood;
+import c.foodsafety.food_android.pojo.DeceptiveFood;
 import c.foodsafety.food_android.pojo.Food;
 import c.foodsafety.food_android.pojo.HaccpFood;
 import c.foodsafety.food_android.pojo.HarmFood;
@@ -24,6 +25,9 @@ public interface SelectAPI {
     @GET("api/child")
     Call<List<ChildFood>> selectAllChildFood();
 
+    @GET("api/deceptive")
+    Call<List<DeceptiveFood>> selectAllDeceptiveFood();
+
     @GET("api/search/{keyword}")
     Call<List<Food>> selectSearchResult(@Path("keyword") String keyword);
 
@@ -35,4 +39,6 @@ public interface SelectAPI {
 
     @GET("api/harm/{title}")
     Call<HarmFood> selectOneByTitleHarm(@Path("title") String title);
+
+
 }

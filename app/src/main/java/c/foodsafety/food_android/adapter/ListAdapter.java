@@ -14,6 +14,7 @@ import java.util.List;
 
 import c.foodsafety.food_android.R;
 import c.foodsafety.food_android.pojo.ChildFood;
+import c.foodsafety.food_android.pojo.DeceptiveFood;
 import c.foodsafety.food_android.pojo.Food;
 import c.foodsafety.food_android.pojo.HaccpFood;
 import c.foodsafety.food_android.pojo.HarmFood;
@@ -31,7 +32,6 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position){
-        int type;
         if(foodList.get(position) instanceof HaccpFood){
             return 0;
         }
@@ -44,6 +44,10 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             return 2;
         }
 
+        if(foodList.get(position) instanceof DeceptiveFood){
+            return 3;
+        }
+
         else return 0;
     }
 
@@ -51,22 +55,35 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View view;
 
-        if(onItemViewClickListener!=null){
-            setOnItemViewClickListener(onItemViewClickListener);
-        }
 
         switch (viewType){
             case 0:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_object_haccp, parent, false);
+                if(onItemViewClickListener != null){
+                    view.setOnClickListener(onItemViewClickListener);
+                }
                 return new HaccpViewHolder(view);
 
             case 1:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_object_child, parent, false);
+                if(onItemViewClickListener != null){
+                    view.setOnClickListener(onItemViewClickListener);
+                }
                 return new ChildViewHolder(view);
 
             case 2:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_object_harm, parent, false);
+                if(onItemViewClickListener != null){
+                    view.setOnClickListener(onItemViewClickListener);
+                }
                 return new HarmViewHolder(view);
+
+            case 3:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_object_harm, parent, false);
+                if(onItemViewClickListener != null){
+                    view.setOnClickListener(onItemViewClickListener);
+                }
+                return new DeceptiveViewHolder(view);
 
         }
         return null;
@@ -83,6 +100,7 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             HaccpViewHolder haccpViewHolder = (HaccpViewHolder) holder;
             HaccpFood haccpFood = (HaccpFood) foodList.get(position);
             haccpViewHolder.card_list_title_haccp.setText(haccpFood.getPrdlstNm());
+            haccpViewHolder.card_list_company_haccp.setText(haccpFood.getPrdkind());
         }
         else if(holder instanceof ChildViewHolder) {
             ChildViewHolder childViewHolder = (ChildViewHolder) holder;
@@ -109,6 +127,10 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                      break;
              }
          }
+
+        else if(holder instanceof DeceptiveViewHolder){
+
+        }
 
     }
 
@@ -171,5 +193,21 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             harm_right_img = itemView.findViewById(R.id.harm_right_img);
         }
 
+    }
+
+    class DeceptiveViewHolder extends RecyclerView.ViewHolder{
+        ImageView deceptive_img;
+        TextView deceptive_product_name, deceptive_product_company, deceptive_date,deceptive_lank;
+
+        DeceptiveViewHolder(View itemView){
+            super(itemView);
+
+            deceptive_img = itemView.findViewById(R.id.deceptive_img);
+            deceptive_product_name = itemView.findViewById(R.id.deceptive_product_name);
+            deceptive_product_company = itemView.findViewById(R.id.deceptive_product_company);
+            deceptive_date = itemView.findViewById(R.id.deceptive_date);
+            deceptive_lank = itemView.findViewById(R.id.deceptive_lank);
+
+        }
     }
 }

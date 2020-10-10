@@ -29,6 +29,9 @@ import java.util.List;
 import c.foodsafety.food_android.R;
 import c.foodsafety.food_android.activity.MainActivity;
 import c.foodsafety.food_android.adapter.ListAdapter;
+import c.foodsafety.food_android.fragment.detailpage.ChildDetail;
+import c.foodsafety.food_android.fragment.detailpage.HaccpDetail;
+import c.foodsafety.food_android.fragment.detailpage.HarmDetail;
 import c.foodsafety.food_android.pojo.ChildFood;
 import c.foodsafety.food_android.pojo.Food;
 import c.foodsafety.food_android.pojo.HaccpFood;
@@ -151,13 +154,15 @@ public class FoodOnListFragment extends Fragment {
 
                 if (foodList.get(position) instanceof HaccpFood){
                     // 상세페이지로 이동
-                    // ((MainActivity)getActivity()).onFragmentChanged(~~.newInstance());
+                    ((MainActivity)getActivity()).onFragmentChanged(new HaccpDetail());
                 }
                 else if(foodList.get(position) instanceof ChildFood){
                     // 상세페이지로 이동
+                    ((MainActivity)getActivity()).onFragmentChanged(new ChildDetail());
                 }
                 else if(foodList.get(position) instanceof HarmFood){
                     // 상세페이지로 이동
+                    ((MainActivity)getActivity()).onFragmentChanged(new HarmDetail());
                 }
 
             }

@@ -26,15 +26,4 @@ public class Food implements Parcelable {
         this.type = in.readString();
     }
 
-    public static final Creator<Food> CREATOR = new Creator<Food>() {
-        @Override
-        public Food createFromParcel(Parcel source) {
-            return new Food(source);
-        }
-
-        @Override
-        public Food[] newArray(int size) {
-            return new Food[size];
-        }
-    };
 }
