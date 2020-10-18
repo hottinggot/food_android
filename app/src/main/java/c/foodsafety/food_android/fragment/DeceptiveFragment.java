@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -25,14 +26,13 @@ import c.foodsafety.food_android.activity.MainActivity;
 import c.foodsafety.food_android.adapter.ListAdapter;
 import c.foodsafety.food_android.dataservice.DataService;
 import c.foodsafety.food_android.fragment.detailpage.DeceptiveDetail;
-import c.foodsafety.food_android.fragment.detailpage.HarmDetail;
 import c.foodsafety.food_android.pojo.DeceptiveFood;
 import c.foodsafety.food_android.pojo.Food;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DeceptiveAdFragment extends Fragment {
+public class DeceptiveFragment extends Fragment {
 
     View view;
     Toolbar myToolbar;
@@ -54,12 +54,12 @@ public class DeceptiveAdFragment extends Fragment {
 
         setHasOptionsMenu(true);
 
-        setData();
-
         //RecyclerView
         myRecyclerView = view.findViewById(R.id.my_recyclerview);
+        myRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        setAdapter(myRecyclerView);
+
+        setData();
 
         return view;
     }
@@ -93,6 +93,8 @@ public class DeceptiveAdFragment extends Fragment {
                 }
                 deceptiveList = foodList;
                 listAdapter = new ListAdapter(deceptiveList);
+
+                setAdapter(myRecyclerView);
             }
 
             @Override
@@ -103,14 +105,21 @@ public class DeceptiveAdFragment extends Fragment {
 
     }
 
-    void setAdapter(RecyclerView recyclerView){
+    void setAdapter(final RecyclerView recyclerView){
         listAdapter.setOnItemViewClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //이동
-                ((MainActivity)getActivity()).onFragmentChanged(new DeceptiveDetail());
+                int position = recyclerView.getChildAdapterPosition(view);
+                Bundle b = new Bundle(1);
+
+                DeceptiveDetail deceptiveDetail = new DeceptiveDetail();
+                b.putParcelable("deceptiveObject", deceptiveList.get(position));
+                deceptiveDetail.setArguments(b);
+
+                ((MainActivity)getActivity()).onFragmentChanged(deceptiveDetail);
             }
         });
+
         recyclerView.setAdapter(listAdapter);
     }
 }

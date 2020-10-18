@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "484011382362",
+    "firebase_url": "https://food-420e6.firebaseio.com",
+    "project_id": "food-420e6",
+    "storage_bucket": "food-420e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:484011382362:android:03c8f92955df1ecee0ea63",
+        "android_client_info": {
+          "package_name": "c.foodsafety.food_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "484011382362-eqir3pchrveais8telogatopnsvmue2e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-2Eyk8XT6FeTd_LgpkIxGh5lSp4F-q_E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "484011382362-eqir3pchrveais8telogatopnsvmue2e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

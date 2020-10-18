@@ -2,11 +2,7 @@ package c.foodsafety.food_android.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -17,13 +13,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import c.foodsafety.food_android.R;
@@ -95,6 +89,7 @@ public class FoodOnListFragment extends Fragment {
         explain_1 = view.findViewById(R.id.explain_1);
         explain_content = view.findViewById(R.id.explain_content);
         explain_2 = view.findViewById(R.id.explain_2);
+
         if(getArguments()!=null){
             int type = getArguments().getInt("foodMenuType");
             setExplainText(type);
@@ -116,16 +111,16 @@ public class FoodOnListFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
-        inflater.inflate(R.menu.category_menu, menu);
-        MenuItem categoryItem = menu.findItem(R.id.category_processed_food);
-
-        //hide app title
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        super.onCreateOptionsMenu(menu, inflater);
-    }
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+//        inflater.inflate(R.menu.category_menu, menu);
+//        MenuItem categoryItem = menu.findItem(R.id.category_processed_food);
+//
+//        //hide app title
+//        ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+//
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
 
     void setExplainText(int type){
         switch (type){
@@ -136,6 +131,21 @@ public class FoodOnListFragment extends Fragment {
             case 1:
                 list_background.setBackgroundColor(ContextCompat.getColor(context, R.color.colorChildBlue));
                 explain_content.setText(R.string.explain_child);
+                break;
+            case 2:
+                list_background.setBackgroundColor(ContextCompat.getColor(context, R.color.colorFirstPink));
+                explain_content.setText(R.string.harm_1_judgement);
+                explain_content.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
+                break;
+            case 3:
+                list_background.setBackgroundColor(ContextCompat.getColor(context, R.color.colorSecondPink));
+                explain_content.setText(R.string.harm_2_judgement);
+                explain_content.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
+                break;
+            case 4:
+                list_background.setBackgroundColor(ContextCompat.getColor(context, R.color.colorThirdPink));
+                explain_content.setText(R.string.harm_3_judgement);
+                explain_content.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
                 break;
             default:
                 explain_content.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
@@ -151,18 +161,33 @@ public class FoodOnListFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 int position = recyclerView.getChildAdapterPosition(view);
+                Bundle b = new Bundle(1);
 
+                // 상세페이지로 이동
                 if (foodList.get(position) instanceof HaccpFood){
-                    // 상세페이지로 이동
-                    ((MainActivity)getActivity()).onFragmentChanged(new HaccpDetail());
+
+                    HaccpDetail haccpDetail = new HaccpDetail();
+                    b.putParcelable("haccpObject", foodList.get(position));
+                    haccpDetail.setArguments(b);
+
+                    ((MainActivity)getActivity()).onFragmentChanged(haccpDetail);
                 }
                 else if(foodList.get(position) instanceof ChildFood){
-                    // 상세페이지로 이동
-                    ((MainActivity)getActivity()).onFragmentChanged(new ChildDetail());
+
+                    ChildDetail childDetail = new ChildDetail();
+                    b.putParcelable("childObject", foodList.get(position));
+                    childDetail.setArguments(b);
+
+                    ((MainActivity)getActivity()).onFragmentChanged(childDetail);
+
                 }
                 else if(foodList.get(position) instanceof HarmFood){
-                    // 상세페이지로 이동
-                    ((MainActivity)getActivity()).onFragmentChanged(new HarmDetail());
+
+                    HarmDetail harmDetail = new HarmDetail();
+                    b.putParcelable("harmObject", foodList.get(position));
+                    harmDetail.setArguments(b);
+
+                    ((MainActivity)getActivity()).onFragmentChanged(harmDetail);
                 }
 
             }

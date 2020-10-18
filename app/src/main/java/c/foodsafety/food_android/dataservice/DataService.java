@@ -15,4 +15,5 @@ public class DataService implements Serializable {
             .build();
 
     public SelectAPI select = retrofitClient.create(SelectAPI.class);
+    public UpdateAPI update = retrofitClient.create(UpdateAPI.class);
 }

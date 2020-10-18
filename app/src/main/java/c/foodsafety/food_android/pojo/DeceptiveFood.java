@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import lombok.Data;
 
 
-
+@Data
 public class DeceptiveFood extends Food implements Parcelable {
     private int id;
     private String PRDUCT;
@@ -18,6 +18,8 @@ public class DeceptiveFood extends Food implements Parcelable {
     private String VIOLT;
     private String EVDNC_FILE;
     private String category;
+    private int save;
+    private String temp;
 
     @Override
     public int describeContents() {

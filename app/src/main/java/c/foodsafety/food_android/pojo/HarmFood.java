@@ -29,6 +29,8 @@ public class HarmFood extends Food implements Parcelable {
     private String IMG_FILE_PATH;
     private String PRDLST_TYPE;
     private String category;
+    private int save;
+    private String temp;
 
 
     @Override

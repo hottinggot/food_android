@@ -2,11 +2,7 @@ package c.foodsafety.food_android.fragment;
 
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,8 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,16 +74,16 @@ public class FoodOnFragment extends Fragment {
         }
     };
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
-        inflater.inflate(R.menu.category_menu, menu);
-        MenuItem categoryItem = menu.findItem(R.id.category_processed_food);
-
-        //hide app title
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        super.onCreateOptionsMenu(menu, inflater);
-    }
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+//        inflater.inflate(R.menu.category_menu, menu);
+//        MenuItem categoryItem = menu.findItem(R.id.category_processed_food);
+//
+//        //hide app title
+//        ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+//
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
 
     private void setData(View c){
         final List<Food> foodList = new ArrayList<>();
@@ -146,7 +140,7 @@ public class FoodOnFragment extends Fragment {
 
             }
             case R.id.harm_1_menu : {
-                dataService.select.selectByLankHarm("1등급").enqueue(new Callback<List<HarmFood>>() {
+                dataService.select.selectByLankHarm("lank1").enqueue(new Callback<List<HarmFood>>() {
                     @Override
                     public void onResponse(Call<List<HarmFood>> call, Response<List<HarmFood>> response) {
                         List<HarmFood> harmFoodList = response.body();
@@ -170,7 +164,7 @@ public class FoodOnFragment extends Fragment {
 
             }
             case R.id.harm_2_menu : {
-                dataService.select.selectByLankHarm("2등급").enqueue(new Callback<List<HarmFood>>() {
+                dataService.select.selectByLankHarm("lank2").enqueue(new Callback<List<HarmFood>>() {
                     @Override
                     public void onResponse(Call<List<HarmFood>> call, Response<List<HarmFood>> response) {
                         List<HarmFood> harmFoodList = response.body();
@@ -195,7 +189,7 @@ public class FoodOnFragment extends Fragment {
 
             }
             case R.id.harm_3_menu : {
-                dataService.select.selectByLankHarm("3등급").enqueue(new Callback<List<HarmFood>>() {
+                dataService.select.selectByLankHarm("lank3").enqueue(new Callback<List<HarmFood>>() {
                     @Override
                     public void onResponse(Call<List<HarmFood>> call, Response<List<HarmFood>> response) {
                         List<HarmFood> harmFoodList = response.body();

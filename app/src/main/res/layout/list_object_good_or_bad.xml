@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="7dp"
+        android:id="@+id/good_or_bad_object"
+        android:src="@drawable/harm1"
+        android:background="@drawable/border_round_rectangle"
+        android:elevation="10dp" />
+
+
+</LinearLayout>

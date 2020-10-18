@@ -9,17 +9,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="5dp"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         app:cardCornerRadius="15dp" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp">
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
                 android:src="@drawable/harm1"
                 android:id="@+id/deceptive_img"
                 app:layout_constraintStart_toStartOf="parent"
@@ -56,17 +64,6 @@
                 android:layout_marginLeft="20dp"
                 android:id="@+id/deceptive_date"
                 app:layout_constraintStart_toEndOf="@+id/deceptive_img"
-                app:layout_constraintTop_toBottomOf="@id/deceptive_product_company" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="처분명"
-                android:textSize="13sp"
-                android:layout_marginLeft="6dp"
-                android:textColor="@color/colorRedPink"
-                android:id="@+id/deceptive_lank"
-                app:layout_constraintStart_toEndOf="@+id/deceptive_date"
                 app:layout_constraintTop_toBottomOf="@id/deceptive_product_company" />
 
 

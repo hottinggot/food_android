@@ -2,6 +2,7 @@ package c.foodsafety.food_android.fragment;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
@@ -11,21 +12,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import c.foodsafety.food_android.R;
-import c.foodsafety.food_android.activity.MainActivity;
+import c.foodsafety.food_android.adapter.HomeRecyclerAdapter;
 import c.foodsafety.food_android.dataservice.DataService;
 import c.foodsafety.food_android.pojo.ChildFood;
 import c.foodsafety.food_android.pojo.Food;
@@ -45,9 +47,16 @@ public class HomeFragment extends Fragment {
     private List<Food> newFoodList;
 
     FoodOnListFragment foodOnListFragment;
-    //HomeChildFragment homeChildFragment;
 
-    FrameLayout category_processed_food, category_agricultural_products, category_livestock_products, category_health_functional_food;
+    Toolbar myToolbar;
+    RecyclerView home_recycler;
+
+    List<Drawable> cardNewsList = new ArrayList<>();
+    List<String> categorySelectList = new ArrayList<>();
+    List<Food> goodList, badList;
+
+    private List<Object> homeRecyclerList = new ArrayList<>();
+
 
     @Override
     @NonNull
@@ -55,26 +64,76 @@ public class HomeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_home, container, false);
 
         //toolbar(actionbar)
-        Toolbar myToolbar = (Toolbar)view.findViewById(R.id.search_toolbar);
+        myToolbar = (Toolbar)view.findViewById(R.id.search_toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(myToolbar);
 
         setHasOptionsMenu(true);
 
-        foodOnListFragment = new FoodOnListFragment();
+        //RecyclerView
+        home_recycler = view.findViewById(R.id.home_recycler);
+        home_recycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        //framelayout
-        category_processed_food = view.findViewById(R.id.category_processed_food);
-        category_agricultural_products = view.findViewById(R.id.category_agricultural_products);
-        category_livestock_products = view.findViewById(R.id.category_livestock_products);
-        category_health_functional_food = view.findViewById(R.id.category_health_functional_food);
-
-//        FragmentManager cfm = getChildFragmentManager();
-//        cfm.beginTransaction().replace(R.id.category_processed_food, new HomeChildFragment(0)).commit();
-//        cfm.beginTransaction().replace(R.id.category_agricultural_products, new HomeChildFragment(1)).commit();
-//        cfm.beginTransaction().replace(R.id.category_livestock_products, new HomeChildFragment(2)).commit();
-//        cfm.beginTransaction().replace(R.id.category_health_functional_food, new HomeChildFragment(3)).commit();
+        setAllDataList();
+        setAdapter(home_recycler);
 
         return view;
+    }
+
+    private void setAdapter(RecyclerView recyclerView) {
+        HomeRecyclerAdapter recyclerAdapter = new HomeRecyclerAdapter(homeRecyclerList, getContext());
+        recyclerView.setAdapter(recyclerAdapter);
+    }
+
+    private void setAllDataList(){
+        //CardNews
+        cardNewsList.add(getResources().getDrawable(R.drawable.haccp));
+        cardNewsList.add(getResources().getDrawable(R.drawable.child));
+        cardNewsList.add(getResources().getDrawable(R.drawable.harm1));
+
+        homeRecyclerList.add(cardNewsList);
+
+        //category title
+        homeRecyclerList.add("#카테고리");
+
+        //category
+        categorySelectList.add(getString(R.string.tab_item_2));
+        categorySelectList.add(getString(R.string.tab_item_3));
+        categorySelectList.add(getString(R.string.tab_item_4));
+
+        homeRecyclerList.add(categorySelectList);
+
+        //category_1
+        homeRecyclerList.add("#아이스크림");
+        setGoodOrBadListByCategory(getString(R.string.tab_item_2));
+
+
+    }
+
+    private void setGoodOrBadListByCategory(String category){
+        DataService dataService = new DataService();
+        dataService.select.selectHaccpFoodByCategory(category).enqueue(new Callback<List<HaccpFood>>() {
+            @Override
+            public void onResponse(Call<List<HaccpFood>> call, Response<List<HaccpFood>> response) {
+                homeRecyclerList.add(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<HaccpFood>> call, Throwable t) {
+
+            }
+        });
+
+        dataService.select.selectHarmFoodByCategory(category).enqueue(new Callback<List<HarmFood>>() {
+            @Override
+            public void onResponse(Call<List<HarmFood>> call, Response<List<HarmFood>> response) {
+                homeRecyclerList.add(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<HarmFood>> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
@@ -99,6 +158,7 @@ public class HomeFragment extends Fragment {
     private SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String query) {
+            foodOnListFragment = new FoodOnListFragment();
             dataService.select.selectSearchResult(query).enqueue(new Callback<List<Food>>() {
                 @Override
                 public void onResponse(Call<List<Food>> call, Response<List<Food>> response) {

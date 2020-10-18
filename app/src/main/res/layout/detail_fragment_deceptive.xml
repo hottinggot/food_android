@@ -33,8 +33,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/deceptive_low"
-                android:text="@string/deceptive_low"
+                android:id="@+id/deceptive_lank"
+                android:text="@string/deceptive"
                 android:textColor="@color/colorRedPink"
                 android:layout_marginTop="30dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +47,7 @@
                 android:id="@+id/detail_title"
                 android:textSize="30sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/deceptive_low"
+                app:layout_constraintTop_toBottomOf="@+id/deceptive_lank"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.cardview.widget.CardView

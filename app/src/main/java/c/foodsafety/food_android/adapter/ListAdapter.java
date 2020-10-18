@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import c.foodsafety.food_android.R;
@@ -79,7 +81,7 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 return new HarmViewHolder(view);
 
             case 3:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_object_harm, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_object_deceptive, parent, false);
                 if(onItemViewClickListener != null){
                     view.setOnClickListener(onItemViewClickListener);
                 }
@@ -101,6 +103,7 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             HaccpFood haccpFood = (HaccpFood) foodList.get(position);
             haccpViewHolder.card_list_title_haccp.setText(haccpFood.getPrdlstNm());
             haccpViewHolder.card_list_company_haccp.setText(haccpFood.getPrdkind());
+            Glide.with(haccpViewHolder.card_list_image_haccp).load(haccpFood.getImgurl1()).into(haccpViewHolder.card_list_image_haccp);
         }
         else if(holder instanceof ChildViewHolder) {
             ChildViewHolder childViewHolder = (ChildViewHolder) holder;
@@ -111,6 +114,7 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
              HarmViewHolder harmViewHolder = (HarmViewHolder) holder;
              HarmFood harmFood = (HarmFood) foodList.get(position);
              harmViewHolder.card_list_title_harm.setText(harmFood.getPRDTNM());
+             Glide.with(harmViewHolder.card_list_image_harm).load(setUrl(harmFood.getIMG_FILE_PATH())[0]).into(harmViewHolder.card_list_image_harm);
 
              switch (harmFood.getRTRVL_GRDCD_NM()){
                  case "1등급" :
@@ -129,6 +133,12 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
          }
 
         else if(holder instanceof DeceptiveViewHolder){
+            DeceptiveViewHolder deceptiveViewHolder = (DeceptiveViewHolder) holder;
+            DeceptiveFood deceptiveFood = (DeceptiveFood) foodList.get(position);
+
+            deceptiveViewHolder.deceptive_product_name.setText(deceptiveFood.getPRDUCT());
+            deceptiveViewHolder.deceptive_product_company.setText(deceptiveFood.getENTRPS());
+            deceptiveViewHolder.deceptive_date.setText(deceptiveFood.getDSPS_DT());
 
         }
 
@@ -141,6 +151,11 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void setFilter(List<Food> foods){
         foodList = foods;
         notifyDataSetChanged();
+    }
+
+    public String[] setUrl(String Urls){
+        String[] parsedUrl = Urls.split(",");
+        return parsedUrl;
     }
 
     class HaccpViewHolder extends RecyclerView.ViewHolder{

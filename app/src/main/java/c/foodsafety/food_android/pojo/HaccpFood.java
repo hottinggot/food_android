@@ -24,6 +24,8 @@ public class HaccpFood extends Food implements Parcelable{
     private String prdlstReportNo;
     private String allergy;
     private String category;
+    private int save;
+    private String temp;
 
 
     @Override
