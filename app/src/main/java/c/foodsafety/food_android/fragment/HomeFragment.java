@@ -53,7 +53,6 @@ public class HomeFragment extends Fragment {
 
     List<Drawable> cardNewsList = new ArrayList<>();
     List<String> categorySelectList = new ArrayList<>();
-    List<Food> goodList, badList;
 
     private List<Object> homeRecyclerList = new ArrayList<>();
 
@@ -79,18 +78,14 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    private void setAdapter(RecyclerView recyclerView) {
-        HomeRecyclerAdapter recyclerAdapter = new HomeRecyclerAdapter(homeRecyclerList, getContext());
-        recyclerView.setAdapter(recyclerAdapter);
-    }
 
     private void setAllDataList(){
         //CardNews
-        cardNewsList.add(getResources().getDrawable(R.drawable.haccp));
-        cardNewsList.add(getResources().getDrawable(R.drawable.child));
-        cardNewsList.add(getResources().getDrawable(R.drawable.harm1));
+//        cardNewsList.add(getResources().getDrawable(R.drawable.haccp));
+//        cardNewsList.add(getResources().getDrawable(R.drawable.child));
+//        cardNewsList.add(getResources().getDrawable(R.drawable.harm1));
 
-        homeRecyclerList.add(cardNewsList);
+//        homeRecyclerList.add(cardNewsList);
 
         //category title
         homeRecyclerList.add("#카테고리");
@@ -109,6 +104,11 @@ public class HomeFragment extends Fragment {
 
     }
 
+    private void setAdapter(RecyclerView recyclerView) {
+        HomeRecyclerAdapter recyclerAdapter = new HomeRecyclerAdapter(homeRecyclerList, getContext());
+        recyclerView.setAdapter(recyclerAdapter);
+    }
+
     private void setGoodOrBadListByCategory(String category){
         DataService dataService = new DataService();
         dataService.select.selectHaccpFoodByCategory(category).enqueue(new Callback<List<HaccpFood>>() {
@@ -123,7 +123,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        dataService.select.selectHarmFoodByCategory(category).enqueue(new Callback<List<HarmFood>>() {
+        dataService.select.selectAllHarmFoodByCategory(category).enqueue(new Callback<List<HarmFood>>() {
             @Override
             public void onResponse(Call<List<HarmFood>> call, Response<List<HarmFood>> response) {
                 homeRecyclerList.add(response.body());

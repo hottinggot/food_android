@@ -53,10 +53,16 @@
     <string name="card_list_lank_2">회수 2등급</string>
     <string name="card_list_lank_3">회수 3등급</string>
     
-    <string name="tab_item_1">전체</string>
-    <string name="tab_item_2">아이스크림</string>
-    <string name="tab_item_3">간편식품</string>
-    <string name="tab_item_4">기타</string>
+    <string name="tab_item_0">전체</string>
+    <string name="tab_item_1">음료∙차∙주류</string>
+    <string name="tab_item_2">과자∙빵류∙아이스크림</string>
+    <string name="tab_item_3">유제품∙축산물</string>
+    <string name="tab_item_4">가공식품</string>
+    <string name="tab_item_5">농수산물</string>
+    <string name="tab_item_6">소스∙장류</string>
+    <string name="tab_item_7">건강기능식품</string>
+    <string name="tab_item_8">식용유지류</string>
+    <string name="tab_item_9">기타</string>
     
     <string name="explain_1">식품의약품안전처에서 </string>
     <string name="explain_haccp">HACCP 인증</string>
@@ -118,8 +124,11 @@
     <string name="detail_deceptive_6">위반법령</string>
     <string name="detail_deceptive_7">증거파일</string>
 
+    <string name="tab_my_page_1">인증 식품</string>
+    <string name="tab_my_page_2">회수∙판매중지 식품</string>
+    <string name="tab_my_page_3">과대광고 적발 식품</string>
 
-
+    <string name="stored">저장한 상품</string>
 
 
 </resources>

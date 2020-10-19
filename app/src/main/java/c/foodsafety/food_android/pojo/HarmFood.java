@@ -61,6 +61,8 @@ public class HarmFood extends Food implements Parcelable {
         dest.writeString(this.IMG_FILE_PATH);
         dest.writeString(this.PRDLST_TYPE);
         dest.writeString(this.category);
+        dest.writeInt(this.save);
+        dest.writeString(this.temp);
     }
 
     protected HarmFood(Parcel in) {
@@ -86,6 +88,8 @@ public class HarmFood extends Food implements Parcelable {
         this.IMG_FILE_PATH = in.readString();
         this.PRDLST_TYPE = in.readString();
         this.category = in.readString();
+        this.save = in.readInt();
+        this.temp = in.readString();
     }
 
     public static final Creator<HarmFood> CREATOR = new Creator<HarmFood>() {

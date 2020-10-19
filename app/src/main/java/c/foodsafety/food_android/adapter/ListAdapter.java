@@ -148,6 +148,7 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.onItemViewClickListener = onItemViewClickListener;
     }
 
+
     public void setFilter(List<Food> foods){
         foodList = foods;
         notifyDataSetChanged();

@@ -53,6 +53,8 @@ public class HaccpFood extends Food implements Parcelable{
         dest.writeString(this.prdlstReportNo);
         dest.writeString(this.allergy);
         dest.writeString(this.category);
+        dest.writeInt(this.save);
+        dest.writeString(this.temp);
     }
 
     protected HaccpFood(Parcel in) {
@@ -74,6 +76,8 @@ public class HaccpFood extends Food implements Parcelable{
         this.prdlstReportNo = in.readString();
         this.allergy = in.readString();
         this.category = in.readString();
+        this.save = in.readInt();
+        this.temp = in.readString();
     }
 
     public static final Creator<HaccpFood> CREATOR = new Creator<HaccpFood>() {

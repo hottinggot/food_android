@@ -21,6 +21,7 @@ public class DeceptiveFood extends Food implements Parcelable {
     private int save;
     private String temp;
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -39,8 +40,9 @@ public class DeceptiveFood extends Food implements Parcelable {
         dest.writeString(this.VIOLT);
         dest.writeString(this.EVDNC_FILE);
         dest.writeString(this.category);
+        dest.writeInt(this.save);
+        dest.writeString(this.temp);
     }
-
 
     protected DeceptiveFood(Parcel in) {
         super(in);
@@ -54,6 +56,8 @@ public class DeceptiveFood extends Food implements Parcelable {
         this.VIOLT = in.readString();
         this.EVDNC_FILE = in.readString();
         this.category = in.readString();
+        this.save = in.readInt();
+        this.temp = in.readString();
     }
 
     public static final Creator<DeceptiveFood> CREATOR = new Creator<DeceptiveFood>() {

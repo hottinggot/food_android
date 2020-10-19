@@ -3,6 +3,7 @@ package c.foodsafety.food_android.adapter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,6 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private final int BAD_LIST = 4;
 
 
-
     public HomeRecyclerAdapter(List<Object> homeRecyclerList, Context context){
         this.context = context;
         this.homeRecyclerList = homeRecyclerList;
@@ -49,19 +49,19 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public int getItemViewType(int position) {
         if(homeRecyclerList.get(position) instanceof List) {
             List<Object> tempList = (List<Object>) homeRecyclerList.get(position);
-            if(tempList.get(0) instanceof Drawable){
+            if(tempList.size()>0 && tempList.get(0) instanceof Drawable){
                 return CARD_NEWS;
             }
 
-            if(tempList.get(0) instanceof String){
+            if(tempList.size()>0 && tempList.get(0) instanceof String){
                 return CATEGORY_MENU;
             }
 
-            if(tempList.get(0) instanceof HaccpFood){
+            if(tempList.size()>0 && tempList.get(0) instanceof HaccpFood){
                 return GOOD_LIST;
             }
 
-            if(tempList.get(0) instanceof HarmFood){
+            if(tempList.size()>0 && tempList.get(0) instanceof HarmFood){
                 return BAD_LIST;
             }
 
@@ -105,7 +105,8 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if(holder instanceof CardNewsViewHolder) {
-            ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter((List<Object>)homeRecyclerList.get(position));
+            final List<Object> cardnews = (List<Object>)homeRecyclerList.get(position);
+            ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(cardnews, context);
             ((CardNewsViewHolder) holder).card_news_viewpager.setAdapter(viewPagerAdapter);
         }
 
@@ -127,10 +128,10 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                     if(list.get(0) instanceof String){
 
-                        FoodOnFragment foodOnFragment = new FoodOnFragment();
+                        FoodOnFragment foodOnFragment = new FoodOnFragment((String)list.get(pos));
 
-                        b.putString("categoryString", (String)list.get(pos));
-                        foodOnFragment.setArguments(b);
+//                        b.putString("categoryString", (String)list.get(pos));
+//                        foodOnFragment.setArguments(b);
 
                         //FoodOn 으로
 

@@ -11,6 +11,7 @@ import lombok.Getter;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface SelectAPI {
 
@@ -19,11 +20,14 @@ public interface SelectAPI {
     @GET("api/harm")
     Call<List<HarmFood>> selectAllHarmFood();
 
+    @GET("api/harm/filter")
+    Call<List<HarmFood>> selectAllHarmFoodByCategory(@Query("category") String category);
+
     @GET("api/harm/{lank}")
     Call<List<HarmFood>> selectByLankHarm(@Path("lank") String lank);
 
-    @GET("api/harm/{category}")
-    Call<List<HarmFood>> selectHarmFoodByCategory(@Path("category") String category);
+    @GET("api/harm/{lank}/filter")
+    Call<List<HarmFood>> selectHarmFoodByCategory(@Path("lank") String lank, @Query("category") String category);
 
     @GET("api/harm/{title}")
     Call<HarmFood> selectOneByTitleHarm(@Path("title") String title);
@@ -34,8 +38,8 @@ public interface SelectAPI {
     @GET("api/haccp")
     Call<List<HaccpFood>> selectAllHaccpFood();
 
-    @GET("api/haccp/{category}")
-    Call<List<HaccpFood>> selectHaccpFoodByCategory(@Path("category") String category);
+    @GET("api/haccp/filter")
+    Call<List<HaccpFood>> selectHaccpFoodByCategory(@Query("category") String category);
 
     @GET("api/haccp/{title}")
     Call<HaccpFood> selectOneByTitleHaccp(@Path("title") String title);
@@ -46,8 +50,8 @@ public interface SelectAPI {
     @GET("api/child")
     Call<List<ChildFood>> selectAllChildFood();
 
-    @GET("api/child/{category}")
-    Call<List<ChildFood>> selectChildFoodByCategory(@Path("category") String category);
+    @GET("api/child/filter")
+    Call<List<ChildFood>> selectChildFoodByCategory(@Query("category") String category);
 
     @GET("api/child/{title}")
     Call<ChildFood> selectOneByTitleChild(@Path("title") String title);
@@ -63,10 +67,6 @@ public interface SelectAPI {
 
     @GET("api/search/{keyword}")
     Call<List<Food>> selectSearchResult(@Path("keyword") String keyword);
-
-
-
-
 
 
 

@@ -44,6 +44,8 @@ public class ChildFood extends Food implements Parcelable {
         dest.writeString(this.APPN_END_DT);
         dest.writeString(this.category);
         dest.writeString(this.imgUrl);
+        dest.writeInt(this.save);
+        dest.writeString(this.temp);
     }
 
     protected ChildFood(Parcel in) {
@@ -60,6 +62,8 @@ public class ChildFood extends Food implements Parcelable {
         this.APPN_END_DT = in.readString();
         this.category = in.readString();
         this.imgUrl = in.readString();
+        this.save = in.readInt();
+        this.temp = in.readString();
     }
 
     public static final Creator<ChildFood> CREATOR = new Creator<ChildFood>() {

@@ -1,5 +1,6 @@
 package c.foodsafety.food_android.adapter;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,9 +20,12 @@ import c.foodsafety.food_android.R;
 public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.ViewPagerViewHolder> {
 
     private List<Object> imageViewList;
+    private Context context;
 
-    public ViewPagerAdapter(List<Object> imageViewList){
+    public ViewPagerAdapter(List<Object> imageViewList, Context context){
         this.imageViewList = imageViewList;
+        this.context = context;
+
     }
 
 
@@ -46,9 +50,9 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
             Glide.with(holder.detail_image).load(imgUrl).into(holder.detail_image);
         }
 
-        else {
+        else if(imageViewList.get(0) instanceof Drawable){
             Drawable imgUrl = (Drawable)(imageViewList.get(position));
-            Glide.with(holder.detail_image).load(imgUrl).into(holder.detail_image);
+            Glide.with(context).load(imgUrl).into(holder.detail_image);
         }
 
     }

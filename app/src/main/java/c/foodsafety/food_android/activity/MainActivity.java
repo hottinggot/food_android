@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         //fragment
         toolbarFragment = new ToolbarFragment();
         homeFragment = new HomeFragment();
-        foodOnFragment = new FoodOnFragment();
+        foodOnFragment = new FoodOnFragment("전체");
         deceptiveFragment = new DeceptiveFragment();
         myPageFragment = new MyPageFragment();
 

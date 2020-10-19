@@ -98,7 +98,7 @@ public class HaccpDetail extends Fragment {
     }
 
     void setViewPagerAdapter(ViewPager2 viewPager){
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(urlList);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(urlList, getContext());
 
         viewPager.setAdapter(viewPagerAdapter);
     }

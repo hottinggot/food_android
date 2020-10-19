@@ -119,7 +119,7 @@ public class HarmDetail extends Fragment {
     }
 
     public void setAdapter(ViewPager2 v){
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(imgUrl);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(imgUrl, getContext());
         detail_img_viewpager.setAdapter(viewPagerAdapter);
     }
 }

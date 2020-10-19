@@ -3,6 +3,9 @@ package c.foodsafety.food_android.fragment;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -29,6 +32,23 @@ import retrofit2.Response;
 
 public class FoodOnFragment extends Fragment {
 
+    private final int HACCP = 0;
+    private final int CHILD = 1;
+    private final int HARM1 = 2;
+    private final int HARM2 = 3;
+    private final int HARM3 = 4;
+
+    private final int CATEGORY_ALL = 0;
+    private final int CATEGORY_DRINK = 1;
+    private final int CATEGORY_SNACK = 2;
+    private final int CATEGORY_DAIRY = 3;
+    private final int CATEGORY_PROCESSED = 4;
+    private final int CATEGORY_AGRICULTURE = 5;
+    private final int CATEGORY_SAUCE = 6;
+    private final int CATEGORY_HEALTH = 7;
+    private final int CATEGORY_OIL = 8;
+    private final int CATEGORY_ETC = 9;
+
     View view;
     ConstraintLayout haccp_menu, child_menu, harm_1_menu, harm_2_menu, harm_3_menu;
     Toolbar myToolbar;
@@ -37,8 +57,15 @@ public class FoodOnFragment extends Fragment {
 
     Bundle bundle = new Bundle(2);
 
-
     private List<Food> sendFoodList;
+
+    private String categoryString;
+    private int categoryType;
+
+    public FoodOnFragment(String categoryString){
+        this.categoryString = categoryString;
+        setCategoryTypeToInt(this.categoryString);
+    }
 
     @Override
     @NonNull
@@ -70,147 +97,92 @@ public class FoodOnFragment extends Fragment {
         @Override
         public void onClick(View view) {
             setData(view);
-
         }
     };
 
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
-//        inflater.inflate(R.menu.category_menu, menu);
-//        MenuItem categoryItem = menu.findItem(R.id.category_processed_food);
-//
-//        //hide app title
-//        ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
-//
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-
-    private void setData(View c){
-        final List<Food> foodList = new ArrayList<>();
-        final FoodOnListFragment foodOnListFragment = new FoodOnListFragment();
-
-        switch (c.getId()) {
-            case R.id.haccp_menu : {
-                dataService.select.selectAllHaccpFood().enqueue(new Callback<List<HaccpFood>>() {
-                    @Override
-                    public void onResponse(Call<List<HaccpFood>> call, Response<List<HaccpFood>> response) {
-                        List<HaccpFood> haccpFoodList = response.body();
-                        for(Food food: haccpFoodList){
-                            foodList.add(food);
-                        }
-                        sendFoodList = foodList;
-                        bundle.putParcelableArrayList("foodList", (ArrayList<? extends Parcelable>) sendFoodList);
-                        bundle.putInt("foodMenuType",0);
-
-                        foodOnListFragment.setArguments(bundle);
-                        ((MainActivity)getActivity()).onFragmentChanged(foodOnListFragment);
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<HaccpFood>> call, Throwable t) {
-
-                    }
-                });
+    private void setCategoryTypeToInt(String categoryString){
+        switch (categoryString){
+            case "전체":
+                categoryType = CATEGORY_ALL;
                 break;
-            }
-            case R.id.child_menu : {
-                dataService.select.selectAllChildFood().enqueue(new Callback<List<ChildFood>>() {
-                    @Override
-                    public void onResponse(Call<List<ChildFood>> call, Response<List<ChildFood>> response) {
-                        List<ChildFood> childFoodList = response.body();
-                        for(Food food: childFoodList){
-                            foodList.add(food);
-                        }
-                        sendFoodList = foodList;
-                        bundle.putParcelableArrayList("foodList", (ArrayList<? extends Parcelable>) sendFoodList);
-                        bundle.putInt("foodMenuType",1);
-
-                        foodOnListFragment.setArguments(bundle);
-                        ((MainActivity)getActivity()).onFragmentChanged(foodOnListFragment);
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<ChildFood>> call, Throwable t) {
-                        t.printStackTrace();
-                    }
-                });
+            case "음료∙차∙주류":
+                categoryType = CATEGORY_DRINK;
                 break;
-
-            }
-            case R.id.harm_1_menu : {
-                dataService.select.selectByLankHarm("lank1").enqueue(new Callback<List<HarmFood>>() {
-                    @Override
-                    public void onResponse(Call<List<HarmFood>> call, Response<List<HarmFood>> response) {
-                        List<HarmFood> harmFoodList = response.body();
-                        for(Food food: harmFoodList){
-                            foodList.add(food);
-                        }
-                        sendFoodList = foodList;
-                        bundle.putParcelableArrayList("foodList", (ArrayList<? extends Parcelable>) sendFoodList);
-                        bundle.putInt("foodMenuType",2);
-
-                        foodOnListFragment.setArguments(bundle);
-                        ((MainActivity)getActivity()).onFragmentChanged(foodOnListFragment);
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<HarmFood>> call, Throwable t) {
-
-                    }
-                });
+            case "과자∙빵류∙아이스크림":
+                categoryType = CATEGORY_SNACK;
                 break;
-
-            }
-            case R.id.harm_2_menu : {
-                dataService.select.selectByLankHarm("lank2").enqueue(new Callback<List<HarmFood>>() {
-                    @Override
-                    public void onResponse(Call<List<HarmFood>> call, Response<List<HarmFood>> response) {
-                        List<HarmFood> harmFoodList = response.body();
-                        for(Food food: harmFoodList){
-                            foodList.add(food);
-                        }
-                        sendFoodList = foodList;
-                        bundle.putParcelableArrayList("foodList", (ArrayList<? extends Parcelable>) sendFoodList);
-                        bundle.putInt("foodMenuType",3);
-
-                        foodOnListFragment.setArguments(bundle);
-                        ((MainActivity)getActivity()).onFragmentChanged(foodOnListFragment);
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<HarmFood>> call, Throwable t) {
-
-                    }
-                });
+            case "유제품∙축산물":
+                categoryType = CATEGORY_DAIRY;
                 break;
-
-            }
-            case R.id.harm_3_menu : {
-                dataService.select.selectByLankHarm("lank3").enqueue(new Callback<List<HarmFood>>() {
-                    @Override
-                    public void onResponse(Call<List<HarmFood>> call, Response<List<HarmFood>> response) {
-                        List<HarmFood> harmFoodList = response.body();
-                        for(Food food: harmFoodList){
-                            foodList.add(food);
-                        }
-                        sendFoodList = foodList;
-                        bundle.putParcelableArrayList("foodList", (ArrayList<? extends Parcelable>) sendFoodList);
-                        bundle.putInt("foodMenuType",4);
-
-                        foodOnListFragment.setArguments(bundle);
-                        ((MainActivity)getActivity()).onFragmentChanged(foodOnListFragment);
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<HarmFood>> call, Throwable t) {
-
-                    }
-                });
+            case "가공식품":
+                categoryType = CATEGORY_PROCESSED;
                 break;
-            }
+            case "농수산물":
+                categoryType = CATEGORY_AGRICULTURE;
+                break;
+            case "소스∙장류":
+                categoryType = CATEGORY_SAUCE;
+                break;
+            case "건강기능식품":
+                categoryType = CATEGORY_HEALTH;
+                break;
+            case "식용유지류":
+                categoryType = CATEGORY_OIL;
+                break;
+            case "기타":
+                categoryType = CATEGORY_ETC;
+                break;
         }
     }
+
+
+    private void setData(View c){
+        final FoodOnListFragment foodOnListFragment = new FoodOnListFragment();
+        switch (c.getId()){
+            case R.id.haccp_menu :
+                bundle.putInt("lankType", HACCP);
+                bundle.putInt("categoryType", categoryType);
+                foodOnListFragment.setArguments(bundle);
+                ((MainActivity)getActivity()).onFragmentChanged(foodOnListFragment);
+                break;
+
+            case R.id.child_menu :
+                bundle.putInt("lankType", CHILD);
+                foodOnListFragment.setArguments(bundle);
+                ((MainActivity)getActivity()).onFragmentChanged(foodOnListFragment);
+                break;
+
+            case R.id.harm_1_menu :
+                bundle.putInt("lankType", HARM1);
+                foodOnListFragment.setArguments(bundle);
+                ((MainActivity)getActivity()).onFragmentChanged(foodOnListFragment);
+                break;
+
+            case R.id.harm_2_menu :
+                bundle.putInt("lankType", HARM2);
+                foodOnListFragment.setArguments(bundle);
+                ((MainActivity)getActivity()).onFragmentChanged(foodOnListFragment);
+                break;
+
+            case R.id.harm_3_menu :
+                bundle.putInt("lankType", HARM3);
+                foodOnListFragment.setArguments(bundle);
+                ((MainActivity)getActivity()).onFragmentChanged(foodOnListFragment);
+                break;
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+        inflater.inflate(R.menu.category_menu, menu);
+        MenuItem categoryItem = menu.findItem(R.id.category_processed_food);
+
+        //hide app title
+        if (categoryType == 0) {
+            ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
 }

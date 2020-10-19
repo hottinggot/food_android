@@ -9,7 +9,7 @@
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:id="@+id/category_toolbar"
+        android:id="@+id/search_toolbar"
         android:background="@color/colorWhite"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,12 +19,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/category_tab"
+        app:tabMode="scrollable"
+        app:tabContentStart="20dp"
         android:background="@color/colorWhite"
         app:tabIndicatorColor="@color/colorTabBlue"
         app:tabTextColor="@color/colorTabGray"
         app:tabSelectedTextColor="@color/colorTabBlue"
-        app:layout_constraintTop_toBottomOf="@+id/category_toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/search_toolbar"
         app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_item_0" />
         
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -45,6 +52,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tab_item_4" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_item_5" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_item_6" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_item_7" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_item_8" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_item_9" />
 
     </com.google.android.material.tabs.TabLayout>
 
