@@ -66,6 +66,27 @@
                 app:layout_constraintStart_toEndOf="@+id/deceptive_img"
                 app:layout_constraintTop_toBottomOf="@id/deceptive_product_company" />
 
+            <ImageView
+                android:id="@+id/store_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="1dp"
+                android:src="@drawable/round_star_black_18dp"
+                app:layout_constraintStart_toEndOf="@+id/deceptive_date"
+                app:layout_constraintTop_toBottomOf="@+id/deceptive_product_company"
+                app:tint="@color/colorYellow" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="store"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/store_number"
+                app:layout_constraintTop_toBottomOf="@id/deceptive_product_company"
+                app:layout_constraintStart_toEndOf="@+id/store_star" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

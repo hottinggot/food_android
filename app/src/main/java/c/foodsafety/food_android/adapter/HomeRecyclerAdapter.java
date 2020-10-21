@@ -21,6 +21,7 @@ import java.util.List;
 import c.foodsafety.food_android.R;
 import c.foodsafety.food_android.activity.MainActivity;
 import c.foodsafety.food_android.fragment.FoodOnFragment;
+import c.foodsafety.food_android.fragment.HomeFragment;
 import c.foodsafety.food_android.fragment.detailpage.HaccpDetail;
 import c.foodsafety.food_android.fragment.detailpage.HarmDetail;
 import c.foodsafety.food_android.pojo.ChildFood;
@@ -38,6 +39,8 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private final int CATEGORY_MENU = 2;
     private final int GOOD_LIST = 3;
     private final int BAD_LIST = 4;
+
+    FoodOnFragment foodOnFragment;
 
 
     public HomeRecyclerAdapter(List<Object> homeRecyclerList, Context context){
@@ -107,11 +110,20 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if(holder instanceof CardNewsViewHolder) {
             final List<Object> cardnews = (List<Object>)homeRecyclerList.get(position);
             ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(cardnews, context);
-            ((CardNewsViewHolder) holder).card_news_viewpager.setAdapter(viewPagerAdapter);
+            final CardNewsViewHolder h = (CardNewsViewHolder)holder;
+            h.card_news_viewpager.setAdapter(viewPagerAdapter);
         }
 
         else if(holder instanceof HashTitleViewHolder) {
-            ((HashTitleViewHolder) holder).hash_title.setText((String)homeRecyclerList.get(position));
+            final HashTitleViewHolder h = (HashTitleViewHolder) holder;
+            h.hash_title.setText((String)homeRecyclerList.get(position));
+            h.home_more.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    foodOnFragment = new FoodOnFragment((String)homeRecyclerList.get(position));
+                    ((MainActivity)context).onFragmentChanged(foodOnFragment);
+                }
+            });
         }
 
         else if(holder instanceof CategoryViewHolder) {
@@ -178,11 +190,12 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     class HashTitleViewHolder extends RecyclerView.ViewHolder{
 
-        TextView hash_title;
+        TextView hash_title, home_more;
 
         HashTitleViewHolder(View view) {
             super(view);
             hash_title = view.findViewById(R.id.hash_title);
+            home_more = view.findViewById(R.id.home_more);
         }
     }
 
@@ -201,7 +214,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     void setRecyclerBackground(CategoryViewHolder holder, List<Object> list){
         if(list.get(0) instanceof String){
-            holder.category_layout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorWhite));
+            holder.category_layout.setBackgroundColor(ContextCompat.getColor(context, R.color.fui_transparent));
         }
         else if(list.get(0) instanceof HaccpFood){
             holder.category_layout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorHaccpBlue));

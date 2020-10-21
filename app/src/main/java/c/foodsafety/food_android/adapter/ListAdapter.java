@@ -1,5 +1,7 @@
 package c.foodsafety.food_android.adapter;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -25,10 +29,11 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Food> foodList;
     private View.OnClickListener onItemViewClickListener;
+    private Context context;
 
-
-    public ListAdapter(List<Food> foodList) {
+    public ListAdapter(List<Food> foodList, Context context) {
         this.foodList = foodList;
+        this.context=context;
     }
 
 
@@ -56,7 +61,6 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View view;
-
 
         switch (viewType){
             case 0:
@@ -103,17 +107,20 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             HaccpFood haccpFood = (HaccpFood) foodList.get(position);
             haccpViewHolder.card_list_title_haccp.setText(haccpFood.getPrdlstNm());
             haccpViewHolder.card_list_company_haccp.setText(haccpFood.getPrdkind());
+            haccpViewHolder.store_number.setText(String.valueOf(haccpFood.getSave()));
             Glide.with(haccpViewHolder.card_list_image_haccp).load(haccpFood.getImgurl1()).into(haccpViewHolder.card_list_image_haccp);
         }
         else if(holder instanceof ChildViewHolder) {
             ChildViewHolder childViewHolder = (ChildViewHolder) holder;
             ChildFood childFood = (ChildFood) foodList.get(position);
             childViewHolder.card_list_title_child.setText(childFood.getPRDLST_NM());
+            childViewHolder.store_number.setText(String.valueOf(childFood.getSave()));
         }
         else if(holder instanceof HarmViewHolder) {
              HarmViewHolder harmViewHolder = (HarmViewHolder) holder;
              HarmFood harmFood = (HarmFood) foodList.get(position);
              harmViewHolder.card_list_title_harm.setText(harmFood.getPRDTNM());
+             harmViewHolder.store_number.setText(String.valueOf(harmFood.getSave()));
              Glide.with(harmViewHolder.card_list_image_harm).load(setUrl(harmFood.getIMG_FILE_PATH())[0]).into(harmViewHolder.card_list_image_harm);
 
              switch (harmFood.getRTRVL_GRDCD_NM()){
@@ -139,6 +146,7 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             deceptiveViewHolder.deceptive_product_name.setText(deceptiveFood.getPRDUCT());
             deceptiveViewHolder.deceptive_product_company.setText(deceptiveFood.getENTRPS());
             deceptiveViewHolder.deceptive_date.setText(deceptiveFood.getDSPS_DT());
+            deceptiveViewHolder.store_number.setText(String.valueOf(deceptiveFood.getSave()));
 
         }
 
@@ -161,40 +169,43 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     class HaccpViewHolder extends RecyclerView.ViewHolder{
         CardView card_haccp;
-        ImageView card_list_image_haccp, haccp;
-        TextView card_list_title_haccp, card_list_company_haccp, card_list_lank_haccp;
+        ImageView card_list_image_haccp, store_star;
+        TextView card_list_title_haccp, card_list_company_haccp, card_list_lank_haccp, store_number;
 
         HaccpViewHolder(View itemView){
             super(itemView);
             card_haccp = itemView.findViewById(R.id.card_haccp);
             card_list_image_haccp = itemView.findViewById(R.id.card_list_image_haccp);
-            haccp = itemView.findViewById(R.id.haccp);
             card_list_title_haccp = itemView.findViewById(R.id.card_list_title_haccp);
             card_list_company_haccp = itemView.findViewById(R.id.card_list_company_haccp);
             card_list_lank_haccp = itemView.findViewById(R.id.card_list_lank_haccp);
+            store_star = itemView.findViewById(R.id.store_star);
+            store_number = itemView.findViewById(R.id.store_number);
         }
     }
 
     class ChildViewHolder extends RecyclerView.ViewHolder{
         CardView card_child;
-        ImageView card_list_image_child;
-        TextView card_list_title_child, card_list_company_child, card_list_lank_child;
+        ImageView card_list_image_child, store_star;
+        TextView card_list_title_child, card_list_company_child, card_list_lank_child, store_number;
 
-        ChildViewHolder(View viewItem){
-            super(viewItem);
+        ChildViewHolder(View itemView){
+            super(itemView);
 
-            card_child = viewItem.findViewById(R.id.card_child);
-            card_list_image_child = viewItem.findViewById(R.id.card_list_image_child);
-            card_list_title_child = viewItem.findViewById(R.id.card_list_title_child);
-            card_list_company_child = viewItem.findViewById(R.id.card_list_company_child);
-            card_list_lank_child = viewItem.findViewById(R.id.card_list_lank_child);
+            card_child = itemView.findViewById(R.id.card_child);
+            card_list_image_child = itemView.findViewById(R.id.card_list_image_child);
+            card_list_title_child = itemView.findViewById(R.id.card_list_title_child);
+            card_list_company_child = itemView.findViewById(R.id.card_list_company_child);
+            card_list_lank_child = itemView.findViewById(R.id.card_list_lank_child);
+            store_star = itemView.findViewById(R.id.store_star);
+            store_number = itemView.findViewById(R.id.store_number);
         }
     }
 
     class HarmViewHolder extends RecyclerView.ViewHolder{
         CardView card_harm;
-        ImageView card_list_image_harm, harm_right_img;
-        TextView card_list_title_harm, card_list_company_harm, card_list_date_harm, card_list_lank_harm;
+        ImageView card_list_image_harm, harm_right_img, store_star;
+        TextView card_list_title_harm, card_list_company_harm, card_list_date_harm, card_list_lank_harm, store_number;
 
         HarmViewHolder(View itemView){
 
@@ -207,13 +218,15 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             card_list_date_harm = itemView.findViewById(R.id.card_list_date_harm);
             card_list_lank_harm = itemView.findViewById(R.id.card_list_lank_harm);
             harm_right_img = itemView.findViewById(R.id.harm_right_img);
+            store_star = itemView.findViewById(R.id.store_star);
+            store_number = itemView.findViewById(R.id.store_number);
         }
 
     }
 
     class DeceptiveViewHolder extends RecyclerView.ViewHolder{
-        ImageView deceptive_img;
-        TextView deceptive_product_name, deceptive_product_company, deceptive_date,deceptive_lank;
+        ImageView deceptive_img, store_star;
+        TextView deceptive_product_name, deceptive_product_company, deceptive_date,deceptive_lank, store_number;
 
         DeceptiveViewHolder(View itemView){
             super(itemView);
@@ -223,7 +236,8 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             deceptive_product_company = itemView.findViewById(R.id.deceptive_product_company);
             deceptive_date = itemView.findViewById(R.id.deceptive_date);
             deceptive_lank = itemView.findViewById(R.id.deceptive_lank);
-
+            store_star = itemView.findViewById(R.id.store_star);
+            store_number = itemView.findViewById(R.id.store_number);
         }
     }
 }

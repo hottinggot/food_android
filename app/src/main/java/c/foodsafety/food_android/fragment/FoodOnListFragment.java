@@ -2,6 +2,7 @@ package c.foodsafety.food_android.fragment;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -118,6 +119,7 @@ public class FoodOnListFragment extends Fragment {
 
         //tabLayout
         myTabLayout = (TabLayout) view.findViewById(R.id.category_tab);
+        setTabIndicatorColor(lankType);
         TabLayout.Tab tab = myTabLayout.getTabAt(categoryType);
         tab.select();
         setTabContents(categoryType);
@@ -231,6 +233,17 @@ public class FoodOnListFragment extends Fragment {
             default:
                 explain_content.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
 
+        }
+    }
+
+    private void setTabIndicatorColor(int lankType) {
+        if(lankType==HACCP || lankType==CHILD){
+            myTabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context,R.color.colorTabBlue));
+            myTabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.colorTabGray), ContextCompat.getColor(context, R.color.colorTabBlue));
+        }
+        else {
+            myTabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorRedPink));
+            myTabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.colorTabGray), ContextCompat.getColor(context, R.color.colorRedPink));
         }
     }
 
@@ -378,7 +391,7 @@ public class FoodOnListFragment extends Fragment {
 
     private void setAdapter(final RecyclerView recyclerView) {
         if(listAdapter==null){
-            listAdapter = new ListAdapter(foodList);
+            listAdapter = new ListAdapter(foodList,getContext());
             listAdapter.setOnItemViewClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

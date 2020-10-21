@@ -15,7 +15,11 @@ import com.bumptech.glide.Glide;
 
 import c.foodsafety.food_android.R;
 import c.foodsafety.food_android.activity.MainActivity;
+import c.foodsafety.food_android.dataservice.DataService;
 import c.foodsafety.food_android.pojo.ChildFood;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ChildDetail extends Fragment {
     View view;
@@ -25,8 +29,11 @@ public class ChildDetail extends Fragment {
 
     ChildFood childFood;
     Toolbar myToolbar;
-    ImageView detail_img;
+    ImageView detail_img, store_star;
+    TextView store_number;
 
+    private int saveCount;
+    DataService dataService = new DataService();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
         view = inflater.inflate(R.layout.detail_fragment_child ,container, false);
@@ -50,6 +57,8 @@ public class ChildDetail extends Fragment {
 
         detail_img = view.findViewById(R.id.detail_img);
 
+        store_star = view.findViewById(R.id.store_star);
+        store_number = view.findViewById(R.id.store_number);
 
         //child 객체 받아오기
         if(getArguments()!=null){
@@ -66,7 +75,33 @@ public class ChildDetail extends Fragment {
 
             Glide.with(detail_img).load(childFood.getImgUrl()).into(detail_img);
 
+            saveCount = childFood.getSave();
+            store_number.setText(String.valueOf(saveCount));
         }
+
+        store_star.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!store_star.isSelected()){
+                    saveCount++;
+                } else {
+                    saveCount--;
+                }
+                store_star.setSelected(!store_star.isSelected());
+                dataService.update.updateChildSaveCnt(saveCount, childFood.getId()).enqueue(new Callback<ChildFood>() {
+                    @Override
+                    public void onResponse(Call<ChildFood> call, Response<ChildFood> response) {
+                        int saveCnt = response.body().getSave();
+                        store_number.setText(String.valueOf(saveCnt));
+                    }
+
+                    @Override
+                    public void onFailure(Call<ChildFood> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
 
 
         return view;

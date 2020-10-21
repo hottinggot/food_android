@@ -1,4 +1,4 @@
-package c.foodsafety.food_android.Firebase;
+package c.foodsafety.food_android.firebase;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;

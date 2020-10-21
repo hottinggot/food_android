@@ -78,7 +78,7 @@ public class MyPageFragment extends Fragment {
     }
 
     private void setAdapter(RecyclerView recyclerView){
-        ListAdapter listAdapter = new ListAdapter(foodList);
+        ListAdapter listAdapter = new ListAdapter(foodList, getContext());
         recyclerView.setAdapter(listAdapter);
     }
 

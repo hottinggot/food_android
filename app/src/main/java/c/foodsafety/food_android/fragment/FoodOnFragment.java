@@ -2,6 +2,7 @@ package c.foodsafety.food_android.fragment;
 
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -64,7 +65,6 @@ public class FoodOnFragment extends Fragment {
 
     public FoodOnFragment(String categoryString){
         this.categoryString = categoryString;
-        setCategoryTypeToInt(this.categoryString);
     }
 
     @Override
@@ -90,6 +90,16 @@ public class FoodOnFragment extends Fragment {
         harm_2_menu.setOnClickListener(onClickListener);
         harm_3_menu.setOnClickListener(onClickListener);
 
+        setCategoryTypeToInt(categoryString);
+
+        Log.d("CATEGORY_STRING", String.valueOf(categoryString));
+
+        Log.d("CATEGORY_TYPE", String.valueOf(categoryType));
+
+        if(categoryType>0){
+            ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         return view;
     }
 
@@ -102,34 +112,34 @@ public class FoodOnFragment extends Fragment {
 
     private void setCategoryTypeToInt(String categoryString){
         switch (categoryString){
-            case "전체":
+            case "# 전체":
                 categoryType = CATEGORY_ALL;
                 break;
-            case "음료∙차∙주류":
+            case "# 음료∙차∙주류":
                 categoryType = CATEGORY_DRINK;
                 break;
-            case "과자∙빵류∙아이스크림":
+            case "# 과자∙빵류∙아이스크림":
                 categoryType = CATEGORY_SNACK;
                 break;
-            case "유제품∙축산물":
+            case "# 유제품∙축산물":
                 categoryType = CATEGORY_DAIRY;
                 break;
-            case "가공식품":
+            case "# 가공식품":
                 categoryType = CATEGORY_PROCESSED;
                 break;
-            case "농수산물":
+            case "# 농수산물":
                 categoryType = CATEGORY_AGRICULTURE;
                 break;
-            case "소스∙장류":
+            case "# 소스∙장류":
                 categoryType = CATEGORY_SAUCE;
                 break;
-            case "건강기능식품":
+            case "# 건강기능식품":
                 categoryType = CATEGORY_HEALTH;
                 break;
-            case "식용유지류":
+            case "# 식용유지류":
                 categoryType = CATEGORY_OIL;
                 break;
-            case "기타":
+            case "# 기타":
                 categoryType = CATEGORY_ETC;
                 break;
         }

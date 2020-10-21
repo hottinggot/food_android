@@ -92,7 +92,7 @@ public class DeceptiveFragment extends Fragment {
                     foodList.add(food);
                 }
                 deceptiveList = foodList;
-                listAdapter = new ListAdapter(deceptiveList);
+                listAdapter = new ListAdapter(deceptiveList, getContext());
 
                 setAdapter(myRecyclerView);
             }

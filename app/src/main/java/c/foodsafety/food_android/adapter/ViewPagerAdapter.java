@@ -46,13 +46,12 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
     public void onBindViewHolder(final ViewPagerViewHolder holder, final int position) {
         if(imageViewList.get(0) instanceof String) {
             String imgUrl = (String)(imageViewList.get(position));
-            //Log.d("스트링인지 확인", imgUrl);
             Glide.with(holder.detail_image).load(imgUrl).into(holder.detail_image);
         }
 
         else if(imageViewList.get(0) instanceof Drawable){
             Drawable imgUrl = (Drawable)(imageViewList.get(position));
-            Glide.with(context).load(imgUrl).into(holder.detail_image);
+            Glide.with(holder.detail_image).load(imgUrl).into(holder.detail_image);
         }
 
     }
@@ -63,7 +62,6 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
 
         public ViewPagerViewHolder(View itemView){
             super(itemView);
-
             detail_image = itemView.findViewById(R.id.detail_img);
         }
     }

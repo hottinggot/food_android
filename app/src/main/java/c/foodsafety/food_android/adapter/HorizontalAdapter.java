@@ -95,7 +95,9 @@ public class HorizontalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         else if(holder instanceof BadListViewHolder) {
             HarmFood harmFood = (HarmFood) dataList.get(position);
-            Glide.with(((BadListViewHolder) holder).good_or_bad_object).load(setUrl(harmFood.getIMG_FILE_PATH())[0]).into(((BadListViewHolder) holder).good_or_bad_object);
+            Glide.with(((BadListViewHolder) holder).good_or_bad_object)
+                    .load(setUrl(harmFood.getIMG_FILE_PATH())[0])
+                    .into(((BadListViewHolder) holder).good_or_bad_object);
         }
     }
 
@@ -115,6 +117,7 @@ public class HorizontalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         GoodListViewHolder(View view) {
             super(view);
+            good_or_bad_object = view.findViewById(R.id.good_or_bad_object);
         }
     }
 
@@ -124,6 +127,7 @@ public class HorizontalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         BadListViewHolder(View view) {
             super(view);
+            good_or_bad_object = view.findViewById(R.id.good_or_bad_object);
         }
     }
 

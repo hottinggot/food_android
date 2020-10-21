@@ -56,6 +56,19 @@ public class HomeFragment extends Fragment {
 
     private List<Object> homeRecyclerList = new ArrayList<>();
 
+    private final int CATEGORY_ALL = 0;
+    private final int CATEGORY_DRINK = 1;
+    private final int CATEGORY_SNACK = 2;
+    private final int CATEGORY_DAIRY = 3;
+    private final int CATEGORY_PROCESSED = 4;
+    private final int CATEGORY_AGRICULTURE = 5;
+    private final int CATEGORY_SAUCE = 6;
+    private final int CATEGORY_HEALTH = 7;
+    private final int CATEGORY_OIL = 8;
+    private final int CATEGORY_ETC = 9;
+
+    private String [] titleList = new String[10];
+
 
     @Override
     @NonNull
@@ -72,7 +85,7 @@ public class HomeFragment extends Fragment {
         home_recycler = view.findViewById(R.id.home_recycler);
         home_recycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        setAllDataList();
+        if(homeRecyclerList.size()==0) setAllDataList();
         setAdapter(home_recycler);
 
         return view;
@@ -81,60 +94,57 @@ public class HomeFragment extends Fragment {
 
     private void setAllDataList(){
         //CardNews
-//        cardNewsList.add(getResources().getDrawable(R.drawable.haccp));
-//        cardNewsList.add(getResources().getDrawable(R.drawable.child));
-//        cardNewsList.add(getResources().getDrawable(R.drawable.harm1));
+        cardNewsList.add(getResources().getDrawable(R.drawable.haccp));
+        cardNewsList.add(getResources().getDrawable(R.drawable.child));
+        cardNewsList.add(getResources().getDrawable(R.drawable.harm1));
 
-//        homeRecyclerList.add(cardNewsList);
+        //homeRecyclerList.add(cardNewsList);
 
         //category title
         homeRecyclerList.add("#카테고리");
 
+        setTitleList();
+
         //category
+        categorySelectList.add(getString(R.string.tab_item_1));
         categorySelectList.add(getString(R.string.tab_item_2));
         categorySelectList.add(getString(R.string.tab_item_3));
         categorySelectList.add(getString(R.string.tab_item_4));
+        categorySelectList.add(getString(R.string.tab_item_5));
+        categorySelectList.add(getString(R.string.tab_item_6));
+        categorySelectList.add(getString(R.string.tab_item_7));
+        categorySelectList.add(getString(R.string.tab_item_8));
+        categorySelectList.add(getString(R.string.tab_item_9));
 
         homeRecyclerList.add(categorySelectList);
 
-        //category_1
-        homeRecyclerList.add("#아이스크림");
-        setGoodOrBadListByCategory(getString(R.string.tab_item_2));
+        //category
+        setGoodorBadCategory(1);
+
 
 
     }
 
+    HomeRecyclerAdapter recyclerAdapter;
     private void setAdapter(RecyclerView recyclerView) {
-        HomeRecyclerAdapter recyclerAdapter = new HomeRecyclerAdapter(homeRecyclerList, getContext());
+        recyclerAdapter = new HomeRecyclerAdapter(homeRecyclerList, getContext());
         recyclerView.setAdapter(recyclerAdapter);
     }
 
-    private void setGoodOrBadListByCategory(String category){
-        DataService dataService = new DataService();
-        dataService.select.selectHaccpFoodByCategory(category).enqueue(new Callback<List<HaccpFood>>() {
-            @Override
-            public void onResponse(Call<List<HaccpFood>> call, Response<List<HaccpFood>> response) {
-                homeRecyclerList.add(response.body());
-            }
+    private void setTitleList(){
+        titleList[0] = getString(R.string.tab_item_0);
+        titleList[1] = getString(R.string.tab_item_1);
+        titleList[2] = getString(R.string.tab_item_2);
+        titleList[3] = getString(R.string.tab_item_3);
+        titleList[4] = getString(R.string.tab_item_4);
+        titleList[5] = getString(R.string.tab_item_5);
+        titleList[6] = getString(R.string.tab_item_6);
+        titleList[7] = getString(R.string.tab_item_7);
+        titleList[8] = getString(R.string.tab_item_8);
+        titleList[9] = getString(R.string.tab_item_9);
 
-            @Override
-            public void onFailure(Call<List<HaccpFood>> call, Throwable t) {
-
-            }
-        });
-
-        dataService.select.selectAllHarmFoodByCategory(category).enqueue(new Callback<List<HarmFood>>() {
-            @Override
-            public void onResponse(Call<List<HarmFood>> call, Response<List<HarmFood>> response) {
-                homeRecyclerList.add(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<List<HarmFood>> call, Throwable t) {
-
-            }
-        });
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
@@ -225,6 +235,78 @@ public class HomeFragment extends Fragment {
             return true;
         }
     };
+
+    private String setCategoryString(int pos) {
+        switch (pos) {
+            case CATEGORY_ALL:
+                return "전체";
+            case CATEGORY_DRINK:
+                return "음료";
+            case CATEGORY_SNACK:
+                return "과자";
+            case CATEGORY_DAIRY:
+                return "유제품";
+            case CATEGORY_PROCESSED:
+                return "가공식품";
+            case CATEGORY_AGRICULTURE:
+                return "농수산물";
+            case CATEGORY_SAUCE:
+                return "소스";
+            case CATEGORY_HEALTH:
+                return "건강기능식품";
+            case CATEGORY_OIL:
+                return "식용유지류";
+            case CATEGORY_ETC:
+                return "기타";
+        }
+        return "";
+    }
+
+
+
+    private void setGoodorBadCategory(final int n){
+
+        if(n>CATEGORY_ETC) {
+            recyclerAdapter.notifyDataSetChanged();
+            return;
+        }
+
+        homeRecyclerList.add("# "+ titleList[n]);
+
+        dataService.select.selectHaccpFoodByCategory(setCategoryString(n)).enqueue(new Callback<List<HaccpFood>>() {
+            @Override
+            public void onResponse(Call<List<HaccpFood>> call, Response<List<HaccpFood>> response) {
+                if(response.body().size() > 0){
+                    homeRecyclerList.add(response.body());
+                }
+
+
+                dataService.select.selectAllHarmFoodByCategory(setCategoryString(n)).enqueue(new Callback<List<HarmFood>>() {
+                    @Override
+                    public void onResponse(Call<List<HarmFood>> call, Response<List<HarmFood>> response) {
+
+                        if(response.body().size() > 0){
+                            homeRecyclerList.add(response.body());
+                        }
+                        setGoodorBadCategory(n+1);
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<HarmFood>> call, Throwable t) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onFailure(Call<List<HaccpFood>> call, Throwable t) {
+
+            }
+        });
+
+    }
+
 
 
 }

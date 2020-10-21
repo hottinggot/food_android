@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +18,12 @@ import java.util.List;
 import c.foodsafety.food_android.R;
 import c.foodsafety.food_android.activity.MainActivity;
 import c.foodsafety.food_android.adapter.ViewPagerAdapter;
+import c.foodsafety.food_android.dataservice.DataService;
+import c.foodsafety.food_android.pojo.ChildFood;
 import c.foodsafety.food_android.pojo.HaccpFood;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HaccpDetail extends Fragment {
     View view;
@@ -31,10 +37,14 @@ public class HaccpDetail extends Fragment {
 
     Toolbar myToolbar;
 
-    //ImageView detail_img;
+    ImageView store_star;
+    TextView store_number;
 
     ViewPager2 detail_img_viewpager;
     List<Object> urlList;
+
+    private int saveCount;
+    DataService dataService = new DataService();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
         view = inflater.inflate(R.layout.detail_fragment_haccp ,container, false);
@@ -62,7 +72,8 @@ public class HaccpDetail extends Fragment {
         //detail_img = view.findViewById(R.id.detail_img);
         detail_img_viewpager = view.findViewById(R.id.detail_img_viewpager);
 
-
+        store_star = view.findViewById(R.id.store_star);
+        store_number = view.findViewById(R.id.store_number);
 
         //haccp 객체 받아오기
         if(getArguments()!=null) {
@@ -91,8 +102,35 @@ public class HaccpDetail extends Fragment {
             detail_haccp_11_content.setText(haccpFood.getPrdlstReportNo());
             detail_haccp_12_content.setText(haccpFood.getAllergy());
 
+            saveCount = haccpFood.getSave();
+            store_number.setText(String.valueOf(saveCount));
+
             //Glide.with(detail_img).load(haccpFood.getImgurl1()).into(detail_img);
         }
+
+        store_star.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!store_star.isSelected()){
+                    saveCount++;
+                } else {
+                    saveCount--;
+                }
+                store_star.setSelected(!store_star.isSelected());
+                dataService.update.updateHaccpSaveCnt(saveCount, haccpFood.getId()).enqueue(new Callback<HaccpFood>() {
+                    @Override
+                    public void onResponse(Call<HaccpFood> call, Response<HaccpFood> response) {
+                        int saveCnt = response.body().getSave();
+                        store_number.setText(String.valueOf(saveCnt));
+                    }
+
+                    @Override
+                    public void onFailure(Call<HaccpFood> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
 
         return view;
     }

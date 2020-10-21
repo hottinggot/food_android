@@ -83,6 +83,26 @@
                 app:layout_constraintStart_toEndOf="@id/card_list_date_harm" />
 
             <ImageView
+                android:id="@+id/store_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="1dp"
+                android:src="@drawable/round_star_black_18dp"
+                app:layout_constraintStart_toEndOf="@+id/card_list_lank_harm"
+                app:layout_constraintTop_toBottomOf="@+id/card_list_company_harm"
+                app:tint="@color/colorYellow" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="store"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/store_number"
+                app:layout_constraintTop_toBottomOf="@id/card_list_company_harm"
+                app:layout_constraintStart_toEndOf="@+id/store_star" />
+
+            <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/harm1"

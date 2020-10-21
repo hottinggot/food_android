@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +18,12 @@ import java.util.List;
 import c.foodsafety.food_android.R;
 import c.foodsafety.food_android.activity.MainActivity;
 import c.foodsafety.food_android.adapter.ViewPagerAdapter;
+import c.foodsafety.food_android.dataservice.DataService;
+import c.foodsafety.food_android.pojo.ChildFood;
 import c.foodsafety.food_android.pojo.HarmFood;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HarmDetail extends Fragment {
     View view;
@@ -37,7 +43,11 @@ public class HarmDetail extends Fragment {
 
     ViewPager2 detail_img_viewpager;
 
+    ImageView store_star;
+    TextView store_number;
 
+    private int saveCount;
+    DataService dataService = new DataService();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
         view = inflater.inflate(R.layout.detail_fragment_harm ,container, false);
@@ -69,6 +79,9 @@ public class HarmDetail extends Fragment {
         //detail_img = view.findViewById(R.id.detail_img);
 
         detail_img_viewpager = view.findViewById(R.id.detail_img_viewpager);
+
+        store_star = view.findViewById(R.id.store_star);
+        store_number = view.findViewById(R.id.store_number);
 
         if(getArguments()!=null) {
             harmFood = getArguments().getParcelable("harmObject");
@@ -106,9 +119,36 @@ public class HarmDetail extends Fragment {
             detail_harm_14_content.setText(harmFood.getADDR());
             detail_harm_15_content.setText(harmFood.getPRDLST_TYPE());
 
+            saveCount = harmFood.getSave();
+            store_number.setText(String.valueOf(saveCount));
+
             //Glide.with(detail_img).load(setUrl(harmFood.getIMG_FILE_PATH())[0]).into(detail_img);
 
         }
+
+        store_star.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!store_star.isSelected()){
+                    saveCount++;
+                } else {
+                    saveCount--;
+                }
+                store_star.setSelected(!store_star.isSelected());
+                dataService.update.updateHarmSaveCnt(saveCount, harmFood.getId()).enqueue(new Callback<HarmFood>() {
+                    @Override
+                    public void onResponse(Call<HarmFood> call, Response<HarmFood> response) {
+                        int saveCnt = response.body().getSave();
+                        store_number.setText(String.valueOf(saveCnt));
+                    }
+
+                    @Override
+                    public void onFailure(Call<HarmFood> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
 
         return view;
     }
