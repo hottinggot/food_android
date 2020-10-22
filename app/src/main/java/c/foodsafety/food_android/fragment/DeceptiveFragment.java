@@ -118,7 +118,7 @@ public class DeceptiveFragment extends Fragment {
                 Bundle b = new Bundle(1);
 
                 DeceptiveDetail deceptiveDetail = new DeceptiveDetail();
-                b.putParcelable("deceptiveObject", deceptiveList.get(position));
+                b.putSerializable("deceptiveObject", deceptiveList.get(position));
                 deceptiveDetail.setArguments(b);
 
                 ((MainActivity)getActivity()).onFragmentChanged(deceptiveDetail);

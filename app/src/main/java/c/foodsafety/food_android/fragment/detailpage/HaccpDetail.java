@@ -21,6 +21,7 @@ import c.foodsafety.food_android.adapter.ViewPagerAdapter;
 import c.foodsafety.food_android.dataservice.DataService;
 import c.foodsafety.food_android.pojo.ChildFood;
 import c.foodsafety.food_android.pojo.HaccpFood;
+import c.foodsafety.food_android.room.viewmodel.HaccpAndChildViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,6 +46,8 @@ public class HaccpDetail extends Fragment {
 
     private int saveCount;
     DataService dataService = new DataService();
+
+    HaccpAndChildViewModel haccpAndChildViewModel;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
         view = inflater.inflate(R.layout.detail_fragment_haccp ,container, false);
@@ -77,7 +80,7 @@ public class HaccpDetail extends Fragment {
 
         //haccp 객체 받아오기
         if(getArguments()!=null) {
-            haccpFood = getArguments().getParcelable("haccpObject");
+            haccpFood = (HaccpFood) getArguments().getSerializable("haccpObject");
 
             List<Object> urlList = new ArrayList<>();
 
@@ -107,6 +110,8 @@ public class HaccpDetail extends Fragment {
 
             //Glide.with(detail_img).load(haccpFood.getImgurl1()).into(detail_img);
         }
+
+
 
         store_star.setOnClickListener(new View.OnClickListener() {
             @Override

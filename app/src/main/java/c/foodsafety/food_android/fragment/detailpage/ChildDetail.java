@@ -62,7 +62,7 @@ public class ChildDetail extends Fragment {
 
         //child 객체 받아오기
         if(getArguments()!=null){
-            childFood = getArguments().getParcelable("childObject");
+            childFood = (ChildFood) getArguments().getSerializable("childObject");
             detail_title.setText(childFood.getPRDLST_NM());
             detail_child_1_content.setText(childFood.getBSSH_NM());
             detail_child_2_content.setText(childFood.getLCNS_NO());

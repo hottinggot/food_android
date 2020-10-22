@@ -9,18 +9,25 @@ import androidx.room.Query;
 
 import java.util.List;
 
-import c.foodsafety.food_android.pojo.ChildFood;
+import c.foodsafety.food_android.pojo.Food;
 import c.foodsafety.food_android.room.entity.ChildEntity;
-//import c.foodsafety.food_android.room.entity.ChildEntity;
+import c.foodsafety.food_android.room.entity.HaccpEntity;
 
 @Dao
-public interface ChildDao {
-    @Query("select * from child_food")
-    LiveData<List<ChildEntity>> findChildAll();
+public interface HaccpAndChildDao {
+
+    @Query("select * from child_food, haccp_food order by savedDate desc")
+    LiveData<List<Food>> findHaccpAndChildAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertChild(ChildEntity... childEntities);
 
     @Delete
     void deleteChild(ChildEntity... childEntities);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertHaccp(HaccpEntity... haccpEntities);
+
+    @Delete
+    void deleteHaccp(HaccpEntity... haccpEntities);
 }

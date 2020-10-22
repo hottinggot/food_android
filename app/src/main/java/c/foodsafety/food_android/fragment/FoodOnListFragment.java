@@ -402,14 +402,14 @@ public class FoodOnListFragment extends Fragment {
                     if (foodList.get(position) instanceof HaccpFood) {
 
                         HaccpDetail haccpDetail = new HaccpDetail();
-                        b.putParcelable("haccpObject", foodList.get(position));
+                        b.putSerializable("haccpObject", foodList.get(position));
                         haccpDetail.setArguments(b);
 
                         ((MainActivity) getActivity()).onFragmentChanged(haccpDetail);
                     } else if (foodList.get(position) instanceof ChildFood) {
 
                         ChildDetail childDetail = new ChildDetail();
-                        b.putParcelable("childObject", foodList.get(position));
+                        b.putSerializable("childObject", foodList.get(position));
                         childDetail.setArguments(b);
 
                         ((MainActivity) getActivity()).onFragmentChanged(childDetail);
@@ -417,7 +417,7 @@ public class FoodOnListFragment extends Fragment {
                     } else if (foodList.get(position) instanceof HarmFood) {
 
                         HarmDetail harmDetail = new HarmDetail();
-                        b.putParcelable("harmObject", foodList.get(position));
+                        b.putSerializable("harmObject", foodList.get(position));
                         harmDetail.setArguments(b);
 
                         ((MainActivity) getActivity()).onFragmentChanged(harmDetail);

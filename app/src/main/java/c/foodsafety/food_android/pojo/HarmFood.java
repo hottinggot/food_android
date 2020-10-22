@@ -3,12 +3,13 @@ package c.foodsafety.food_android.pojo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import lombok.Data;
 
 @Data
-public class HarmFood extends Food implements Parcelable {
+public class HarmFood extends Food implements Serializable {
     private int id;
     private String PRDLST_CD;
     private String FRMLCUNIT;
@@ -33,74 +34,28 @@ public class HarmFood extends Food implements Parcelable {
     private String temp;
 
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeInt(this.id);
-        dest.writeString(this.PRDLST_CD);
-        dest.writeString(this.FRMLCUNIT);
-        dest.writeString(this.RTRVL_GRDCD_NM);
-        dest.writeString(this.BSSHNM);
-        dest.writeString(this.DISTBTMLMT);
-        dest.writeString(this.RTRVLPLANDOC_RTRVLMTHD);
-        dest.writeString(this.BRCDNO);
-        dest.writeString(this.RTRVLDSUSE_SEQ);
-        dest.writeLong(this.CRET_DTM != null ? this.CRET_DTM.getTime() : -1);
-        dest.writeString(this.PRDLST_REPORT_NO);
-        dest.writeString(this.MNFDT);
-        dest.writeString(this.PRDLST_CD_NM);
-        dest.writeString(this.RTRVLPRVNS);
-        dest.writeString(this.PRDTNM);
-        dest.writeString(this.PRCSCITYPOINT_TELNO);
-        dest.writeString(this.ADDR);
-        dest.writeString(this.IMG_FILE_PATH);
-        dest.writeString(this.PRDLST_TYPE);
-        dest.writeString(this.category);
-        dest.writeInt(this.save);
-        dest.writeString(this.temp);
-    }
-
-    protected HarmFood(Parcel in) {
-        super(in);
-        this.id = in.readInt();
-        this.PRDLST_CD = in.readString();
-        this.FRMLCUNIT = in.readString();
-        this.RTRVL_GRDCD_NM = in.readString();
-        this.BSSHNM = in.readString();
-        this.DISTBTMLMT = in.readString();
-        this.RTRVLPLANDOC_RTRVLMTHD = in.readString();
-        this.BRCDNO = in.readString();
-        this.RTRVLDSUSE_SEQ = in.readString();
-        long tmpCRET_DTM = in.readLong();
-        this.CRET_DTM = tmpCRET_DTM == -1 ? null : new Date(tmpCRET_DTM);
-        this.PRDLST_REPORT_NO = in.readString();
-        this.MNFDT = in.readString();
-        this.PRDLST_CD_NM = in.readString();
-        this.RTRVLPRVNS = in.readString();
-        this.PRDTNM = in.readString();
-        this.PRCSCITYPOINT_TELNO = in.readString();
-        this.ADDR = in.readString();
-        this.IMG_FILE_PATH = in.readString();
-        this.PRDLST_TYPE = in.readString();
-        this.category = in.readString();
-        this.save = in.readInt();
-        this.temp = in.readString();
-    }
-
-    public static final Creator<HarmFood> CREATOR = new Creator<HarmFood>() {
-        @Override
-        public HarmFood createFromParcel(Parcel source) {
-            return new HarmFood(source);
-        }
-
-        @Override
-        public HarmFood[] newArray(int size) {
-            return new HarmFood[size];
-        }
-    };
+//    public HarmFood(HarmFood h) {
+////        this.id = h.id;
+////        this.PRDLST_CD = h.PRDLST_CD;
+////        this.FRMLCUNIT = h.FRMLCUNIT;
+////        this.RTRVL_GRDCD_NM = h.RTRVL_GRDCD_NM;
+////        this.BSSHNM = h.BSSHNM;
+////        this.DISTBTMLMT = h.DISTBTMLMT;
+////        this.RTRVLPLANDOC_RTRVLMTHD = h.RTRVLPLANDOC_RTRVLMTHD;
+////        this.BRCDNO = h.BRCDNO;
+////        this.RTRVLDSUSE_SEQ = h.RTRVLDSUSE_SEQ;
+////        this.CRET_DTM = h.CRET_DTM;
+////        this.PRDLST_REPORT_NO = h.PRDLST_REPORT_NO;
+////        this.MNFDT = h.MNFDT;
+////        this.PRDLST_CD_NM = h.PRDLST_CD_NM;
+////        this.RTRVLPRVNS = h.RTRVLPRVNS;
+////        this.PRDTNM = h.PRDTNM;
+////        this.PRCSCITYPOINT_TELNO = h.PRCSCITYPOINT_TELNO;
+////        this.ADDR = h.ADDR;
+////        this.IMG_FILE_PATH = h.IMG_FILE_PATH;
+////        this.PRDLST_TYPE = h.PRDLST_TYPE;
+////        this.category = h.category;
+////        this.save = h.save;
+////        this.temp = h.temp;
+////    }
 }

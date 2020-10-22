@@ -1,6 +1,7 @@
 package c.foodsafety.food_android.fragment.detailpage;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +11,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import c.foodsafety.food_android.R;
@@ -21,6 +25,8 @@ import c.foodsafety.food_android.adapter.ViewPagerAdapter;
 import c.foodsafety.food_android.dataservice.DataService;
 import c.foodsafety.food_android.pojo.ChildFood;
 import c.foodsafety.food_android.pojo.HarmFood;
+import c.foodsafety.food_android.room.entity.HarmEntity;
+import c.foodsafety.food_android.room.viewmodel.HarmViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,18 +52,22 @@ public class HarmDetail extends Fragment {
     ImageView store_star;
     TextView store_number;
 
+    HarmViewModel harmViewModel;
+
     private int saveCount;
     DataService dataService = new DataService();
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
-        view = inflater.inflate(R.layout.detail_fragment_harm ,container, false);
+    private HarmEntity deleteEntity;
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
+        view = inflater.inflate(R.layout.detail_fragment_harm, container, false);
 
         //toolbar(actionbar)
-        myToolbar = (Toolbar)view.findViewById(R.id.category_toolbar);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(myToolbar);
+        myToolbar = (Toolbar) view.findViewById(R.id.category_toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(myToolbar);
 
         //뒤로가기 버튼 만들기
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         card_list_lank = view.findViewById(R.id.card_list_lank);
         detail_title = view.findViewById(R.id.detail_title);
@@ -83,14 +93,14 @@ public class HarmDetail extends Fragment {
         store_star = view.findViewById(R.id.store_star);
         store_number = view.findViewById(R.id.store_number);
 
-        if(getArguments()!=null) {
-            harmFood = getArguments().getParcelable("harmObject");
+        if (getArguments() != null) {
+            harmFood = (HarmFood) getArguments().getSerializable("harmObject");
 
             List<Object> imgUrl = new ArrayList<>();
 
             int n = setUrl(harmFood.getIMG_FILE_PATH()).length;
 
-            for(int i=0; i<n; i++){
+            for (int i = 0; i < n; i++) {
                 imgUrl.add(setUrl(harmFood.getIMG_FILE_PATH())[i].trim());
             }
 
@@ -123,23 +133,76 @@ public class HarmDetail extends Fragment {
             store_number.setText(String.valueOf(saveCount));
 
             //Glide.with(detail_img).load(setUrl(harmFood.getIMG_FILE_PATH())[0]).into(detail_img);
+            harmViewModel = new ViewModelProvider(this).get(HarmViewModel.class);
+            harmViewModel.getOneById(harmFood.getId()).observe(getViewLifecycleOwner(), new Observer<HarmEntity>() {
+                @Override
+                public void onChanged(HarmEntity harmEntity) {
+                    deleteEntity = harmEntity;
+                    if (deleteEntity != null) {
+                        store_star.setSelected(true);
+                    }
+                    else {
+                        store_star.setSelected(false);
+                    }
+                }
+            });
 
         }
 
         store_star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!store_star.isSelected()){
+                if (!store_star.isSelected()) {
                     saveCount++;
                 } else {
                     saveCount--;
                 }
-                store_star.setSelected(!store_star.isSelected());
                 dataService.update.updateHarmSaveCnt(saveCount, harmFood.getId()).enqueue(new Callback<HarmFood>() {
                     @Override
                     public void onResponse(Call<HarmFood> call, Response<HarmFood> response) {
-                        int saveCnt = response.body().getSave();
+                        HarmFood harmFood = response.body();
+
+                        if (!store_star.isSelected()) {
+                            HarmEntity harmEntity = new HarmEntity();
+
+                            //builder패턴이란?
+                            harmEntity.setId(harmFood.getId());
+                            harmEntity.setPRDLST_CD(harmFood.getPRDLST_CD());
+                            harmEntity.setFRMLCUNIT(harmFood.getFRMLCUNIT());
+                            harmEntity.setRTRVL_GRDCD_NM(harmFood.getRTRVL_GRDCD_NM());
+                            harmEntity.setBSSHNM(harmFood.getBSSHNM());
+                            harmEntity.setDISTBTMLMT(harmFood.getDISTBTMLMT());
+                            harmEntity.setRTRVLPLANDOC_RTRVLMTHD(harmFood.getRTRVLPLANDOC_RTRVLMTHD());
+                            harmEntity.setBRCDNO(harmFood.getBRCDNO());
+                            harmEntity.setRTRVLDSUSE_SEQ(harmFood.getRTRVLDSUSE_SEQ());
+                            harmEntity.setCRET_DTM(harmFood.getCRET_DTM());
+                            harmEntity.setPRDLST_REPORT_NO(harmFood.getPRDLST_REPORT_NO());
+                            harmEntity.setMNFDT(harmFood.getMNFDT());
+                            harmEntity.setPRDLST_CD_NM(harmFood.getPRDLST_CD_NM());
+                            harmEntity.setRTRVLPRVNS(harmFood.getRTRVLPRVNS());
+                            harmEntity.setPRDTNM(harmFood.getPRDTNM());
+                            harmEntity.setPRCSCITYPOINT_TELNO(harmFood.getPRCSCITYPOINT_TELNO());
+                            harmEntity.setADDR(harmFood.getADDR());
+                            harmEntity.setIMG_FILE_PATH(harmFood.getIMG_FILE_PATH());
+                            harmEntity.setPRDLST_TYPE(harmFood.getPRDLST_TYPE());
+                            harmEntity.setCategory(harmFood.getCategory());
+                            harmEntity.setSave(harmFood.getSave());
+                            harmEntity.setTemp(harmFood.getTemp());
+
+                            harmEntity.setSavedDate(new Date());
+
+                            Log.d("PRINT_HARMENTITY", harmEntity.toString());
+
+                            harmViewModel.insert(harmEntity);
+
+                        } else {
+                            harmViewModel.delete(deleteEntity);
+                        }
+
+                        store_star.setSelected(!store_star.isSelected());
+                        int saveCnt = harmFood.getSave();
                         store_number.setText(String.valueOf(saveCnt));
+
                     }
 
                     @Override
@@ -153,12 +216,12 @@ public class HarmDetail extends Fragment {
         return view;
     }
 
-    public String[] setUrl(String Urls){
+    public String[] setUrl(String Urls) {
         String[] parsedUrl = Urls.split(",");
         return parsedUrl;
     }
 
-    public void setAdapter(ViewPager2 v){
+    public void setAdapter(ViewPager2 v) {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(imgUrl, getContext());
         detail_img_viewpager.setAdapter(viewPagerAdapter);
     }

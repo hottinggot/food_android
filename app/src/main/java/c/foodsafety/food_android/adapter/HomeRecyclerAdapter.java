@@ -138,34 +138,36 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     Bundle b = new Bundle(1);
                     int pos = h.home_category_recycler.getChildAdapterPosition(view);
 
-                    if(list.get(0) instanceof String){
+                    if(list.get(pos) instanceof String){
 
                         FoodOnFragment foodOnFragment = new FoodOnFragment((String)list.get(pos));
 
+                        //앱바 텍스트 설정
 //                        b.putString("categoryString", (String)list.get(pos));
 //                        foodOnFragment.setArguments(b);
 
-                        //FoodOn 으로
+                        ((MainActivity) context).onFragmentChanged(foodOnFragment);
 
                     }
-                    else if(list.get(1) instanceof HaccpFood){
+                    else if(list.get(pos) instanceof HaccpFood){
 
                         HaccpDetail haccpDetail = new HaccpDetail();
 
-                        b.putParcelable("haccpFood", (HaccpFood)list.get(pos));
+                        b.putSerializable("haccpObject", (HaccpFood)list.get(pos));
                         haccpDetail.setArguments(b);
 
-                        //HaccpDetail 이동
+                        ((MainActivity) context).onFragmentChanged(haccpDetail);
 
                     }
-                    else if(list.get(1) instanceof HarmFood){
+                    else if(list.get(pos) instanceof HarmFood){
 
                         HarmDetail harmDetail = new HarmDetail();
 
-                        b.putParcelable("harmFood", (HarmFood)list.get(pos));
+                        b.putSerializable("harmObject", (HarmFood)list.get(pos));
                         harmDetail.setArguments(b);
 
-                        //HarmDetail 이동
+                        ((MainActivity) context).onFragmentChanged(harmDetail);
+
                     }
                 }
             });

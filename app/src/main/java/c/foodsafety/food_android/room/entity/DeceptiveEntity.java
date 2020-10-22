@@ -6,21 +6,13 @@ import androidx.room.PrimaryKey;
 import java.io.Serializable;
 import java.util.Date;
 
+import c.foodsafety.food_android.pojo.DeceptiveFood;
 import lombok.Data;
 
 @Entity(tableName = "deceptive_food")
 @Data
-public class DeceptiveEntity implements Serializable {
+public class DeceptiveEntity extends DeceptiveFood implements Serializable {
     @PrimaryKey(autoGenerate = true)
-    private int id;
-    private String PRDUCT;
-    private String ENTRPS;
-    private String ADRES1;
-    private String FOUND_CN;
-    private String DSPS_DT;
-    private String DSPS_CMMND;
-    private String VIOLT;
-    private String EVDNC_FILE;
-    private String category;
+    private int mypageId;
     private Date savedDate;
 }

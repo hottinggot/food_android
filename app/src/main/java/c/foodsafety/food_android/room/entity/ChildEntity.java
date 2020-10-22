@@ -13,45 +13,14 @@ import java.io.Serializable;
 import java.util.Date;
 
 import c.foodsafety.food_android.pojo.ChildFood;
+import c.foodsafety.food_android.pojo.Food;
 import lombok.Data;
 
 @Data
-
 @Entity(tableName = "child_food")
-public class ChildEntity extends ChildFood{
+public class ChildEntity extends ChildFood implements Serializable {
     @PrimaryKey(autoGenerate = true)
-    private int mypageId;
-    private Date savedDate;
+    public int mypageId;
+    public Date savedDate;
 
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeInt(this.mypageId);
-        dest.writeLong(this.savedDate != null ? this.savedDate.getTime() : -1);
-    }
-
-    protected ChildEntity(Parcel in) {
-        super(in);
-        this.mypageId = in.readInt();
-        long tmpSavedDate = in.readLong();
-        this.savedDate = tmpSavedDate == -1 ? null : new Date(tmpSavedDate);
-    }
-
-    public static final Creator<ChildEntity> CREATOR = new Creator<ChildEntity>() {
-        @Override
-        public ChildEntity createFromParcel(Parcel source) {
-            return new ChildEntity(source);
-        }
-
-        @Override
-        public ChildEntity[] newArray(int size) {
-            return new ChildEntity[size];
-        }
-    };
 }
