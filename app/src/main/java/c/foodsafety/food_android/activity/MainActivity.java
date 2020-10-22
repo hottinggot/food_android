@@ -6,6 +6,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +28,7 @@ import c.foodsafety.food_android.fragment.FoodOnFragment;
 import c.foodsafety.food_android.fragment.HomeFragment;
 import c.foodsafety.food_android.fragment.MyPageFragment;
 import c.foodsafety.food_android.fragment.ToolbarFragment;
+import c.foodsafety.food_android.room.viewmodel.ChildViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     private FoodOnFragment foodOnFragment;
     private DeceptiveFragment deceptiveFragment;
     private MyPageFragment myPageFragment;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+
 
 
 

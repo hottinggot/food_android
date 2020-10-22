@@ -8,6 +8,10 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import c.foodsafety.food_android.pojo.ChildFood;
 import c.foodsafety.food_android.room.dao.ChildDao;
 import c.foodsafety.food_android.room.dao.DeceptiveDao;
 import c.foodsafety.food_android.room.dao.HaccpDao;
@@ -21,17 +25,31 @@ import c.foodsafety.food_android.room.entity.HarmEntity;
 @TypeConverters({RoomTypeConverter.class})
 public abstract class FoodDatabase extends RoomDatabase {
     public abstract ChildDao childDao();
+
     public abstract DeceptiveDao deceptiveDao();
+
     public abstract HaccpDao haccpDao();
+
     public abstract HarmDao harmDao();
 
-    private static FoodDatabase mFoodDatabase;
+    //Singleton
+    private static FoodDatabase INSTANCE;
 
-    public static FoodDatabase getInstance(Context context){
-        if(mFoodDatabase == null) {
-            mFoodDatabase = Room.databaseBuilder(context.getApplicationContext(),
-                    FoodDatabase.class, "food_db").build();
+    private static final int NUMBER_OF_THREADS = 4;
+    public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+
+    public static FoodDatabase getInstance(Context context) {
+        synchronized (FoodDatabase.class) {
+            if (INSTANCE == null) {
+                INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                        FoodDatabase.class, "food_db").build();
+            }
+            return INSTANCE;
         }
-        return mFoodDatabase;
+
     }
+
+
+
 }
+

@@ -4,23 +4,14 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_margin="7dp"
-        app:cardCornerRadius="10dp"
-        android:elevation="15dp"
-        android:id="@+id/good_or_bad_card">
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_margin="7dp"
             android:id="@+id/good_or_bad_object"
             android:src="@drawable/harm1"
+            android:background="@drawable/border_round_rectangle"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-             />
-
-    </androidx.cardview.widget.CardView>
+            android:scaleType="centerCrop" />
 
 </LinearLayout>

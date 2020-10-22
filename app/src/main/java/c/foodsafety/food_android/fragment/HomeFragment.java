@@ -69,6 +69,12 @@ public class HomeFragment extends Fragment {
 
     private String [] titleList = new String[10];
 
+    Food goodLabel;
+    Food badLabel;
+
+    private final int GOOD = 0;
+    private final int BAD = 1;
+
 
     @Override
     @NonNull
@@ -160,81 +166,81 @@ public class HomeFragment extends Fragment {
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
             searchView.setQueryHint(getString(R.string.search_hint));
             searchView.setIconifiedByDefault(false);
-            searchView.setOnQueryTextListener(queryTextListener);
+            //searchView.setOnQueryTextListener(queryTextListener);
         }
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    private SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
-        @Override
-        public boolean onQueryTextSubmit(String query) {
-            foodOnListFragment = new FoodOnListFragment();
-            dataService.select.selectSearchResult(query).enqueue(new Callback<List<Food>>() {
-                @Override
-                public void onResponse(Call<List<Food>> call, Response<List<Food>> response) {
-                    foodList = response.body();
-                    for(Food food: foodList){
-                        if(food.getType()=="HACCP"){
-                            dataService.select.selectOneByTitleHaccp(food.getTitle()).enqueue(new Callback<HaccpFood>() {
-                                @Override
-                                public void onResponse(Call<HaccpFood> call, Response<HaccpFood> response) {
-                                    HaccpFood h = response.body();
-                                    newFoodList.add(h);
-                                }
-
-                                @Override
-                                public void onFailure(Call<HaccpFood> call, Throwable t) {
-
-                                }
-                            });
-                        }
-                        else if(food.getType()=="CHILD"){
-                            dataService.select.selectOneByTitleChild(food.getTitle()).enqueue(new Callback<ChildFood>() {
-                                @Override
-                                public void onResponse(Call<ChildFood> call, Response<ChildFood> response) {
-                                    ChildFood c = response.body();
-                                    newFoodList.add(c);
-                                }
-
-                                @Override
-                                public void onFailure(Call<ChildFood> call, Throwable t) {
-
-                                }
-                            });
-                        }
-                        else if(food.getType()=="HARM"){
-                            dataService.select.selectOneByTitleHarm(food.getTitle()).enqueue(new Callback<HarmFood>() {
-                                @Override
-                                public void onResponse(Call<HarmFood> call, Response<HarmFood> response) {
-                                    HarmFood h = response.body();
-                                    newFoodList.add(h);
-                                }
-
-                                @Override
-                                public void onFailure(Call<HarmFood> call, Throwable t) {
-
-                                }
-                            });
-                        }
-                    }
-                    bundle.putParcelableArrayList("newFoodList", (ArrayList<? extends Parcelable>) newFoodList);
-                    foodOnListFragment.setArguments(bundle);
-                }
-
-                @Override
-                public void onFailure(Call<List<Food>> call, Throwable t) {
-
-                }
-            });
-
-            return true;
-        }
-
-        @Override
-        public boolean onQueryTextChange(String newText) {
-            return true;
-        }
-    };
+//    private SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+//        @Override
+//        public boolean onQueryTextSubmit(String query) {
+//            foodOnListFragment = new FoodOnListFragment();
+//            dataService.select.selectSearchResult(query).enqueue(new Callback<List<Food>>() {
+//                @Override
+//                public void onResponse(Call<List<Food>> call, Response<List<Food>> response) {
+//                    foodList = response.body();
+//                    for(Food food: foodList){
+//                        if(food.getType()=="HACCP"){
+//                            dataService.select.selectOneByTitleHaccp(food.getTitle()).enqueue(new Callback<HaccpFood>() {
+//                                @Override
+//                                public void onResponse(Call<HaccpFood> call, Response<HaccpFood> response) {
+//                                    HaccpFood h = response.body();
+//                                    newFoodList.add(h);
+//                                }
+//
+//                                @Override
+//                                public void onFailure(Call<HaccpFood> call, Throwable t) {
+//
+//                                }
+//                            });
+//                        }
+//                        else if(food.getType()=="CHILD"){
+//                            dataService.select.selectOneByTitleChild(food.getTitle()).enqueue(new Callback<ChildFood>() {
+//                                @Override
+//                                public void onResponse(Call<ChildFood> call, Response<ChildFood> response) {
+//                                    ChildFood c = response.body();
+//                                    newFoodList.add(c);
+//                                }
+//
+//                                @Override
+//                                public void onFailure(Call<ChildFood> call, Throwable t) {
+//
+//                                }
+//                            });
+//                        }
+//                        else if(food.getType()=="HARM"){
+//                            dataService.select.selectOneByTitleHarm(food.getTitle()).enqueue(new Callback<HarmFood>() {
+//                                @Override
+//                                public void onResponse(Call<HarmFood> call, Response<HarmFood> response) {
+//                                    HarmFood h = response.body();
+//                                    newFoodList.add(h);
+//                                }
+//
+//                                @Override
+//                                public void onFailure(Call<HarmFood> call, Throwable t) {
+//
+//                                }
+//                            });
+//                        }
+//                    }
+//                    bundle.putParcelableArrayList("newFoodList", (ArrayList<? extends Parcelable>) newFoodList);
+//                    foodOnListFragment.setArguments(bundle);
+//                }
+//
+//                @Override
+//                public void onFailure(Call<List<Food>> call, Throwable t) {
+//
+//                }
+//            });
+//
+//            return true;
+//        }
+//
+//        @Override
+//        public boolean onQueryTextChange(String newText) {
+//            return true;
+//        }
+//    };
 
     private String setCategoryString(int pos) {
         switch (pos) {
@@ -276,17 +282,25 @@ public class HomeFragment extends Fragment {
         dataService.select.selectHaccpFoodByCategory(setCategoryString(n)).enqueue(new Callback<List<HaccpFood>>() {
             @Override
             public void onResponse(Call<List<HaccpFood>> call, Response<List<HaccpFood>> response) {
-                if(response.body().size() > 0){
-                    homeRecyclerList.add(response.body());
+                final List<Food> tempHaccp = new ArrayList<>();
+                for(Food f: response.body()){
+                    tempHaccp.add(f);
                 }
-
+                if(tempHaccp.size() > 0){
+                    tempHaccp.add(0, goodLabel);
+                    homeRecyclerList.add(tempHaccp);
+                }
 
                 dataService.select.selectAllHarmFoodByCategory(setCategoryString(n)).enqueue(new Callback<List<HarmFood>>() {
                     @Override
                     public void onResponse(Call<List<HarmFood>> call, Response<List<HarmFood>> response) {
-
-                        if(response.body().size() > 0){
-                            homeRecyclerList.add(response.body());
+                        List<Food> tempHarm = new ArrayList<>();
+                        for(Food f: response.body()){
+                            tempHarm.add(f);
+                        }
+                        if(tempHarm.size() > 0){
+                            tempHarm.add(0, badLabel);
+                            homeRecyclerList.add(tempHarm);
                         }
                         setGoodorBadCategory(n+1);
                     }

@@ -60,11 +60,11 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 return CATEGORY_MENU;
             }
 
-            if(tempList.size()>0 && tempList.get(0) instanceof HaccpFood){
+            if(tempList.size()>0 && tempList.get(1) instanceof HaccpFood){
                 return GOOD_LIST;
             }
 
-            if(tempList.size()>0 && tempList.get(0) instanceof HarmFood){
+            if(tempList.size()>0 && tempList.get(1) instanceof HarmFood){
                 return BAD_LIST;
             }
 
@@ -131,7 +131,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             h.home_category_recycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
             final List<Object> list = (List<Object>)homeRecyclerList.get(position);
-            HorizontalAdapter horizontalAdapter = new HorizontalAdapter(list);
+            HorizontalAdapter horizontalAdapter = new HorizontalAdapter(list, context);
             horizontalAdapter.setOnItemViewClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -148,7 +148,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         //FoodOn 으로
 
                     }
-                    else if(list.get(0) instanceof HaccpFood){
+                    else if(list.get(1) instanceof HaccpFood){
 
                         HaccpDetail haccpDetail = new HaccpDetail();
 
@@ -158,7 +158,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         //HaccpDetail 이동
 
                     }
-                    else if(list.get(0) instanceof HarmFood){
+                    else if(list.get(1) instanceof HarmFood){
 
                         HarmDetail harmDetail = new HarmDetail();
 
@@ -170,7 +170,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
             });
 
-            setRecyclerBackground(h, list);
+            //setRecyclerBackground(h, list);
 
             h.home_category_recycler.setAdapter(horizontalAdapter);
         }
@@ -212,15 +212,15 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    void setRecyclerBackground(CategoryViewHolder holder, List<Object> list){
-        if(list.get(0) instanceof String){
-            holder.category_layout.setBackgroundColor(ContextCompat.getColor(context, R.color.fui_transparent));
-        }
-        else if(list.get(0) instanceof HaccpFood){
-            holder.category_layout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorHaccpBlue));
-        }
-        else if(list.get(0) instanceof HarmFood){
-            holder.category_layout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorThirdPink));
-        }
-    }
+//    void setRecyclerBackground(CategoryViewHolder holder, List<Object> list){
+//        if(list.get(0) instanceof String){
+//            holder.category_layout.setBackgroundColor(ContextCompat.getColor(context, R.color.fui_transparent));
+//        }
+//        else if(list.get(0) instanceof HaccpFood){
+//            holder.category_layout.setBackgroundColor(ContextCompat.getColor(context, R.color.fui_transparent));
+//        }
+//        else if(list.get(0) instanceof HarmFood){
+//            holder.category_layout.setBackgroundColor(ContextCompat.getColor(context, R.color.fui_transparent));
+//        }
+//    }
 }

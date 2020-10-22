@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,13 +44,16 @@ public class DeceptiveFragment extends Fragment {
 
     ListAdapter listAdapter;
 
+    Food explain;
+
+
     @Override
     @NonNull
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
         view = inflater.inflate(R.layout.fragment_deceptive_ad, container, false);
 
         //toolbar(actionbar)
-        Toolbar myToolbar = (Toolbar)view.findViewById(R.id.search_toolbar);
+        myToolbar = (Toolbar)view.findViewById(R.id.search_toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(myToolbar);
 
         setHasOptionsMenu(true);
@@ -92,6 +96,7 @@ public class DeceptiveFragment extends Fragment {
                     foodList.add(food);
                 }
                 deceptiveList = foodList;
+                deceptiveList.add(0, explain);
                 listAdapter = new ListAdapter(deceptiveList, getContext());
 
                 setAdapter(myRecyclerView);

@@ -1,5 +1,6 @@
 package c.foodsafety.food_android.room.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Query;
 
@@ -10,5 +11,5 @@ import c.foodsafety.food_android.room.entity.HarmEntity;
 @Dao
 public interface HarmDao {
     @Query("select * from harm_food")
-    List<HarmEntity> findHarmAll();
+    LiveData<List<HarmEntity>> findHarmAll();
 }

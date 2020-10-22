@@ -18,6 +18,8 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import javax.crypto.spec.PSource;
+
 import c.foodsafety.food_android.R;
 import c.foodsafety.food_android.pojo.ChildFood;
 import c.foodsafety.food_android.pojo.DeceptiveFood;
@@ -30,6 +32,8 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Food> foodList;
     private View.OnClickListener onItemViewClickListener;
     private Context context;
+
+    private Food food;
 
     public ListAdapter(List<Food> foodList, Context context) {
         this.foodList = foodList;
@@ -55,7 +59,7 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             return 3;
         }
 
-        else return 0;
+        else return 4;
     }
 
     @Override
@@ -90,6 +94,10 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     view.setOnClickListener(onItemViewClickListener);
                 }
                 return new DeceptiveViewHolder(view);
+
+            case 4:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_object_explain_deceptive, parent, false);
+                return new ExplainDeceptiveViewHolder(view);
 
         }
         return null;
@@ -148,6 +156,11 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             deceptiveViewHolder.deceptive_date.setText(deceptiveFood.getDSPS_DT());
             deceptiveViewHolder.store_number.setText(String.valueOf(deceptiveFood.getSave()));
 
+        }
+
+        else {
+            ExplainDeceptiveViewHolder explainDeceptiveViewHolder = (ExplainDeceptiveViewHolder) holder;
+            Food food = foodList.get(position);
         }
 
     }
@@ -238,6 +251,16 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             deceptive_lank = itemView.findViewById(R.id.deceptive_lank);
             store_star = itemView.findViewById(R.id.store_star);
             store_number = itemView.findViewById(R.id.store_number);
+        }
+    }
+
+    class ExplainDeceptiveViewHolder extends RecyclerView.ViewHolder{
+        CardView explain;
+
+        ExplainDeceptiveViewHolder(View itemView){
+            super(itemView);
+
+            explain = itemView.findViewById(R.id.explain);
         }
     }
 }

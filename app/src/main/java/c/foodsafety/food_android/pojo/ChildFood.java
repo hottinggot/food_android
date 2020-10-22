@@ -3,6 +3,12 @@ package c.foodsafety.food_android.pojo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+import java.io.Serializable;
+
 import lombok.Data;
 
 @Data
@@ -22,7 +28,6 @@ public class ChildFood extends Food implements Parcelable {
     private String imgUrl;
     private int save;
     private String temp;
-
 
     @Override
     public int describeContents() {
@@ -48,7 +53,7 @@ public class ChildFood extends Food implements Parcelable {
         dest.writeString(this.temp);
     }
 
-    protected ChildFood(Parcel in) {
+    public ChildFood(Parcel in) {
         super(in);
         this.id = in.readInt();
         this.PRDLST_NM = in.readString();
@@ -66,15 +71,5 @@ public class ChildFood extends Food implements Parcelable {
         this.temp = in.readString();
     }
 
-    public static final Creator<ChildFood> CREATOR = new Creator<ChildFood>() {
-        @Override
-        public ChildFood createFromParcel(Parcel source) {
-            return new ChildFood(source);
-        }
 
-        @Override
-        public ChildFood[] newArray(int size) {
-            return new ChildFood[size];
-        }
-    };
 }

@@ -1,14 +1,24 @@
 package c.foodsafety.food_android.adapter;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 
 import java.util.List;
 
@@ -25,26 +35,32 @@ public class HorizontalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final int CATEGORY_MENU = 0;
     private final int GOOD_LIST = 1;
     private final int BAD_LIST = 2;
+    private final int LABEL = 3;
+
+    Context context;
 
     private View.OnClickListener onItemViewClickListener;
 
-    public HorizontalAdapter(List<Object> dataList) {
+    public HorizontalAdapter(List<Object> dataList, Context context) {
         this.dataList = dataList;
+        this.context = context;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if(dataList.get(0) instanceof String){
+        if(dataList.get(position) instanceof String){
             return CATEGORY_MENU;
         }
-        else if(dataList.get(0) instanceof HaccpFood) {
+        else if(dataList.get(position) instanceof HaccpFood) {
             return GOOD_LIST;
         }
-        else if(dataList.get(0) instanceof HarmFood) {
+        else if(dataList.get(position) instanceof HarmFood) {
             return BAD_LIST;
         }
+        else {
+            return LABEL;
+        }
 
-        else return 1;
     }
 
     @Override
@@ -73,6 +89,13 @@ public class HorizontalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
                 return new BadListViewHolder(view);
 
+            case LABEL:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_object_label, parent, false);
+                if(onItemViewClickListener!=null){
+                    view.setOnClickListener(onItemViewClickListener);
+                }
+                return new LabelViewHolder(view);
+
             default: return null;
         }
     }
@@ -82,32 +105,86 @@ public class HorizontalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return dataList.size();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if(holder instanceof SelectCategoryViewHolder) {
-            ((SelectCategoryViewHolder) holder).circle_category.setText((String)(dataList.get(position)));
+            SelectCategoryViewHolder h = (SelectCategoryViewHolder)holder;
+            String engCategory;
+            switch ((String)(dataList.get(position))){
+                case "음료∙차∙주류":
+                    engCategory = context.getString(R.string.eng_tab_item_1);
+                    break;
+                case "과자∙빵류∙아이스크림":
+                    engCategory = context.getString(R.string.eng_tab_item_2);
+                    break;
+                case "유제품∙축산물":
+                    engCategory = context.getString(R.string.eng_tab_item_3);
+                    break;
+                case "가공식품":
+                    engCategory = context.getString(R.string.eng_tab_item_4);
+                    break;
+                case "농수산물":
+                    engCategory = context.getString(R.string.eng_tab_item_5);
+                    break;
+                case "소스∙장류":
+                    engCategory = context.getString(R.string.eng_tab_item_6);
+                    break;
+                case "건강기능식품":
+                    engCategory = context.getString(R.string.eng_tab_item_7);
+                    break;
+                case "식용유지류":
+                    engCategory = context.getString(R.string.eng_tab_item_8);
+                    break;
+                case "기타":
+                    engCategory = context.getString(R.string.eng_tab_item_9);
+                    break;
+                default: engCategory = "";
+            }
+            h.circle_category.setText(engCategory);
+            h.text_category.setText((String)(dataList.get(position)));
         }
 
         else if(holder instanceof GoodListViewHolder) {
             HaccpFood haccpFood = (HaccpFood) dataList.get(position);
-            Glide.with(((GoodListViewHolder) holder).good_or_bad_object).load(haccpFood.getImgurl1()).into(((GoodListViewHolder) holder).good_or_bad_object);
+            Glide.with(((GoodListViewHolder) holder).good_or_bad_object)
+                    .load(haccpFood.getImgurl1())
+                    .transform(new CenterCrop(), new RoundedCorners(17))
+                    .into(((GoodListViewHolder) holder).good_or_bad_object);
         }
 
         else if(holder instanceof BadListViewHolder) {
             HarmFood harmFood = (HarmFood) dataList.get(position);
             Glide.with(((BadListViewHolder) holder).good_or_bad_object)
                     .load(setUrl(harmFood.getIMG_FILE_PATH())[0])
+                    .transform(new CenterCrop(), new RoundedCorners(17))
                     .into(((BadListViewHolder) holder).good_or_bad_object);
+        }
+        else if(holder instanceof LabelViewHolder){
+            LabelViewHolder h = (LabelViewHolder)holder;
+            if(dataList.get(1) instanceof HaccpFood){
+
+                h.label_img.setBackgroundColor(ContextCompat.getColor(context, R.color.colorHaccpBlue));
+                Glide.with(h.label_img).load(h.label_img).circleCrop().into(h.label_img);
+                h.label_text.setText(R.string.label_good);
+            }
+            else if(dataList.get(1) instanceof HarmFood){
+
+                h.label_img.setBackgroundColor(ContextCompat.getColor(context, R.color.colorSecondPink));
+                Glide.with(h.label_img).load(h.label_img).circleCrop().into(h.label_img);
+                h.label_text.setText(R.string.label_bad);
+            }
         }
     }
 
     class SelectCategoryViewHolder extends RecyclerView.ViewHolder {
 
-        TextView circle_category;
+        TextView circle_category, text_category;
 
         SelectCategoryViewHolder(View view){
             super(view);
             circle_category = view.findViewById(R.id.circle_category);
+            text_category = view.findViewById(R.id.text_category);
         }
     }
 
@@ -128,6 +205,18 @@ public class HorizontalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         BadListViewHolder(View view) {
             super(view);
             good_or_bad_object = view.findViewById(R.id.good_or_bad_object);
+        }
+    }
+
+    class LabelViewHolder extends RecyclerView.ViewHolder {
+
+        ImageView label_img;
+        TextView label_text;
+
+        LabelViewHolder(View view) {
+            super(view);
+            label_img = view.findViewById(R.id.label_img);
+            label_text = view.findViewById(R.id.label_text);
         }
     }
 

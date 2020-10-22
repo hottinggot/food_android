@@ -63,6 +63,18 @@
     <string name="tab_item_7">건강기능식품</string>
     <string name="tab_item_8">식용유지류</string>
     <string name="tab_item_9">기타</string>
+
+    <string name="eng_tab_item_0">ALL</string>
+    <string name="eng_tab_item_1">Drinks</string>
+    <string name="eng_tab_item_2">Snacks</string>
+    <string name="eng_tab_item_3">Dairy Livestock Products</string>
+    <string name="eng_tab_item_4">Processed Food</string>
+    <string name="eng_tab_item_5">Agricultural Marin Products</string>
+    <string name="eng_tab_item_6">Sauce</string>
+    <string name="eng_tab_item_7">Health Functional Food</string>
+    <string name="eng_tab_item_8">Oils</string>
+    <string name="eng_tab_item_9">etc.</string>
+
     
     <string name="explain_1">식품의약품안전처에서 </string>
     <string name="explain_haccp">HACCP 인증</string>
@@ -129,6 +141,8 @@
     <string name="tab_my_page_3">과대광고 적발 식품</string>
 
     <string name="stored">저장한 상품</string>
+    <string name="label_good">인증</string>
+    <string name="label_bad">위해</string>
 
 
 </resources>
