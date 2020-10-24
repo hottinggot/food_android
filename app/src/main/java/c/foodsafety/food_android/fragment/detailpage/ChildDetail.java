@@ -10,13 +10,20 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+
+import java.util.Date;
 
 import c.foodsafety.food_android.R;
 import c.foodsafety.food_android.activity.MainActivity;
 import c.foodsafety.food_android.dataservice.DataService;
 import c.foodsafety.food_android.pojo.ChildFood;
+import c.foodsafety.food_android.room.entity.ChildEntity;
+import c.foodsafety.food_android.room.viewmodel.ChildViewModel;
+import c.foodsafety.food_android.room.viewmodel.HaccpViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,6 +41,9 @@ public class ChildDetail extends Fragment {
 
     private int saveCount;
     DataService dataService = new DataService();
+
+    private ChildViewModel childViewModel;
+    private ChildEntity deleteEntity;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
         view = inflater.inflate(R.layout.detail_fragment_child ,container, false);
@@ -60,6 +70,7 @@ public class ChildDetail extends Fragment {
         store_star = view.findViewById(R.id.store_star);
         store_number = view.findViewById(R.id.store_number);
 
+
         //child 객체 받아오기
         if(getArguments()!=null){
             childFood = (ChildFood) getArguments().getSerializable("childObject");
@@ -79,6 +90,19 @@ public class ChildDetail extends Fragment {
             store_number.setText(String.valueOf(saveCount));
         }
 
+        childViewModel = new ViewModelProvider(this).get(ChildViewModel.class);
+        childViewModel.getOneById(childFood.getId()).observe(getViewLifecycleOwner(), new Observer<ChildEntity>() {
+            @Override
+            public void onChanged(ChildEntity childEntity) {
+                deleteEntity = childEntity;
+                if(deleteEntity!=null){
+                    store_star.setSelected(true);
+                } else {
+                    store_star.setSelected(false);
+                }
+            }
+        });
+
         store_star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,10 +111,38 @@ public class ChildDetail extends Fragment {
                 } else {
                     saveCount--;
                 }
-                store_star.setSelected(!store_star.isSelected());
+
                 dataService.update.updateChildSaveCnt(saveCount, childFood.getId()).enqueue(new Callback<ChildFood>() {
                     @Override
                     public void onResponse(Call<ChildFood> call, Response<ChildFood> response) {
+
+                        ChildFood childFood = response.body();
+
+                        if(!store_star.isSelected()){
+                            ChildEntity childEntity = new ChildEntity();
+                            childEntity.setId(childFood.getId());
+                            childEntity.setPRDLST_NM(childFood.getPRDLST_NM());
+                            childEntity.setBSSH_NM(childFood.getBSSH_NM());
+                            childEntity.setLCNS_NO(childFood.getLCNS_NO());
+                            childEntity.setCN_WT(childFood.getCN_WT());
+                            childEntity.setCHILD_FFQ_CRTFC_NO(childFood.getCHILD_FFQ_CRTFC_NO());
+                            childEntity.setCHILD_FAVOR_FOOD_TYPE_NM(childFood.getCHILD_FAVOR_FOOD_TYPE_NM());
+                            childEntity.setAPPN_BGN_DT(childFood.getAPPN_BGN_DT());
+                            childEntity.setPRDLST_CD_NM(childFood.getPRDLST_CD_NM());
+                            childEntity.setAPPN_END_DT(childFood.getAPPN_END_DT());
+                            childEntity.setCategory(childFood.getCategory());
+                            childEntity.setImgUrl(childFood.getImgUrl());
+                            childEntity.setSave(childFood.getSave());
+                            childEntity.setTemp(childFood.getTemp());
+
+                            childEntity.setSavedDate(new Date());
+
+                            childViewModel.insert(childEntity);
+                        }
+                        else {
+                            childViewModel.delete(deleteEntity);
+                        }
+                        store_star.setSelected(!store_star.isSelected());
                         int saveCnt = response.body().getSave();
                         store_number.setText(String.valueOf(saveCnt));
                     }

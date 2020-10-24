@@ -1,10 +1,12 @@
 package c.foodsafety.food_android.fragment.detailpage;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +15,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.ArrayList;
@@ -21,9 +25,12 @@ import java.util.List;
 
 import c.foodsafety.food_android.R;
 import c.foodsafety.food_android.activity.MainActivity;
+import c.foodsafety.food_android.adapter.HorizontalAdapter;
 import c.foodsafety.food_android.adapter.ViewPagerAdapter;
 import c.foodsafety.food_android.dataservice.DataService;
 import c.foodsafety.food_android.pojo.ChildFood;
+import c.foodsafety.food_android.pojo.Food;
+import c.foodsafety.food_android.pojo.HaccpFood;
 import c.foodsafety.food_android.pojo.HarmFood;
 import c.foodsafety.food_android.room.entity.HarmEntity;
 import c.foodsafety.food_android.room.viewmodel.HarmViewModel;
@@ -54,13 +61,24 @@ public class HarmDetail extends Fragment {
 
     HarmViewModel harmViewModel;
 
+    RecyclerView alternative_recycler;
+
+    Context context;
+
     private int saveCount;
     DataService dataService = new DataService();
 
     private HarmEntity deleteEntity;
 
+    private List<Object> alternativeHaccpList;
+    //private List<ChildFood> alternativeChildList;
+
+    HorizontalAdapter horizontalAdapter;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
         view = inflater.inflate(R.layout.detail_fragment_harm, container, false);
+
+        context = getActivity();
 
         //toolbar(actionbar)
         myToolbar = (Toolbar) view.findViewById(R.id.category_toolbar);
@@ -107,7 +125,7 @@ public class HarmDetail extends Fragment {
 
             this.imgUrl = imgUrl;
 
-            setAdapter(detail_img_viewpager);
+            setViewPagerAdapter(detail_img_viewpager);
 
 
             card_list_lank.setText("회수 " + harmFood.getRTRVL_GRDCD_NM());
@@ -149,6 +167,28 @@ public class HarmDetail extends Fragment {
 
         }
 
+        setStarEvent();
+
+
+        alternative_recycler = view.findViewById(R.id.alternative_recycler);
+        alternative_recycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        setAlternativeData();
+
+
+        return view;
+    }
+
+    private String[] setUrl(String Urls) {
+        String[] parsedUrl = Urls.split(",");
+        return parsedUrl;
+    }
+
+    private void setViewPagerAdapter(ViewPager2 v) {
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(imgUrl, getContext());
+        detail_img_viewpager.setAdapter(viewPagerAdapter);
+    }
+
+    private void setStarEvent(){
         store_star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -213,16 +253,37 @@ public class HarmDetail extends Fragment {
             }
         });
 
-        return view;
     }
 
-    public String[] setUrl(String Urls) {
-        String[] parsedUrl = Urls.split(",");
-        return parsedUrl;
+    private void setAlternativeData(){
+        String category = harmFood.getCategory();
+        dataService.select.selectHaccpFoodByCategory(category).enqueue(new Callback<List<HaccpFood>>() {
+            @Override
+            public void onResponse(Call<List<HaccpFood>> call, Response<List<HaccpFood>> response) {
+                List<Object> tempList = new ArrayList<>();
+                for(Object h: response.body()){
+                    tempList.add(h);
+                }
+                alternativeHaccpList = tempList;
+                setHorizontalAdapter(alternative_recycler);
+            }
+
+            @Override
+            public void onFailure(Call<List<HaccpFood>> call, Throwable t) {
+
+            }
+        });
+
     }
 
-    public void setAdapter(ViewPager2 v) {
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(imgUrl, getContext());
-        detail_img_viewpager.setAdapter(viewPagerAdapter);
+    private void setHorizontalAdapter(RecyclerView recyclerView){
+        horizontalAdapter = new HorizontalAdapter(alternativeHaccpList, context);
+        horizontalAdapter.setOnItemViewClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        recyclerView.setAdapter(horizontalAdapter);
     }
 }

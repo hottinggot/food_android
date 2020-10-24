@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -9,63 +8,78 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        app:cardBackgroundColor="@color/colorWhite"
-        android:layout_marginRight="10dp"
-        android:elevation="0dp"
-        android:layout_marginBottom="3dp"
         android:layout_marginTop="5dp"
-        app:cardCornerRadius="15dp" >
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="3dp"
+        android:elevation="0dp"
+        app:cardBackgroundColor="@color/colorWhite"
+        app:cardCornerRadius="15dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
             android:layout_marginBottom="15dp">
 
 
             <TextView
+                android:id="@+id/deceptive_product_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 android:text="과대광고 제품명"
-                android:textStyle="bold"
                 android:textSize="17sp"
-                android:id="@+id/deceptive_product_name"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/deceptive_product_company"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textSize="13sp"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 android:text="회사명"
-                android:id="@+id/deceptive_product_company"
-                app:layout_constraintTop_toBottomOf="@id/deceptive_product_name"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/deceptive_product_name" />
 
             <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:text="행정처분일자"
-            android:textSize="13sp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="1dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="15dp"
-            android:textColor="@color/colorBlack"
-            android:id="@+id/deceptive_date"
-            app:layout_constraintStart_toEndOf="@+id/deceptive_product_company"
-            app:layout_constraintTop_toBottomOf="@id/deceptive_product_name" />
+                android:id="@+id/deceptive_date_"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
+                android:text="행정처분일자: "
+                android:textSize="13sp"
+                app:layout_constraintStart_toEndOf="@+id/deceptive_product_company"
+                app:layout_constraintTop_toBottomOf="@id/deceptive_product_name" />
+
+            <TextView
+                android:id="@+id/deceptive_date"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
+                android:text="행정처분일자"
+                android:textSize="13sp"
+                app:layout_constraintStart_toEndOf="@+id/deceptive_date_"
+                app:layout_constraintTop_toBottomOf="@id/deceptive_product_name" />
 
             <ImageView
                 android:id="@+id/store_star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="7dp"
                 android:src="@drawable/round_star_black_18dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/deceptive_product_company"
@@ -73,24 +87,26 @@
 
 
             <TextView
+                android:id="@+id/store_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="store"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:id="@+id/store_number"
-                app:layout_constraintTop_toBottomOf="@id/deceptive_product_company"
-                app:layout_constraintStart_toEndOf="@+id/store_star" />
+                android:includeFontPadding="false"
+                android:fontFamily="@font/app_font"
+                android:text="store"
+                app:layout_constraintStart_toEndOf="@+id/store_star"
+                app:layout_constraintTop_toBottomOf="@id/deceptive_product_company" />
 
             <ImageView
+                android:id="@+id/deceptive_img"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/harm1"
-                android:id="@+id/deceptive_img"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                android:src="@drawable/deceptive__"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

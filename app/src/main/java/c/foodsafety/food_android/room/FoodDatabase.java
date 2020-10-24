@@ -11,8 +11,10 @@ import androidx.room.TypeConverters;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import c.foodsafety.food_android.room.dao.ChildDao;
 import c.foodsafety.food_android.room.dao.DeceptiveDao;
-import c.foodsafety.food_android.room.dao.HaccpAndChildDao;
+//import c.foodsafety.food_android.room.dao.HaccpAndChildDao;
+import c.foodsafety.food_android.room.dao.HaccpDao;
 import c.foodsafety.food_android.room.dao.HarmDao;
 import c.foodsafety.food_android.room.entity.ChildEntity;
 import c.foodsafety.food_android.room.entity.DeceptiveEntity;
@@ -30,7 +32,6 @@ public abstract class FoodDatabase extends RoomDatabase {
 
     abstract public HarmDao harmDao();
 
-    abstract public HaccpAndChildDao haccpAndChildDao();
 
     //Singleton
     private static FoodDatabase INSTANCE;

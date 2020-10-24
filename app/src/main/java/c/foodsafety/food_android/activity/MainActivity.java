@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -30,12 +31,15 @@ import c.foodsafety.food_android.fragment.DeceptiveFragment;
 import c.foodsafety.food_android.fragment.FoodOnFragment;
 import c.foodsafety.food_android.fragment.HomeFragment;
 import c.foodsafety.food_android.fragment.MyPageFragment;
-import c.foodsafety.food_android.fragment.ToolbarFragment;
 import c.foodsafety.food_android.pojo.Food;
+import c.foodsafety.food_android.room.entity.ChildEntity;
 import c.foodsafety.food_android.room.entity.DeceptiveEntity;
+import c.foodsafety.food_android.room.entity.HaccpEntity;
 import c.foodsafety.food_android.room.entity.HarmEntity;
+import c.foodsafety.food_android.room.viewmodel.ChildViewModel;
 import c.foodsafety.food_android.room.viewmodel.DeceptiveViewModel;
-import c.foodsafety.food_android.room.viewmodel.HaccpAndChildViewModel;
+//import c.foodsafety.food_android.room.viewmodel.HaccpAndChildViewModel;
+import c.foodsafety.food_android.room.viewmodel.HaccpViewModel;
 import c.foodsafety.food_android.room.viewmodel.HarmViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,20 +52,22 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar myToolbar;
     private BottomNavigationView myNavigationBar;
 
-    private ToolbarFragment toolbarFragment;
 
     private HomeFragment homeFragment;
     private FoodOnFragment foodOnFragment;
     private DeceptiveFragment deceptiveFragment;
     private MyPageFragment myPageFragment;
 
-    private HaccpAndChildViewModel haccpAndChildViewModel;
+    private HaccpViewModel haccpViewModel;
+    private ChildViewModel childViewModel;
     private HarmViewModel harmViewModel;
     private DeceptiveViewModel deceptiveViewModel;
 
     private List<Food> temp = new ArrayList<>();
 
-    private Object [] allFoodList = new Object[3];
+    private Object [] allFoodList = new Object[4];
+
+    public static Context mContext;
 
 
 
@@ -72,26 +78,49 @@ public class MainActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         setContentView(layout.activity_main);
 
+        mContext = this;
+
         //fragment
-        toolbarFragment = new ToolbarFragment();
         homeFragment = new HomeFragment();
         foodOnFragment = new FoodOnFragment("전체");
         deceptiveFragment = new DeceptiveFragment();
 
         //room
-        haccpAndChildViewModel = new ViewModelProvider(this).get(HaccpAndChildViewModel.class);
+        haccpViewModel = new ViewModelProvider(this).get(HaccpViewModel.class);
+        childViewModel = new ViewModelProvider(this).get(ChildViewModel.class);
         harmViewModel = new ViewModelProvider(this).get(HarmViewModel.class);
         deceptiveViewModel = new ViewModelProvider(this).get(DeceptiveViewModel.class);
 
-        haccpAndChildViewModel.getGoodListAll().observe(this, new Observer<List<Food>>() {
+        haccpViewModel.getAllHaccp().observe(this, new Observer<List<HaccpEntity>>() {
             @Override
-            public void onChanged(List<Food> foodList) {
-                allFoodList[0] = foodList;
-                if(allFoodList[0]!=null && allFoodList[1]!=null && allFoodList[2]!=null){
+            public void onChanged(List<HaccpEntity> haccpEntities) {
+                List<Food> foods = new ArrayList<>();
+                for(Food f: haccpEntities){
+                    foods.add(f);
+                }
+
+                allFoodList[0] = foods;
+                if(allFoodList[0]!=null && allFoodList[1]!=null && allFoodList[2]!=null && allFoodList[3]!=null){
                     myPageFragment = new MyPageFragment(allFoodList);
                 }
             }
         });
+
+        childViewModel.getAllChild().observe(this, new Observer<List<ChildEntity>>() {
+            @Override
+            public void onChanged(List<ChildEntity> childEntities) {
+                List<Food> foods = new ArrayList<>();
+                for(Food f : childEntities){
+                    foods.add(f);
+                }
+                allFoodList[1] = foods;
+                if(allFoodList[0]!=null && allFoodList[1]!=null && allFoodList[2]!=null && allFoodList[3]!=null){
+                    myPageFragment = new MyPageFragment(allFoodList);
+                }
+            }
+        });
+
+
 
         harmViewModel.getAllHarm().observe(this, new Observer<List<HarmEntity>>() {
             @Override
@@ -100,8 +129,8 @@ public class MainActivity extends AppCompatActivity {
                 for(Food f: harmEntities){
                     foods.add(f);
                 }
-                allFoodList[1] = foods;
-                if(allFoodList[0]!=null && allFoodList[1]!=null && allFoodList[2]!=null){
+                allFoodList[2] = foods;
+                if(allFoodList[0]!=null && allFoodList[1]!=null && allFoodList[2]!=null && allFoodList[3]!=null){
                     myPageFragment = new MyPageFragment(allFoodList);
                 }
 
@@ -115,20 +144,14 @@ public class MainActivity extends AppCompatActivity {
                 for(Food f: deceptiveEntities){
                     foods.add(f);
                 }
-                allFoodList[2] = foods;
+                allFoodList[3] = foods;
 
-                if(allFoodList[0]!=null && allFoodList[1]!=null && allFoodList[2]!=null){
+                if(allFoodList[0]!=null && allFoodList[1]!=null && allFoodList[2]!=null && allFoodList[3]!=null){
                     myPageFragment = new MyPageFragment(allFoodList);
                 }
 
             }
         });
-
-
-
-
-
-
 
 
         FragmentManager fm = getSupportFragmentManager();

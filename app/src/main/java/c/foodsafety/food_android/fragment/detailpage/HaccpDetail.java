@@ -10,9 +10,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import c.foodsafety.food_android.R;
@@ -21,7 +24,11 @@ import c.foodsafety.food_android.adapter.ViewPagerAdapter;
 import c.foodsafety.food_android.dataservice.DataService;
 import c.foodsafety.food_android.pojo.ChildFood;
 import c.foodsafety.food_android.pojo.HaccpFood;
-import c.foodsafety.food_android.room.viewmodel.HaccpAndChildViewModel;
+//import c.foodsafety.food_android.room.viewmodel.HaccpAndChildViewModel;
+import c.foodsafety.food_android.room.entity.ChildEntity;
+import c.foodsafety.food_android.room.entity.HaccpEntity;
+import c.foodsafety.food_android.room.viewmodel.ChildViewModel;
+import c.foodsafety.food_android.room.viewmodel.HaccpViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,7 +54,10 @@ public class HaccpDetail extends Fragment {
     private int saveCount;
     DataService dataService = new DataService();
 
-    HaccpAndChildViewModel haccpAndChildViewModel;
+    HaccpViewModel haccpViewModel;
+    HaccpEntity deleteEntity;
+
+    //HaccpAndChildViewModel haccpAndChildViewModel;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
         view = inflater.inflate(R.layout.detail_fragment_haccp ,container, false);
@@ -77,6 +87,8 @@ public class HaccpDetail extends Fragment {
 
         store_star = view.findViewById(R.id.store_star);
         store_number = view.findViewById(R.id.store_number);
+
+
 
         //haccp 객체 받아오기
         if(getArguments()!=null) {
@@ -111,6 +123,19 @@ public class HaccpDetail extends Fragment {
             //Glide.with(detail_img).load(haccpFood.getImgurl1()).into(detail_img);
         }
 
+        haccpViewModel = new ViewModelProvider(this).get(HaccpViewModel.class);
+        haccpViewModel.getOndById(haccpFood.getId()).observe(getViewLifecycleOwner(), new Observer<HaccpEntity>() {
+            @Override
+            public void onChanged(HaccpEntity haccpEntity) {
+                deleteEntity = haccpEntity;
+                if(deleteEntity!=null){
+                    store_star.setSelected(true);
+                } else {
+                    store_star.setSelected(false);
+                }
+            }
+        });
+
 
 
         store_star.setOnClickListener(new View.OnClickListener() {
@@ -121,10 +146,44 @@ public class HaccpDetail extends Fragment {
                 } else {
                     saveCount--;
                 }
-                store_star.setSelected(!store_star.isSelected());
+
                 dataService.update.updateHaccpSaveCnt(saveCount, haccpFood.getId()).enqueue(new Callback<HaccpFood>() {
                     @Override
                     public void onResponse(Call<HaccpFood> call, Response<HaccpFood> response) {
+
+                        HaccpFood haccpFood = response.body();
+
+                        if(!store_star.isSelected()){
+
+                            HaccpEntity haccpEntity = new HaccpEntity();
+
+                            haccpEntity.setId(haccpFood.getId());
+                            haccpEntity.setNutrient(haccpFood.getNutrient());
+                            haccpEntity.setRawmtrl(haccpFood.getRawmtrl());
+                            haccpEntity.setPrdlstNm(haccpFood.getPrdlstNm());
+                            haccpEntity.setImgurl2(haccpFood.getImgurl2());
+                            haccpEntity.setBarcode(haccpFood.getBarcode());
+                            haccpEntity.setImgurl1(haccpFood.getImgurl1());
+                            haccpEntity.setProductGb(haccpFood.getProductGb());
+                            haccpEntity.setSeller(haccpFood.getSeller());
+                            haccpEntity.setPrdkindstate(haccpFood.getPrdkindstate());
+                            haccpEntity.setRnum(haccpFood.getRnum());
+                            haccpEntity.setManufacture(haccpFood.getManufacture());
+                            haccpEntity.setPrdkind(haccpFood.getPrdkind());
+                            haccpEntity.setCapacity(haccpFood.getCapacity());
+                            haccpEntity.setPrdlstReportNo(haccpFood.getPrdlstReportNo());
+                            haccpEntity.setAllergy(haccpFood.getAllergy());
+                            haccpEntity.setCategory(haccpFood.getCategory());
+                            haccpEntity.setSave(haccpFood.getSave());
+                            haccpEntity.setTemp(haccpFood.getTemp());
+
+                            haccpEntity.setSavedDate(new Date());
+                            haccpViewModel.insert(haccpEntity);
+                        }
+                        else {
+                            haccpViewModel.delete(deleteEntity);
+                        }
+                        store_star.setSelected(!store_star.isSelected());
                         int saveCnt = response.body().getSave();
                         store_number.setText(String.valueOf(saveCnt));
                     }

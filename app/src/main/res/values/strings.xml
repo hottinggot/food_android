@@ -8,16 +8,16 @@
     <string name="my">MY</string>
     <string name="confirmed_food">인증 식품</string>
     <string name="stopped_food">회수 및 판매중지 식품</string>
-    
+
     <string name="haccp">HACCP</string>
     <string name="confirmed">인증</string>
     <string name="haccp_full">HACCP 인증</string>
-    
+
     <string name="child">어린이</string>
     <string name="child2">기호식품</string>
     <string name="child3">품질인증</string>
     <string name="child_full">어린이 기호식품 품질인증</string>
-    
+
     <string name="harm_1">위해∙회수 1등급</string>
     <string name="harm_2">위해∙회수 2등급</string>
     <string name="harm_3">위해∙회수 3등급</string>
@@ -25,14 +25,14 @@
     <string name="harm_1_judgement">위해∙회수 1등급 판정</string>
     <string name="harm_2_judgement">위해∙회수 2등급 판정</string>
     <string name="harm_3_judgement">위해∙회수 3등급 판정</string>
-    
+
     <string name="haccp_content_1">안전하고 깨끗한 제품을</string>
     <string name="haccp_content_2">공급하기 위한</string>
     <string name="haccp_content_3">식품안전관리인증기준</string>
-    
+
     <string name="child_content_1">안전하고 영양을 고루 갖춘</string>
     <string name="child_content_2">어린이 기호식품</string>
-    
+
     <string name="harm_content_1">인체건강에 미치는</string>
 
     <string name="harm_1_content">위해 영향이 매우 큰 식품</string>
@@ -52,7 +52,7 @@
     <string name="card_list_lank_1">회수 1등급</string>
     <string name="card_list_lank_2">회수 2등급</string>
     <string name="card_list_lank_3">회수 3등급</string>
-    
+
     <string name="tab_item_0">전체</string>
     <string name="tab_item_1">음료∙차∙주류</string>
     <string name="tab_item_2">과자∙빵류∙아이스크림</string>
@@ -75,7 +75,7 @@
     <string name="eng_tab_item_8">Oils</string>
     <string name="eng_tab_item_9">etc.</string>
 
-    
+
     <string name="explain_1">식품의약품안전처에서 </string>
     <string name="explain_haccp">HACCP 인증</string>
     <string name="explain_child">어린이 기호식품 품질인증</string>
@@ -127,7 +127,7 @@
     <string name="detail_harm_13">전화번호</string>
     <string name="detail_harm_14">업체주소</string>
     <string name="detail_harm_15">식품분류</string>
-    
+
     <string name="detail_deceptive_1">업체명</string>
     <string name="detail_deceptive_2">우편번호주소</string>
     <string name="detail_deceptive_3">광고(적발)내용</string>
@@ -136,13 +136,17 @@
     <string name="detail_deceptive_6">위반법령</string>
     <string name="detail_deceptive_7">증거파일</string>
 
-    <string name="tab_my_page_1">인증 식품</string>
-    <string name="tab_my_page_2">회수∙판매중지 식품</string>
-    <string name="tab_my_page_3">과대광고 적발 식품</string>
+    <string name="tab_my_page_1">HACCP인증</string>
+    <string name="tab_my_page_2">어린이품질인증</string>
+    <string name="tab_my_page_3">회수∙판매중지 식품</string>
+    <string name="tab_my_page_4">과대광고 적발 식품</string>
 
     <string name="stored">저장한 상품</string>
     <string name="label_good">인증</string>
     <string name="label_bad">위해</string>
+
+    <string name="alternative">대체상품 추천</string>
+    <string name="recommended_keyword">추천 키워드</string>
 
 
 </resources>

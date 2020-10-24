@@ -4,26 +4,29 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
+    android:layout_marginTop="7dp"
+    android:layout_marginBottom="7dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+
     android:orientation="vertical">
 
-
     <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
         android:id="@+id/label_img"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/circle_label"
-        android:padding="15dp"
-        android:layout_margin="7dp"
-        android:src="@drawable/baseline_label_black_18dp"
-        app:tint="@color/colorWhite" />
-
+        android:background="@color/fui_transparent"
+        android:src="@drawable/good_icon" />
 
     <TextView
         android:id="@+id/label_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="인증"
+        android:fontFamily="@font/app_font"
+        android:includeFontPadding="false"
         android:textColor="@color/colorBlack"
-        android:textSize="13dp" />
+        android:textSize="10dp" />
 
 </LinearLayout>

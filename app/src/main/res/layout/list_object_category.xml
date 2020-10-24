@@ -10,6 +10,8 @@
         android:textAlignment="center"
         android:textSize="13dp"
         android:layout_margin="10dp"
+        android:fontFamily="@font/app_font"
+        android:includeFontPadding="false"
         android:id="@+id/circle_category"
         android:textStyle="bold"
         android:background="@drawable/circle"
@@ -21,6 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/text_category"
+        android:fontFamily="@font/app_font"
+        android:includeFontPadding="false"
         android:text="@string/tab_item_2"
         android:gravity="center"
         android:textSize="11dp" />

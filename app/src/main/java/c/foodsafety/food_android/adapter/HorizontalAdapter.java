@@ -164,14 +164,12 @@ public class HorizontalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             LabelViewHolder h = (LabelViewHolder)holder;
             if(dataList.get(1) instanceof HaccpFood){
 
-                h.label_img.setBackgroundColor(ContextCompat.getColor(context, R.color.colorHaccpBlue));
-                Glide.with(h.label_img).load(h.label_img).circleCrop().into(h.label_img);
+                Glide.with(h.label_img).load(context.getResources().getDrawable(R.drawable.good_icon)).into(h.label_img);
                 h.label_text.setText(R.string.label_good);
             }
             else if(dataList.get(1) instanceof HarmFood){
 
-                h.label_img.setBackgroundColor(ContextCompat.getColor(context, R.color.colorSecondPink));
-                Glide.with(h.label_img).load(h.label_img).circleCrop().into(h.label_img);
+                Glide.with(h.label_img).load(context.getResources().getDrawable(R.drawable.harm_icon)).into(h.label_img);
                 h.label_text.setText(R.string.label_bad);
             }
         }

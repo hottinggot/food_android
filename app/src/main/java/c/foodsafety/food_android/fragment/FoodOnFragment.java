@@ -76,7 +76,6 @@ public class FoodOnFragment extends Fragment {
         myToolbar = (Toolbar)view.findViewById(R.id.category_toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(myToolbar);
 
-        setHasOptionsMenu(true);
 
         haccp_menu = view.findViewById(R.id.haccp_menu);
         child_menu = view.findViewById(R.id.child_menu);

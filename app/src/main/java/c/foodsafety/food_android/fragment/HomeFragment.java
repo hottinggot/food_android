@@ -2,6 +2,7 @@ package c.foodsafety.food_android.fragment;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -27,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import c.foodsafety.food_android.R;
+import c.foodsafety.food_android.activity.MainActivity;
+import c.foodsafety.food_android.activity.SearchActivity;
 import c.foodsafety.food_android.adapter.HomeRecyclerAdapter;
 import c.foodsafety.food_android.dataservice.DataService;
 import c.foodsafety.food_android.pojo.ChildFood;
@@ -75,6 +78,8 @@ public class HomeFragment extends Fragment {
     private final int GOOD = 0;
     private final int BAD = 1;
 
+    SearchResultFragment searchResultFragment;
+
 
     @Override
     @NonNull
@@ -100,10 +105,9 @@ public class HomeFragment extends Fragment {
 
     private void setAllDataList(){
         //CardNews
-        cardNewsList.add(getResources().getDrawable(R.drawable.haccp));
-        cardNewsList.add(getResources().getDrawable(R.drawable.child));
-        cardNewsList.add(getResources().getDrawable(R.drawable.harm1));
-
+//        cardNewsList.add(getResources().getDrawable(R.drawable.haccp));
+//        cardNewsList.add(getResources().getDrawable(R.drawable.child));
+//        cardNewsList.add(getResources().getDrawable(R.drawable.harm1));
         //homeRecyclerList.add(cardNewsList);
 
         //category title
@@ -157,18 +161,38 @@ public class HomeFragment extends Fragment {
         inflater.inflate(R.menu.search_menu, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
 
-        SearchManager searchManager = (SearchManager)getActivity().getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView)searchItem.getActionView();
+//        SearchManager searchManager = (SearchManager)getActivity().getSystemService(Context.SEARCH_SERVICE);
+//        SearchView searchView = (SearchView)searchItem.getActionView();
+//
+//        searchView.onActionViewExpanded(); //전체 영역 터치가능
+//
+//        if(searchManager!=null){
+//            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+//            searchView.setQueryHint(getString(R.string.search_hint));
+//            searchView.setIconifiedByDefault(false);
+//            //searchView.setOnQueryTextListener(queryTextListener);
+//        }
+//        super.onCreateOptionsMenu(menu, inflater);
 
-        searchView.onActionViewExpanded(); //전체 영역 터치가능
+//        searchItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem menuItem) {
+//                Intent intent = new Intent(getContext(), SearchActivity.class);
+//                startActivity(intent);
+//                return false;
+//            }
+//        });
 
-        if(searchManager!=null){
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-            searchView.setQueryHint(getString(R.string.search_hint));
-            searchView.setIconifiedByDefault(false);
-            //searchView.setOnQueryTextListener(queryTextListener);
-        }
-        super.onCreateOptionsMenu(menu, inflater);
+        searchItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                searchResultFragment = new SearchResultFragment();
+
+                ((MainActivity)MainActivity.mContext).onFragmentChanged(searchResultFragment);
+
+                return false;
+            }
+        });
     }
 
 //    private SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {

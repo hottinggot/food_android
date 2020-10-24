@@ -23,10 +23,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_toolbar" >
 
+
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:text="@string/tab_my_page_1" />
 
         <com.google.android.material.tabs.TabItem
@@ -39,6 +39,11 @@
             android:layout_height="wrap_content"
             android:text="@string/tab_my_page_3" />
 
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_my_page_4" />
+
     </com.google.android.material.tabs.TabLayout>
 
     <TextView
@@ -46,6 +51,8 @@
         android:layout_height="wrap_content"
         android:text="@string/stored"
         android:id="@+id/text_stored"
+        android:fontFamily="@font/app_font"
+        android:includeFontPadding="false"
         android:layout_marginTop="15dp"
         android:textStyle="bold"
         android:layout_marginLeft="10dp"

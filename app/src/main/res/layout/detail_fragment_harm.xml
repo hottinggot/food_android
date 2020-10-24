@@ -45,6 +45,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/store_number"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 android:text="store"
                 android:textSize="15dp"
                 android:layout_marginRight="20dp"
@@ -56,6 +58,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/card_list_lank"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 android:text="@string/card_list_lank_1"
                 android:textColor="@color/colorRedPink"
                 android:layout_marginTop="30dp"
@@ -69,6 +73,8 @@
                 android:id="@+id/detail_title"
                 android:textSize="30sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 app:layout_constraintTop_toBottomOf="@+id/card_list_lank"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -93,11 +99,15 @@
 
                     <TextView
                         android:layout_width="wrap_content"
+                        android:fontFamily="@font/app_font"
+                        android:includeFontPadding="false"
                         android:layout_height="wrap_content"
                         android:text="#" />
 
                     <TextView
                         android:layout_width="wrap_content"
+                        android:fontFamily="@font/app_font"
+                        android:includeFontPadding="false"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:text="tag" />
@@ -110,6 +120,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_1"
                 android:id="@+id/detail_harm_1"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 app:layout_constraintTop_toBottomOf="@+id/tag"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="30dp" />
@@ -118,6 +130,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_1"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 android:id="@+id/detail_harm_1_content"
                 app:layout_constraintTop_toBottomOf="@+id/tag"
                 app:layout_constraintStart_toEndOf="@id/detail_harm_1"
@@ -127,6 +141,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 android:text="@string/detail_harm_2"
                 android:id="@+id/detail_harm_2"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_1_content"
@@ -137,6 +153,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_2"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 android:id="@+id/detail_harm_2_content"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_1_content"
                 app:layout_constraintStart_toEndOf="@id/detail_harm_2"
@@ -147,6 +165,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_3"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 android:id="@+id/detail_harm_3"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_2_content"
                 app:layout_constraintStart_toStartOf="parent"
@@ -155,6 +175,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 android:text="@string/detail_harm_3"
                 android:id="@+id/detail_harm_3_content"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_2_content"
@@ -167,6 +189,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_4"
                 android:id="@+id/detail_harm_4"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_3_content"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="8dp" />
@@ -176,6 +200,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_4"
                 android:id="@+id/detail_harm_4_content"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_3_content"
                 app:layout_constraintStart_toEndOf="@id/detail_harm_4"
                 android:layout_marginTop="8dp"
@@ -184,6 +210,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 android:text="@string/detail_harm_5"
                 android:id="@+id/detail_harm_5"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_4_content"
@@ -194,6 +222,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_5"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 android:id="@+id/detail_harm_5_content"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_4_content"
                 app:layout_constraintStart_toEndOf="@id/detail_harm_5"
@@ -205,6 +235,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_6"
                 android:id="@+id/detail_harm_6"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_5_content"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="8dp" />
@@ -213,6 +245,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_6"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 android:id="@+id/detail_harm_6_content"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_5_content"
                 app:layout_constraintStart_toEndOf="@id/detail_harm_6"
@@ -222,6 +256,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 android:text="@string/detail_harm_7"
                 android:id="@+id/detail_harm_7"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_6_content"
@@ -233,6 +269,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_7"
                 android:id="@+id/detail_harm_7_content"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_6_content"
                 app:layout_constraintStart_toEndOf="@id/detail_harm_7"
                 android:layout_marginTop="8dp"
@@ -243,6 +281,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_8"
                 android:id="@+id/detail_harm_8"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_7_content"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="8dp" />
@@ -251,6 +291,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_8"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 android:id="@+id/detail_harm_8_content"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_7_content"
                 app:layout_constraintStart_toEndOf="@id/detail_harm_8"
@@ -261,6 +303,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_9"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 android:id="@+id/detail_harm_9"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_8_content"
                 app:layout_constraintStart_toStartOf="parent"
@@ -271,6 +315,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_9"
                 android:id="@+id/detail_harm_9_content"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_8_content"
                 app:layout_constraintStart_toEndOf="@id/detail_harm_9"
                 android:layout_marginTop="8dp"
@@ -280,6 +326,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_10"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 android:id="@+id/detail_harm_10"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_9_content"
                 app:layout_constraintStart_toStartOf="parent"
@@ -288,6 +336,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 android:text="@string/detail_harm_10"
                 android:id="@+id/detail_harm_10_content"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_9_content"
@@ -299,6 +349,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_11"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 android:id="@+id/detail_harm_11"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_10_content"
                 app:layout_constraintStart_toStartOf="parent"
@@ -308,6 +360,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_11"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 android:id="@+id/detail_harm_11_content"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_10_content"
                 app:layout_constraintStart_toEndOf="@id/detail_harm_11"
@@ -319,6 +373,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_12"
                 android:id="@+id/detail_harm_12"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_11_content"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="8dp" />
@@ -327,6 +383,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_12"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 android:id="@+id/detail_harm_12_content"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_11_content"
                 app:layout_constraintStart_toEndOf="@id/detail_harm_12"
@@ -338,6 +396,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_13"
                 android:id="@+id/detail_harm_13"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_12_content"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="8dp" />
@@ -347,6 +407,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_13"
                 android:id="@+id/detail_harm_13_content"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_12_content"
                 app:layout_constraintStart_toEndOf="@id/detail_harm_13"
                 android:layout_marginTop="8dp"
@@ -357,6 +419,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_14"
                 android:id="@+id/detail_harm_14"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_13_content"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="8dp" />
@@ -366,6 +430,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_14"
                 android:id="@+id/detail_harm_14_content"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_13_content"
                 app:layout_constraintStart_toEndOf="@id/detail_harm_14"
                 android:layout_marginTop="8dp"
@@ -375,6 +441,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_15"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 android:id="@+id/detail_harm_15"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_14_content"
                 app:layout_constraintStart_toStartOf="parent"
@@ -385,14 +453,46 @@
                 android:layout_height="wrap_content"
                 android:text="@string/detail_harm_15"
                 android:id="@+id/detail_harm_15_content"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
                 app:layout_constraintTop_toBottomOf="@+id/detail_harm_14_content"
                 app:layout_constraintStart_toEndOf="@id/detail_harm_15"
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="10dp"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/alternative"
+                android:textSize="20dp"
+                android:fontFamily="@font/app_font"
+                android:includeFontPadding="false"
+                android:id="@+id/alternative_text"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@+id/detail_harm_15_content"
+                app:layout_constraintStart_toStartOf="parent" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/alternative_recycler"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                app:layout_constraintTop_toBottomOf="@+id/alternative_text"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                app:layout_constraintTop_toBottomOf="@+id/alternative_recycler"
+                app:layout_constraintStart_toStartOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     </ScrollView>
 

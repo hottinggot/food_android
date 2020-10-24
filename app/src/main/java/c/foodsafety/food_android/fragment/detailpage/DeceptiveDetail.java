@@ -61,13 +61,13 @@ public class DeceptiveDetail extends Fragment {
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         detail_title = view.findViewById(R.id.detail_title);
-        detail_deceptive_1 = view.findViewById(R.id.detail_deceptive_1);
-        detail_deceptive_2 = view.findViewById(R.id.detail_deceptive_2);
-        detail_deceptive_3 = view.findViewById(R.id.detail_deceptive_3);
-        detail_deceptive_4 = view.findViewById(R.id.detail_deceptive_4);
-        detail_deceptive_5 = view.findViewById(R.id.detail_deceptive_5);
-        detail_deceptive_6 = view.findViewById(R.id.detail_deceptive_6);
-        detail_deceptive_7 = view.findViewById(R.id.detail_deceptive_7);
+        detail_deceptive_1 = view.findViewById(R.id.detail_deceptive_1_content);
+        detail_deceptive_2 = view.findViewById(R.id.detail_deceptive_2_content);
+        detail_deceptive_3 = view.findViewById(R.id.detail_deceptive_3_content);
+        detail_deceptive_4 = view.findViewById(R.id.detail_deceptive_4_content);
+        detail_deceptive_5 = view.findViewById(R.id.detail_deceptive_5_content);
+        detail_deceptive_6 = view.findViewById(R.id.detail_deceptive_6_content);
+        detail_deceptive_7 = view.findViewById(R.id.detail_deceptive_7_content);
 
         store_star = view.findViewById(R.id.store_star);
         store_number = view.findViewById(R.id.store_number);
