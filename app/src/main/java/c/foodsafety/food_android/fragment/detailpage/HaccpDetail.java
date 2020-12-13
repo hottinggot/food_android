@@ -69,7 +69,7 @@ public class HaccpDetail extends Fragment {
         //뒤로가기 버튼 만들기
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        detail_title = view.findViewById(R.id.detail_haccp_1_content);
+        detail_title = view.findViewById(R.id.detail_title);
         detail_haccp_1_content = view.findViewById(R.id.detail_haccp_1_content);
         detail_haccp_2_content = view.findViewById(R.id.detail_haccp_2_content);
         detail_haccp_3_content = view.findViewById(R.id.detail_haccp_3_content);

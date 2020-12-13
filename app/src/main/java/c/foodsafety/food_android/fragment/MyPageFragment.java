@@ -40,6 +40,7 @@ public class MyPageFragment extends Fragment {
     }
 
 
+    String queryText = "";
     @Override
     @NonNull
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
@@ -87,7 +88,7 @@ public class MyPageFragment extends Fragment {
     }
 
     private void setAdapter(RecyclerView recyclerView){
-        adapter = new ListAdapter((List<Food>) foodListFromMain[0], getContext());
+        adapter = new ListAdapter((List<Food>) foodListFromMain[0],0, queryText, getContext());
         recyclerView.setAdapter(adapter);
     }
 

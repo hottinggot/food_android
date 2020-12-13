@@ -32,6 +32,7 @@ import c.foodsafety.food_android.fragment.FoodOnFragment;
 import c.foodsafety.food_android.fragment.HomeFragment;
 import c.foodsafety.food_android.fragment.MyPageFragment;
 import c.foodsafety.food_android.pojo.Food;
+import c.foodsafety.food_android.room.FoodDatabase;
 import c.foodsafety.food_android.room.entity.ChildEntity;
 import c.foodsafety.food_android.room.entity.DeceptiveEntity;
 import c.foodsafety.food_android.room.entity.HaccpEntity;
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FirebaseApp.initializeApp(this);
         setContentView(layout.activity_main);
+
 
         mContext = this;
 

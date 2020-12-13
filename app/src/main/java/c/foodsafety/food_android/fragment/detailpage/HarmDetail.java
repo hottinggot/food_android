@@ -257,7 +257,7 @@ public class HarmDetail extends Fragment {
 
     private void setAlternativeData(){
         String category = harmFood.getCategory();
-        dataService.select.selectHaccpFoodByCategory(category).enqueue(new Callback<List<HaccpFood>>() {
+        dataService.select.selectHaccpFoodByCategory(0, category,"").enqueue(new Callback<List<HaccpFood>>() {
             @Override
             public void onResponse(Call<List<HaccpFood>> call, Response<List<HaccpFood>> response) {
                 List<Object> tempList = new ArrayList<>();

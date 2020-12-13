@@ -142,10 +142,6 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                         FoodOnFragment foodOnFragment = new FoodOnFragment((String)list.get(pos));
 
-                        //앱바 텍스트 설정
-//                        b.putString("categoryString", (String)list.get(pos));
-//                        foodOnFragment.setArguments(b);
-
                         ((MainActivity) context).onFragmentChanged(foodOnFragment);
 
                     }

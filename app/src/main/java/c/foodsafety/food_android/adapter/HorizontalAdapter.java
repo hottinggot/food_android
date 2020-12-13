@@ -23,10 +23,14 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import java.util.List;
 
 import c.foodsafety.food_android.R;
+import c.foodsafety.food_android.dataservice.DataService;
 import c.foodsafety.food_android.fragment.detailpage.HaccpDetail;
 import c.foodsafety.food_android.pojo.Food;
 import c.foodsafety.food_android.pojo.HaccpFood;
 import c.foodsafety.food_android.pojo.HarmFood;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HorizontalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -38,6 +42,9 @@ public class HorizontalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final int LABEL = 3;
 
     Context context;
+
+    int maxPosition = 0;
+    DataService dataService = new DataService();
 
     private View.OnClickListener onItemViewClickListener;
 
@@ -146,6 +153,9 @@ public class HorizontalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         else if(holder instanceof GoodListViewHolder) {
+//            if (position % 15 == 12 && position > maxPosition){
+//
+//            }
             HaccpFood haccpFood = (HaccpFood) dataList.get(position);
             Glide.with(((GoodListViewHolder) holder).good_or_bad_object)
                     .load(haccpFood.getImgurl1())
@@ -154,6 +164,9 @@ public class HorizontalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         else if(holder instanceof BadListViewHolder) {
+//            if (position % 15 == 12 && position > maxPosition){
+//
+//            }
             HarmFood harmFood = (HarmFood) dataList.get(position);
             Glide.with(((BadListViewHolder) holder).good_or_bad_object)
                     .load(setUrl(harmFood.getIMG_FILE_PATH())[0])

@@ -2,6 +2,7 @@ package c.foodsafety.food_android.fragment;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,6 +32,7 @@ import java.util.List;
 
 import c.foodsafety.food_android.R;
 import c.foodsafety.food_android.activity.MainActivity;
+import c.foodsafety.food_android.activity.SearchActivity;
 import c.foodsafety.food_android.adapter.ListAdapter;
 import c.foodsafety.food_android.dataservice.DataService;
 import c.foodsafety.food_android.fragment.detailpage.ChildDetail;
@@ -63,13 +66,16 @@ public class FoodOnListFragment extends Fragment {
     private final int CATEGORY_ETC = 9;
 
     View view;
-    ConstraintLayout list_background;
+    LinearLayout list_background;
     Toolbar myToolbar;
     TabLayout myTabLayout;
     TextView explain_1, explain_content, explain_2;
     RecyclerView myRecyclerView;
 
     List<Food> foodList;
+
+    private String queryText = "";
+    //int position=0;
 
     ListAdapter listAdapter;
 
@@ -79,6 +85,8 @@ public class FoodOnListFragment extends Fragment {
     int categoryType;
 
     DataService dataService = new DataService();
+
+    private SearchResultFragment searchResultFragment;
 
     @Override
     @NonNull
@@ -93,11 +101,12 @@ public class FoodOnListFragment extends Fragment {
         if (getArguments() != null) {
             lankType = getArguments().getInt("lankType");
             categoryType = getArguments().getInt("categoryType");
+            Log.d("CATEGORY: ", String.valueOf(categoryType));
         }
 
         //toolbar(actionbar)
-        myToolbar = (Toolbar)view.findViewById(R.id.search_toolbar);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(myToolbar);
+        myToolbar = (Toolbar) view.findViewById(R.id.search_toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(myToolbar);
 
         setHasOptionsMenu(true);
 
@@ -122,12 +131,12 @@ public class FoodOnListFragment extends Fragment {
         setTabIndicatorColor(lankType);
         TabLayout.Tab tab = myTabLayout.getTabAt(categoryType);
         tab.select();
-        setTabContents(categoryType);
+        setTabContents(categoryType, queryText);
         myTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                int pos = tab.getPosition();
-                setTabContents(pos);
+                categoryType = tab.getPosition();
+                setTabContents(categoryType, queryText);
             }
 
             @Override
@@ -185,25 +194,42 @@ public class FoodOnListFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         inflater.inflate(R.menu.search_menu, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
 
-        SearchManager searchManager = (SearchManager)getActivity().getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView)searchItem.getActionView();
-
-        ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) searchItem.getActionView();
 
         searchView.onActionViewExpanded(); //전체 영역 터치가능
 
-        if(searchManager!=null){
+        if (searchManager != null) {
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
             searchView.setQueryHint(getString(R.string.search_hint));
             searchView.setIconifiedByDefault(false);
-            //searchView.setOnQueryTextListener(queryTextListener);
+            searchView.setOnQueryTextListener(queryTextListener);
         }
+
         super.onCreateOptionsMenu(menu, inflater);
     }
+
+    private SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+
+            return true;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String query) {
+            query = query.toLowerCase();
+            queryText = query;
+            setTabContents(categoryType, queryText);
+
+            return true;
+        }
+    };
 
     private void setExplainText(int type) {
         switch (type) {
@@ -237,23 +263,21 @@ public class FoodOnListFragment extends Fragment {
     }
 
     private void setTabIndicatorColor(int lankType) {
-        if(lankType==HACCP || lankType==CHILD){
-            myTabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context,R.color.colorTabBlue));
+        if (lankType == HACCP || lankType == CHILD) {
+            myTabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorTabBlue));
             myTabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.colorTabGray), ContextCompat.getColor(context, R.color.colorTabBlue));
-        }
-        else {
+        } else {
             myTabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorRedPink));
             myTabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.colorTabGray), ContextCompat.getColor(context, R.color.colorRedPink));
         }
     }
 
-    private void setTabContents(int pos) {
+    public void setTabContents(final int categoryType, final String queryText) {
 
         switch (lankType) {
-            case HACCP:
-                switch (pos) {
-                    case CATEGORY_ALL: {
-                        dataService.select.selectAllHaccpFood().enqueue(new Callback<List<HaccpFood>>() {
+            case HACCP: {
+                dataService.select.selectHaccpFoodByCategory(0, setCategoryString(categoryType), queryText)
+                        .enqueue(new Callback<List<HaccpFood>>() {
                             @Override
                             public void onResponse(Call<List<HaccpFood>> call, Response<List<HaccpFood>> response) {
                                 List<HaccpFood> haccpFoods = response.body();
@@ -262,28 +286,7 @@ public class FoodOnListFragment extends Fragment {
                                     tempList.add(f);
                                 }
                                 foodList = tempList;
-                                setAdapter(myRecyclerView);
-                            }
-
-                            @Override
-                            public void onFailure(Call<List<HaccpFood>> call, Throwable t) {
-
-                            }
-                        });
-                    }
-                    break;
-
-                    default: {
-                        dataService.select.selectHaccpFoodByCategory(setCategoryString(pos)).enqueue(new Callback<List<HaccpFood>>() {
-                            @Override
-                            public void onResponse(Call<List<HaccpFood>> call, Response<List<HaccpFood>> response) {
-                                List<HaccpFood> haccpFoods = response.body();
-                                List<Food> tempList = new ArrayList<>();
-                                for (Food f : haccpFoods) {
-                                    tempList.add(f);
-                                }
-                                foodList = tempList;
-                                setAdapter(myRecyclerView);
+                                setAdapter(myRecyclerView, categoryType, queryText);
                             }
 
                             @Override
@@ -291,14 +294,14 @@ public class FoodOnListFragment extends Fragment {
                                 Log.d("FAILURE!!!!", "fail");
                             }
                         });
-                    }
-                }
-                break;
+            }
+            break;
 
             case CHILD:
-                switch (pos) {
-                    case CATEGORY_ALL:
-                        dataService.select.selectAllChildFood().enqueue(new Callback<List<ChildFood>>() {
+
+
+                dataService.select.selectChildFoodByCategory(0, setCategoryString(categoryType), "")
+                        .enqueue(new Callback<List<ChildFood>>() {
                             @Override
                             public void onResponse(Call<List<ChildFood>> call, Response<List<ChildFood>> response) {
                                 List<ChildFood> childFoods = response.body();
@@ -307,7 +310,7 @@ public class FoodOnListFragment extends Fragment {
                                     tempList.add(f);
                                 }
                                 foodList = tempList;
-                                setAdapter(myRecyclerView);
+                                setAdapter(myRecyclerView, categoryType, queryText);
                             }
 
                             @Override
@@ -315,124 +318,79 @@ public class FoodOnListFragment extends Fragment {
 
                             }
                         });
-                        break;
 
-                    default:
-                        dataService.select.selectChildFoodByCategory(setCategoryString(pos))
-                                .enqueue(new Callback<List<ChildFood>>() {
-                                    @Override
-                                    public void onResponse(Call<List<ChildFood>> call, Response<List<ChildFood>> response) {
-                                        List<ChildFood> childFoods = response.body();
-                                        List<Food> tempList = new ArrayList<>();
-                                        for (Food f : childFoods) {
-                                            tempList.add(f);
-                                        }
-                                        foodList = tempList;
-                                        setAdapter(myRecyclerView);
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<List<ChildFood>> call, Throwable t) {
-
-                                    }
-                                });
-                }
                 break;
 
             case HARM1:
             case HARM2:
             case HARM3:
-                switch (pos) {
-                    case CATEGORY_ALL:
-                        dataService.select.selectByLankHarm(setLankString(lankType))
-                                .enqueue(new Callback<List<HarmFood>>() {
-                                    @Override
-                                    public void onResponse(Call<List<HarmFood>> call, Response<List<HarmFood>> response) {
-                                        List<HarmFood> harmFoods = response.body();
-                                        List<Food> tempList = new ArrayList<>();
-                                        for (Food f : harmFoods) {
-                                            tempList.add(f);
-                                        }
-                                        foodList = tempList;
-                                        setAdapter(myRecyclerView);
-                                    }
 
-                                    @Override
-                                    public void onFailure(Call<List<HarmFood>> call, Throwable t) {
+                dataService.select.selectHarmFoodByCategory(setLankString(lankType), 0, setCategoryString(categoryType), queryText)
+                        .enqueue(new Callback<List<HarmFood>>() {
+                            @Override
+                            public void onResponse(Call<List<HarmFood>> call, Response<List<HarmFood>> response) {
+                                List<HarmFood> harmFoods = response.body();
+                                List<Food> tempList = new ArrayList<>();
+                                for (Food f : harmFoods) {
+                                    tempList.add(f);
+                                }
+                                foodList = tempList;
+                                setAdapter(myRecyclerView, categoryType, queryText);
+                            }
 
-                                    }
-                                });
-                        break;
+                            @Override
+                            public void onFailure(Call<List<HarmFood>> call, Throwable t) {
 
-                    default:
-                        dataService.select.selectHarmFoodByCategory(setLankString(lankType), setCategoryString(pos))
-                                .enqueue(new Callback<List<HarmFood>>() {
-                                    @Override
-                                    public void onResponse(Call<List<HarmFood>> call, Response<List<HarmFood>> response) {
-                                        List<HarmFood> harmFoods = response.body();
-                                        List<Food> tempList = new ArrayList<>();
-                                        for (Food f : harmFoods) {
-                                            tempList.add(f);
-                                        }
-                                        foodList = tempList;
-                                        setAdapter(myRecyclerView);
-                                    }
+                            }
+                        });
 
-                                    @Override
-                                    public void onFailure(Call<List<HarmFood>> call, Throwable t) {
-
-                                    }
-                                });
-                }
 
                 break;
         }
     }
 
-    private void setAdapter(final RecyclerView recyclerView) {
-        if(listAdapter==null){
-            listAdapter = new ListAdapter(foodList,getContext());
-            listAdapter.setOnItemViewClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = recyclerView.getChildAdapterPosition(view);
-                    Bundle b = new Bundle(1);
+    private void setAdapter(final RecyclerView recyclerView, final int categoryType, final String queryText) {
+        listAdapter = new ListAdapter(foodList, categoryType, queryText, getContext());
 
-                    // 상세페이지로 이동
-                    if (foodList.get(position) instanceof HaccpFood) {
+        listAdapter.setOnItemViewClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = recyclerView.getChildAdapterPosition(view);
+                Bundle b = new Bundle(1);
 
-                        HaccpDetail haccpDetail = new HaccpDetail();
-                        b.putSerializable("haccpObject", foodList.get(position));
-                        haccpDetail.setArguments(b);
+                // 상세페이지로 이동
+                if (foodList.get(position) instanceof HaccpFood) {
 
-                        ((MainActivity) getActivity()).onFragmentChanged(haccpDetail);
-                    } else if (foodList.get(position) instanceof ChildFood) {
+                    HaccpDetail haccpDetail = new HaccpDetail();
+                    b.putSerializable("haccpObject", foodList.get(position));
+                    haccpDetail.setArguments(b);
 
-                        ChildDetail childDetail = new ChildDetail();
-                        b.putSerializable("childObject", foodList.get(position));
-                        childDetail.setArguments(b);
+                    ((MainActivity) getActivity()).onFragmentChanged(haccpDetail);
+                } else if (foodList.get(position) instanceof ChildFood) {
 
-                        ((MainActivity) getActivity()).onFragmentChanged(childDetail);
+                    ChildDetail childDetail = new ChildDetail();
+                    b.putSerializable("childObject", foodList.get(position));
+                    childDetail.setArguments(b);
 
-                    } else if (foodList.get(position) instanceof HarmFood) {
+                    ((MainActivity) getActivity()).onFragmentChanged(childDetail);
 
-                        HarmDetail harmDetail = new HarmDetail();
-                        b.putSerializable("harmObject", foodList.get(position));
-                        harmDetail.setArguments(b);
+                } else if (foodList.get(position) instanceof HarmFood) {
 
-                        ((MainActivity) getActivity()).onFragmentChanged(harmDetail);
-                    }
+                    HarmDetail harmDetail = new HarmDetail();
+                    b.putSerializable("harmObject", foodList.get(position));
+                    harmDetail.setArguments(b);
 
+                    ((MainActivity) getActivity()).onFragmentChanged(harmDetail);
                 }
-            });
-            recyclerView.setAdapter(listAdapter);
-        }
-        else{
-            listAdapter.setFilter(foodList);
-        }
 
-
+            }
+        });
+        recyclerView.setAdapter(listAdapter);
+        //listAdapter.setFilter(foodList);
     }
+
+
+}
 
 /*
 
@@ -459,4 +417,4 @@ public class FoodOnListFragment extends Fragment {
 
  */
 
-}
+

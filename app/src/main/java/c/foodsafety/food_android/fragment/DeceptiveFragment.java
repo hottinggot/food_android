@@ -46,6 +46,8 @@ public class DeceptiveFragment extends Fragment {
 
     Food explain;
 
+    String queryText = "";
+
 
     @Override
     @NonNull
@@ -88,7 +90,7 @@ public class DeceptiveFragment extends Fragment {
 
     void setData(){
         final List<Food> foodList = new ArrayList<>();
-        dataService.select.selectAllDeceptiveFood().enqueue(new Callback<List<DeceptiveFood>>() {
+        dataService.select.selectAllDeceptiveFood(0, "").enqueue(new Callback<List<DeceptiveFood>>() {
             @Override
             public void onResponse(Call<List<DeceptiveFood>> call, Response<List<DeceptiveFood>> response) {
                 List<DeceptiveFood> deceptiveFoods = response.body();
@@ -97,7 +99,7 @@ public class DeceptiveFragment extends Fragment {
                 }
                 deceptiveList = foodList;
                 deceptiveList.add(0, explain);
-                listAdapter = new ListAdapter(deceptiveList, getContext());
+                listAdapter = new ListAdapter(deceptiveList,0, queryText, getContext());
 
                 setAdapter(myRecyclerView);
             }

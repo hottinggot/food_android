@@ -47,6 +47,8 @@ public class SearchResultFragment extends Fragment {
 
     DataService dataService = new DataService();
 
+    String queryText = "";
+
 
     @Override
     @NonNull
@@ -92,7 +94,7 @@ public class SearchResultFragment extends Fragment {
     }
 
     private void setFoodList(){
-        dataService.select.selectAllHaccpFood().enqueue(new Callback<List<HaccpFood>>() {
+        dataService.select.selectAllHaccpFood(0).enqueue(new Callback<List<HaccpFood>>() {
             @Override
             public void onResponse(Call<List<HaccpFood>> call, Response<List<HaccpFood>> response) {
                 List<Food> tempList = new ArrayList<>();
@@ -111,7 +113,7 @@ public class SearchResultFragment extends Fragment {
     }
 
     private void setAdapter(RecyclerView recyclerView){
-        adapter = new ListAdapter(foodList, getContext());
+        adapter = new ListAdapter(foodList,0, queryText, getContext());
         recyclerView.setAdapter(adapter);
     }
 
@@ -119,6 +121,7 @@ public class SearchResultFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.search_menu, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
+
 
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) searchItem.getActionView();

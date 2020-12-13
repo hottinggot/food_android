@@ -104,11 +104,10 @@ public class HomeFragment extends Fragment {
 
 
     private void setAllDataList(){
-        //CardNews
-//        cardNewsList.add(getResources().getDrawable(R.drawable.haccp));
-//        cardNewsList.add(getResources().getDrawable(R.drawable.child));
-//        cardNewsList.add(getResources().getDrawable(R.drawable.harm1));
-        //homeRecyclerList.add(cardNewsList);
+        cardNewsList.add(getResources().getDrawable(R.drawable.card_news_1));
+        cardNewsList.add(getResources().getDrawable(R.drawable.card_news_2));
+        //cardNewsList.add(getResources().getDrawable(R.drawable.card_news_3));
+        homeRecyclerList.add(cardNewsList);
 
         //category title
         homeRecyclerList.add("#카테고리");
@@ -158,8 +157,8 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
-        inflater.inflate(R.menu.search_menu, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
+        inflater.inflate(R.menu.search_icon, menu);
+        MenuItem searchItem = menu.findItem(R.id.search_icon);
 
 //        SearchManager searchManager = (SearchManager)getActivity().getSystemService(Context.SEARCH_SERVICE);
 //        SearchView searchView = (SearchView)searchItem.getActionView();
@@ -174,21 +173,14 @@ public class HomeFragment extends Fragment {
 //        }
 //        super.onCreateOptionsMenu(menu, inflater);
 
-//        searchItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem menuItem) {
-//                Intent intent = new Intent(getContext(), SearchActivity.class);
-//                startActivity(intent);
-//                return false;
-//            }
-//        });
-
         searchItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                searchResultFragment = new SearchResultFragment();
+//                searchResultFragment = new SearchResultFragment();
+//                ((MainActivity)MainActivity.mContext).onFragmentChanged(searchResultFragment);
 
-                ((MainActivity)MainActivity.mContext).onFragmentChanged(searchResultFragment);
+                Intent intent = new Intent(getContext(), SearchActivity.class);
+                startActivity(intent);
 
                 return false;
             }
@@ -303,7 +295,7 @@ public class HomeFragment extends Fragment {
 
         homeRecyclerList.add("# "+ titleList[n]);
 
-        dataService.select.selectHaccpFoodByCategory(setCategoryString(n)).enqueue(new Callback<List<HaccpFood>>() {
+        dataService.select.selectHaccpFoodByCategory(0,setCategoryString(n),"").enqueue(new Callback<List<HaccpFood>>() {
             @Override
             public void onResponse(Call<List<HaccpFood>> call, Response<List<HaccpFood>> response) {
                 final List<Food> tempHaccp = new ArrayList<>();
@@ -315,7 +307,7 @@ public class HomeFragment extends Fragment {
                     homeRecyclerList.add(tempHaccp);
                 }
 
-                dataService.select.selectAllHarmFoodByCategory(setCategoryString(n)).enqueue(new Callback<List<HarmFood>>() {
+                dataService.select.selectAllHarmFoodByCategory(0, setCategoryString(n)).enqueue(new Callback<List<HarmFood>>() {
                     @Override
                     public void onResponse(Call<List<HarmFood>> call, Response<List<HarmFood>> response) {
                         List<Food> tempHarm = new ArrayList<>();

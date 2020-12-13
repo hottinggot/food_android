@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,6 +54,7 @@ public class FoodOnFragment extends Fragment {
     View view;
     ConstraintLayout haccp_menu, child_menu, harm_1_menu, harm_2_menu, harm_3_menu;
     Toolbar myToolbar;
+    TextView category_text;
 
     DataService dataService = new DataService();
 
@@ -76,6 +78,8 @@ public class FoodOnFragment extends Fragment {
         myToolbar = (Toolbar)view.findViewById(R.id.category_toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(myToolbar);
 
+        category_text = view.findViewById(R.id.category_text);
+        category_text.setText(categoryString);
 
         haccp_menu = view.findViewById(R.id.haccp_menu);
         child_menu = view.findViewById(R.id.child_menu);
@@ -111,33 +115,43 @@ public class FoodOnFragment extends Fragment {
 
     private void setCategoryTypeToInt(String categoryString){
         switch (categoryString){
+            case "전체":
             case "# 전체":
                 categoryType = CATEGORY_ALL;
                 break;
+            case "음료∙차∙주류":
             case "# 음료∙차∙주류":
                 categoryType = CATEGORY_DRINK;
                 break;
+            case "과자∙빵류∙아이스크림":
             case "# 과자∙빵류∙아이스크림":
                 categoryType = CATEGORY_SNACK;
                 break;
+            case "유제품∙축산물":
             case "# 유제품∙축산물":
                 categoryType = CATEGORY_DAIRY;
                 break;
+            case "가공식품":
             case "# 가공식품":
                 categoryType = CATEGORY_PROCESSED;
                 break;
+            case "농수산물":
             case "# 농수산물":
                 categoryType = CATEGORY_AGRICULTURE;
                 break;
+            case "소스∙장류":
             case "# 소스∙장류":
                 categoryType = CATEGORY_SAUCE;
                 break;
+            case "건강기능식품":
             case "# 건강기능식품":
                 categoryType = CATEGORY_HEALTH;
                 break;
+            case "식용유지류":
             case "# 식용유지류":
                 categoryType = CATEGORY_OIL;
                 break;
+            case "기타":
             case "# 기타":
                 categoryType = CATEGORY_ETC;
                 break;
@@ -157,24 +171,28 @@ public class FoodOnFragment extends Fragment {
 
             case R.id.child_menu :
                 bundle.putInt("lankType", CHILD);
+                bundle.putInt("categoryType", categoryType);
                 foodOnListFragment.setArguments(bundle);
                 ((MainActivity)getActivity()).onFragmentChanged(foodOnListFragment);
                 break;
 
             case R.id.harm_1_menu :
                 bundle.putInt("lankType", HARM1);
+                bundle.putInt("categoryType", categoryType);
                 foodOnListFragment.setArguments(bundle);
                 ((MainActivity)getActivity()).onFragmentChanged(foodOnListFragment);
                 break;
 
             case R.id.harm_2_menu :
                 bundle.putInt("lankType", HARM2);
+                bundle.putInt("categoryType", categoryType);
                 foodOnListFragment.setArguments(bundle);
                 ((MainActivity)getActivity()).onFragmentChanged(foodOnListFragment);
                 break;
 
             case R.id.harm_3_menu :
                 bundle.putInt("lankType", HARM3);
+                bundle.putInt("categoryType", categoryType);
                 foodOnListFragment.setArguments(bundle);
                 ((MainActivity)getActivity()).onFragmentChanged(foodOnListFragment);
                 break;

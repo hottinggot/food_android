@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DataService implements Serializable {
 
-    private final String BASE_URL = "http://10.0.2.2:3000/";
+    private final String BASE_URL = "http://10.0.2.2:3000/"; //10.0.2.2 //http://13.209.40.197:3000/
 
 
     public DataService(){
